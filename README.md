@@ -1,6 +1,10 @@
 #bio285
 
-The repository holds the source files used to build the website for [Introduction to Systems Biology](http://rna.wlu.edu/courses/bio285) ([Bio 285](http://catalog.wlu.edu/content.php?catoid=7&navoid=428)), first taught at [Washington & Lee Unversity](http://wlu.edu) in Spring 2012.
+Herein lie the source files for the [Introduction to Systems Biology](http://rna.wlu.edu/courses/bio285) ([Bio 285](http://catalog.wlu.edu/content.php?catoid=7&navoid=428)) course website.
+
+## Project credits
+
+* [HTML5BoilerPlate](https://github.com/h5bp/html5-boilerplate)
 
 ## License
 
