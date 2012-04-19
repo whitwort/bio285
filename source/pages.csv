@@ -1,0 +1,4 @@
+file, name, section, description, options
+source/introduction.rmd,"Introduction","Class","An introduction to working with R, with an emphasis on why it is *awesome*."
+source/pagetwo.rmd,"Something else","Class","Some **awesome** content."
+source/pagetwo.rmd,"Something labish","Lab","Some **awesome** content from lab."

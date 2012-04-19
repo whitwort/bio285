@@ -1,0 +1,88 @@
+# Introducing [R](http://www.r-project.org/)
+
+### An awesome way to do data analysis
+
+by [Gregg Whitworth](http://www.wlu.edu/x23921.xml?InsertFile=x55999), Ph.D.
+Assistant professor of [Biology](http://biology.wlu.edu)
+[Washington & Lee University](http://www.wlu.edu)
+Lexington, Va
+
+# Why is [R](http://www.r-project.org) awesome?
+
+Welcome to [R](http://www.r-project.org/)!  If you're here, you've probably heard that [R](http://www.r-project.org) is wonderful data analysis tool.  Or perhaps you're here because you have to learn to use R for class.  Eitherway, you may be wondering what [R](http://www.r-project.org) is, exactly.
+
+R is a freely-available, [open-source](http://en.wikipedia.org/wiki/Open_source), derivative of [S-Plus](http://en.wikipedia.org/wiki/S-PLUS) that has attracted the attention of wide range of users in both the academic and private sectors.  There are several key features which make [R](http://www.r-project.org) appealing as a data analysis environment.  
+
+First, it is entirely open source.  This means that the software is both free to obtain (free as in *pizza*) and that the implementation details of all statistical methods found in [R](http://www.r-project.org) are freely available and open to scrutiny (free as in *ideas*).  
+
+Second, [R][] has emerged as one of the most accommodating environments for statistical research, leading to the establishment of an active and innovative community.  The [library of statistical methods](http://cran.r-project.org/web/packages/available_packages_by_name.html) implemented in [R][] is enormous!  No closed-source commerical "stats" software (SPSS, Minitab, etc.) even come close.
+
+Finally, [R][] implements a full-featured [programming language](http://en.wikipedia.org/wiki/R_Project) which can be used to abstract and automate sophisticated analysis procedures.  In this class you'll be learning to program in [R].  It will be awesome.
+
+However, the major disadvantage to [R][] is that it has a significantly steeper learning curve than spreadsheets or commercial stats packages.  Unlike these other types of software, [R][] doesn't offer much in the way of a graphical interface - you type commands at a prompt to make it do your bidding.  If you haven't ever worked in a command line environment it can `5 + 2` definitely take some getting used to!  There is one huge advantage to this setup, however:  once you figure out how to do an analysis once, you can save your commands to a text file (".R" script) and re-run them on any new data you generate.  This allows you to avoid repetitive tasks and ensures that each time you analyze your data you are performing the analysis in the same way.
+
+# Calculator
+
+Let's do some computing!  How do you think you could get [R][] to add two numbers together for you?
+
+```{r}
+1 + 2
+c <- 5 * 10
+1:100
+````
+
+Here are some variables.
+
+```{r}
+a <- 1239
+b <- 2
+a + b + c
+````
+
+Let's make some plots.
+
+```{r}
+plot(1:a,1:a)
+````
+
+Here's a warning...
+
+```{r}
+warning("oh noes!")
+````
+
+And here's an error...
+```{r}
+print(nada)
+````
+
+# Source code
+
+Here's a big chunk of source:
+
+```{r}
+#Extensions to knitr hooks
+myFunc <- function(code) {
+  
+  #There doesn't seem to be any way around dumping the data to a file
+  write(x = code, file = 'tmp.r')
+  
+  #Little closure to heep highlight from adding cruft before and after spans
+  blank <- function(doc) { "" }
+  
+  #Send serialized code to highlight, which will parse(...) and return a char vector
+  prettyCode <- paste(
+      highlight(file      = 'tmp.r',
+                renderer  = renderer_html(header = blank, footer = blank)
+                ),
+      collapse  = "",
+      sep       = ""
+      )
+  
+  file.remove('tmp.r')
+  return(prettyCode)
+  
+}
+````
+
+[R]:  http://www.r-project.org/   "R Project homepage"

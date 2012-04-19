@@ -7,13 +7,18 @@
 <head>
   <meta charset="utf-8">
 
-  <title>{{title}}</title>
+  <title>Theme gallery</title>
   <meta name="description" content="">
 
   <!-- Mobile viewport optimized: h5bp.com/viewport -->
   <meta name="viewport" content="width=device-width">
 
-  <link rel="stylesheet" href="{{css}}">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/page.css">
+
+  <style type="text/css">
+    {{style}}
+  </style>
 
   <!-- All JavaScript at the bottom, except this Modernizr build. -->
   <script src="js/vendor/modernizr-2.5.3.min.js" type="text/javascript"></script>
@@ -28,12 +33,17 @@
   <![endif]-->
 
   <!-- Page content will be injected here -->
-  <div id = "slider">
+  <div id = "content">
   {{content}}
   </div>
 
   <!-- JavaScript at the bottom for fast page loading -->
-  <script src={{js}} type="text/javascript"></script>
+  <script src=js/main.js type="text/javascript"></script>
+  <script src=js/plugins.js type="text/javascript"></script>
+  <script src=js/vendor/jquery-1.7.2.min.js type="text/javascript"></script>
+  <script>
+    $('.output, .warning, .error, .message').addClass('comment')
+  </script>
 
 </body>
 </html>

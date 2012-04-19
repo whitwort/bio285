@@ -1,0 +1,58 @@
+.knitr {
+  background-color: #F8F8F8;
+  border: 1px solid #CCC;
+  border-radius: 3px;
+  padding: 6px 10px;
+  font-family: monospace, serif;
+  _font-family: 'courier new', monospace; 
+  font-size: 1em; 
+  font-size: 12px;
+}
+
+.number{
+  color: #1094a0 ;
+}
+.functioncall{
+  font-weight: 'bolder' ;
+  color: #00a150 ;
+}
+.string{
+  color: #1094a0 ;
+}
+.keyword{
+  font-weight: bolder ;
+  color: #3b6ac8;
+}
+.argument{
+  color: #323232 ;
+}
+.comment{
+  color: #969696 ;
+}
+.roxygencomment{
+  color: #969696;
+}
+.formalargs{
+  color: #323232;
+}
+.eqformalargs{
+  color: #323232;
+}
+.assignement{
+  color: #323232;
+}
+.package{
+  font-weight: bolder;
+  color: #a00050;
+}
+.slot{
+  font-style:italic;
+  color: #323232;
+}
+.symbol{
+  color: #323232 ;
+}
+.prompt{
+  color: #323232 ;
+}
+
