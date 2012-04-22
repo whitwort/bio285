@@ -1,0 +1,35 @@
+# Welcome to [R][]!
+
+### The *awesome* way to do data analysis.
+
+# What is [R][]?
+
+R is a freely-available, [open-source](http://en.wikipedia.org/wiki/Open_source), derivative of [S-Plus](http://en.wikipedia.org/wiki/S-PLUS) that has attracted the attention of wide range of users in both the academic and private sectors.  There are several key features which make [R](http://www.r-project.org) an *awesome* tool for data analysis.  
+
+[R][] is both:
+
+* A programming language
+* A *huge* library of tools for analyzing and visualizing data
+
+[R][] is a full-featured [programming language](http://en.wikipedia.org/wiki/R_Project) and statistical analysis environment which can be used to analyze and visualize complex datasets.  It has proven to be an invaluable tool for [systems biology](http://en.wikipedia.org/wiki/Systems_biology) research, among many, many other disciplines in both basic research and [industry](http://blog.revolutionanalytics.com/2011/08/google-r-effective-ads.html).  In this class you will learn to program in [R][].  The learning curve will be a little steep at first, but ultimately should prove extremely rewarding!  Learning to program in [R][] may prove useful to you in other work in your undergraduate career or may even help you land a job after you graduate.  Additionally, after you learn your first programming language it is much easier to learn other languages in the future.  Finally, as scientists, learning to program -- and articulating our data analysis designs in formal code -- can often help us to better understand our experiments (*or* identify places where we haven't really thought things our very well).
+
+Like many other "[high-level](http://en.wikipedia.org/wiki/High-level_programming_language)" programming languages, when you install [R][] it comes with a large library of tools.  Unlike other languages, this toolbox is geared towards statistical analysis and data visualization.  The volume of [statistical tools](http://cran.r-project.org/web/packages/available_packages_by_name.html) is truly staggering, and probably the biggest barrier to entry into [R][] is this embarrassment of riches!  In this regard, [R][] blows everything else -- Excel, Minitab, SPSS, etc -- out of the water.  Which leads us to...
+
+
+# Why is [R][] *awesome*?
+
+Because [R][] is both:
+
+* Open source (free like *ideas*)
+* Free to use (free like *pizza*)
+
+[R][] is entirely open source.  This means that the software is both free to obtain (free as in *pizza*) and that the implementation details of all statistical methods found in it [R](http://www.r-project.org) are freely available and open to scrutiny (free as in *ideas*).  
+
+Probably because of this, [R][] has emerged as one of the most accommodating environments for statistical research, leading to the establishment of an active and innovative community.  The [library of statistical methods](http://cran.r-project.org/web/packages/available_packages_by_name.html) implemented in [R][] is enormous!  No closed-source commerical "stats" software even come close to meeting the rigour and diversity of this [crowd-sourced](http://en.wikipedia.org/wiki/Crowdsourcing) library of statistical techniques.
+
+However, the major disadvantage to [R][] is that it has a significantly steeper learning curve than spreadsheets or commercial stats packages.  Unlike these other types of software, [R][] doesn't offer much in the way of a graphical interface - you type commands at a prompt to make it do your bidding.  If you haven't ever worked in a command line environment it can definitely take some getting used to!  There is one huge advantage to this setup, however:  once you figure out how to do an analysis once, you can save your commands to a text file (".R" script) and re-run them on any new data you generate.  This allows you to avoid repetitive tasks and ensures that each time you analyze your data you are performing the analysis in the same way.  Let's dive in and see R in action!
+
+
+[R]:  http://www.r-project.org/   "R Project homepage"
+
+
