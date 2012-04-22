@@ -7,13 +7,18 @@ make <- function() {
   #Build the site
   makeSite(html.template  = "templates/page.html",
            pages          = read.csv("source/pages.csv", stringsAsFactors = FALSE),
-           page.css       = c("css/style.css", "css/page.css", "css/code.css"),
-           page.js        = c("js/main.js", "js/plugins.js", "js/vendor/jquery-1.7.2.min.js"),
+           css            = c("css/style.css", 
+                              "css/page.css",
+                              "css/slide.css",
+                              "css/code.css", 
+                              "css/print.css"),
+           js             = c("js/vendor/jquery-1.7.2.min.js",
+                              "js/plugins.js", 
+                              "js/main.js",
+                              "js/vendor/reveal.js"),
            index          = "templates/index.md",
            index.section  = "templates/index-section.md",
-           index.entry    = "templates/index-entry.md",
-           index.css      = c("css/style.css", "css/page.css"),
-           index.js       = c("js/main.js", "js/plugins.js", "js/vendor/jquery-1.7.2.min.js")
+           index.entry    = "templates/index-entry.md"
   )
   
   #And we're done

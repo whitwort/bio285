@@ -1,0 +1,26 @@
+/* Styles used in presentation mode (also see reveal.css) */
+
+.slideHide {
+  display: none;
+}
+
+#reveal #nav-buttons {
+	position: fixed;
+  padding: 0px 0px 5px 5px;
+	left: 0;
+	bottom: 0;
+}
+
+#reveal .slideButton {
+  background-color: rgba(0, 0, 0, 0.01);
+  border: 0px;
+  border-radius: 2px;
+  color: rgba(131, 131, 131, 0.81);
+  margin-left: 2px;
+  padding: 3px 6px 3px 6px;
+  font-size: 12px;
+}
+
+#reveal .slideButton:hover {
+  background-color: rgba(0, 0, 0, 0.32);
+}
