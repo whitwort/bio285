@@ -18,4 +18,9 @@
     display: none;
   }
 
+  .fadeyThing {
+    opacity: 0;
+  }
+
+
 }

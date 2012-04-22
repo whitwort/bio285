@@ -103,6 +103,31 @@ input::-moz-focus-inner {
 
 }
 
+.fadeyThing:hover {
+
+  opacity: 1;
+
+  -webkit-transition: opacity .1s ease;
+	   -moz-transition: opacity .1s ease;
+	    -ms-transition: opacity .1s ease;
+	     -o-transition: opacity .1s ease;
+	        transition: opacity .1s ease;
+
+}
+
+.fadeOut {
+
+  opacity: 0;
+
+  -webkit-transition: opacity 1s ease;
+     -moz-transition: opacity 1s ease;
+	    -ms-transition: opacity 1s ease;
+	     -o-transition: opacity 1s ease;
+	        transition: opacity 1s ease;
+
+}
+
+
 /* Adjustments for small screen sizes (TODO: this could use much more nuance) */
 @media only screen and (max-width: 480px) {
     html {

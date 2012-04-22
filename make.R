@@ -9,7 +9,6 @@ make <- function() {
            pages          = read.csv("source/pages.csv", stringsAsFactors = FALSE),
            css            = c("css/style.css", 
                               "css/page.css",
-                              "css/slide.css",
                               "css/code.css", 
                               "css/print.css"),
            js             = c("js/vendor/jquery-1.7.2.min.js",

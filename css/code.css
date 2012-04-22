@@ -80,14 +80,6 @@
   font-size: 16px;
 }
 
-#reveal .plot {
-  margin: 5px auto 0 auto;
-  display: block;
-  background: rgba(255, 255, 255, 0.8);
-  border: 2px solid rgba(112, 160, 75, 0.86);
-  border-radius: 6px;
-}
-
 #reveal .output {
   font-size: 14px;
 }

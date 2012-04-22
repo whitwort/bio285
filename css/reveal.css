@@ -220,10 +220,11 @@ html {
 	
 	#reveal a:not(.image):hover {
     color: #95BBF3;
-    background: rgba(209, 124, 185, 0.4);
+    /*background-colo: rgba(190, 177, 134, 0.26); */
+    background-color: rgba(0, 0, 0, 0.32);
 		text-shadow: none;
 		border: none;
-		border-radius: 2px;
+		border-radius: 3px;
 	}
 
 #reveal section img {
@@ -244,9 +245,9 @@ html {
 }
 
 	#reveal a:hover img {
-		background: rgba(255,255,255,0.2);
-		border-color: #13DAEC;
-		
+		border-color: #D1945B;
+		color: rgba(255,255,255,0);
+
 		-webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.55);
 		   -moz-box-shadow: 0 0 20px rgba(0, 0, 0, 0.55);
 		     -o-box-shadow: 0 0 20px rgba(0, 0, 0, 0.55);
@@ -798,13 +799,13 @@ html {
 
 
 /*********************************************
- * NEON THEME
+ * NEON THEME modified for courseR
  *********************************************/
 
 #reveal.neon a,
 #reveal.neon a:hover,
 #reveal.neon .controls a.enabled {
-	color: #5de048;
+	color: #D1945B;
 }
 
 #reveal.neon .progress span,

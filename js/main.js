@@ -25,8 +25,15 @@ $(function() {
         // push new state to the browser address bar/history record
         history.pushState(null, '', url)
 
-        // wrap all images in links to those images
-        $('img').wrap(function() { return '<a href="' + $(this).attr('src') + '"></a>' } )
+        // wrap all non-linky images with links to the image file
+        $('img')
+          .filter(function() { return !$(this).parent().attr('href') })
+          .wrap(function() { return '<a href="' + $(this).attr('src') + '"></a>' } )
+
+        // Add a timer that will fadeout our fadeyThings
+        window.setTimeout(function() {
+            $('.fadeyThing').addClass('fadeOut')
+          }, 3 * 1000)
 
         // if this isn't the index page, set it up to with nav buttons
         $('#nav-buttons').remove()
@@ -73,6 +80,9 @@ $(function() {
     // Hide long paragraphs (>140 chars; too big to tweet = too big for a slide)
     $('p').filter(function() {return $(this).text().length > 140}).addClass('slideHide')
 
+    // A little hakery to make .svg images look better
+    $('img').filter(function() {return $(this).attr('src').search(".svg")>0}).addClass('icon')
+
     // Append the navigation control elements to #reveal
     $('#reveal').append('<aside class="controls">              \
 				                    <a class="left" href="#"><</a>     \
@@ -89,8 +99,9 @@ $(function() {
     // Append a div to hold the progress bar to #reveal
     $('#reveal').append("<div class='progress'><span></span></div>")
     
-    // Apply the reveal.css style sheet
+    // Apply the reveal.css and slide.css style sheets
     $('head').append("<link rel='stylesheet' href='css/reveal.css'>")
+    $('head').append("<link rel='stylesheet' href='css/slide.css'>")
 
     // Finally, call Reveal.initialize from reveal.js (code from reveal.js demo)
     Reveal.initialize({
@@ -135,8 +146,7 @@ $(function() {
 
     // Handle the back button
     $(window).bind('popstate', function() {
-
-      // TODO: handle leaving presentation mode
+      // TODO: handle leaving presentation mode.
 
       loadStuff(location.pathname)
     })
