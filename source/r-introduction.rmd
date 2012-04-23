@@ -76,5 +76,35 @@ The major disadvantage to [R][] is that it has a significantly steeper learning 
   <p>Your browser does not support iframes.</p>  
 </iframe>
 
+# How will we be using R?
+
+## Welcome to [RStudio](http://rna.wlu.edu/r)...
+
+![rstudio](http://rstudio.org/images/screenshots/rstudio-windows.png)
+
+## Time to dive in...
+
+# After class excercise
+
+## Your task:
+
+* Read the DNA sequence in the file dna.txt located in your home folder
+* Transcribe it into RNA sequence
+* Save the results to a new file, rna.txt
+
+## Parts list:
+
+* readLines() *hint* con = "dna.txt"
+* sub() *hint* fixed = true
+* write()
+
+## Help on using the parts:
+
+* help() or ? for info on the parts
+
+## Extra special challenge:
+
+Try translating the DNA sequence to protein (using the [genetic code](http://en.wikipedia.org/wiki/Genetic_code))!
+
 [R]:  http://www.r-project.org/   "R Project homepage"
 [interpreter]:  http://en.wikipedia.org/wiki/Interpreter_(computing)
