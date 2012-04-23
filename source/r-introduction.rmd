@@ -60,7 +60,7 @@ Beat that Excel.
 
 ## A huge library of functions
 
-There is an extensive [library of software]( http://cran.r-project.org/web/views/) written for you to use with [R]. 
+There is an extensive [library of software](http://cran.r-project.org/web/views/) written for you to use with [R]. 
 
 It is:
 
@@ -70,6 +70,11 @@ It is:
 
 The major disadvantage to [R][] is that it has a significantly steeper learning curve than spreadsheets or commercial stats packages.  Unlike these other types of software, [R][] doesn't offer much in the way of a graphical interface:  you type commands at a prompt to make it do your bidding.  If you haven't ever worked in a command line environment it can definitely take some getting used to!  There is one huge advantage to this setup, however:  once you figure out how to do an analysis once, you can save your commands to a text file (".R" script) and re-run them on any new data you generate.  This allows you to avoid repetitive tasks and ensures that each time you analyze your data you are performing the analysis in the same way.  Let's dive in and see R in action!
 
+## A huge library of functions
+
+<iframe src="http://cran.r-project.org/web/views/" width="500" height="300">  
+  <p>Your browser does not support iframes.</p>  
+</iframe>
 
 [R]:  http://www.r-project.org/   "R Project homepage"
 [interpreter]:  http://en.wikipedia.org/wiki/Interpreter_(computing)

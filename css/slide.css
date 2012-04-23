@@ -1,6 +1,6 @@
 /* Styles used in presentation mode (also see reveal.css) */
 
-.slideHide {
+.slideHide blockquote:not {
   display: none;
 }
 
@@ -26,6 +26,12 @@
 }
 
 #reveal section img {
+  background: rgba(255, 255, 255, 0.0);
+  border: 3px solid #646464;
+  border-radius: 3px;
+}
+
+#reveal section iframe {
   background: rgba(255, 255, 255, 0.0);
   border: 3px solid #646464;
   border-radius: 3px;

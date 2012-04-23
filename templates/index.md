@@ -5,6 +5,7 @@
 
 Welcome to the course website for Bio 285: Introduction to systems biology!  Here you'll find links to all of the key resources for this class.  The course syllabus, assignments and links to licensed primary research articles can be found on our [sakai.wlu.edu site](https://sakai.wlu.edu/portal/site/2011_12_SPRING-BIOL_285_01).
 
+<div id = "index"></div>
 {{index}}
 
 ## Credits
@@ -22,8 +23,9 @@ The [tiny bit](https://github.com/whitwort/bio285/blob/master/make.R) of code us
 
 All images used in the project are links to a hosted file or their original source.  Credits for the sources of redistributed images:
 
-* Pizza icon (noun_project_1158.svg) from [The Noun Project][] ([CC BY-SA 3.0][])
-* Idea icon (noun_project_762.svg) from [The Noun Project][] ([CC BY-SA 3.0][])
+* Pizza (noun_project_1158.svg) from [The Noun Project][] ([CC BY-SA 3.0][])
+* Idea (noun_project_762.svg) from [The Noun Project][] ([CC BY-SA 3.0][])
+* Microscope (noun_project_648.svg) from [The Noun Project][] ([CC BY-SA 3.0][])
 
 ## License
 

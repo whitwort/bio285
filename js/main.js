@@ -37,7 +37,7 @@ $(function() {
 
         // if this isn't the index page, set it up to with nav buttons
         $('#nav-buttons').remove()
-        if (location.pathname.search('index.html') == -1) {
+        if ($('#index').length == 0) {
 
           //Add nav-buttons div
           $('#courser-stuff').prepend("<div id = 'nav-buttons'></div>")

@@ -67,6 +67,14 @@ input::-moz-focus-inner {
 .pageView img {
   margin: 1px auto 0 auto;
   display: block;
+  max-width: 625px;
+  max-height: 480px;
+}
+
+.pageView iframe {
+  margin: 1px auto 0 auto;
+  display: block;
+  max-width: 625px;
 }
 
 #nav-buttons {
