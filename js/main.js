@@ -79,6 +79,7 @@ $(function() {
 
     // Hide long paragraphs (>140 chars; too big to tweet = too big for a slide)
     $('p').filter(function() {return $(this).text().length > 140}).addClass('slideHide')
+    $('blockquote').children().removeClass("slideHide")
 
     // A little hakery to make .svg images look better
     $('img').filter(function() {return $(this).attr('src').search(".svg")>0}).addClass('icon')
