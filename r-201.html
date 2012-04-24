@@ -272,72 +272,8 @@ FALSE = don&#39;t</p>
 <section><h2>The [] operators work with data.frames as well</h2>
 
 <pre class="knitr"><div class="source"><span class="comment"># You can subset tables on a column: table[col]</span>
-<span class="symbol">translationTable</span><span class="keyword">[</span><span class="number">1</span><span class="keyword">]</span></div><div class="output">    aminoacid
-GCU         A
-GCC         A
-GCA         A
-GCG         A
-CGU         R
-CGC         R
-CGA         R
-CGG         R
-AGA         R
-AGG         R
-AAU         N
-AAC         N
-GAU         D
-GAC         D
-UGU         C
-UGC         C
-CAA         Q
-CAG         Q
-GAA         E
-GAG         E
-GGU         G
-GGC         G
-GGA         G
-GGG         G
-CAU         H
-CAC         H
-AUU         I
-AUC         I
-AUA         I
-AUG         M
-UUA         L
-UUG         L
-CUU         L
-CUC         L
-CUA         L
-CUG         L
-AAA         K
-AAG         K
-UUU         F
-UUC         F
-CCU         P
-CCC         P
-CCA         P
-CCG         P
-UCU         S
-UCC         S
-UCA         S
-UCG         S
-AGU         S
-AGC         S
-ACU         T
-ACC         T
-ACA         T
-ACG         T
-UGG         W
-UAU         Y
-UAC         Y
-GUU         V
-GUC         V
-GUA         V
-GUG         V
-UAA         X
-UGA         X
-UAG         X
-</div><div class="source">
+<span class="comment">## translationTable[1]</span>
+
 <span class="comment"># You can subset tables on both a row and a column</span>
 <span class="symbol">translationTable</span><span class="keyword">[</span><span class="number">3</span><span class="keyword">,</span><span class="number">1</span><span class="keyword">]</span></div><div class="output">[1] "A"
 </div><div class="source">
@@ -398,6 +334,8 @@ UAG         X
 </div></pre>
 
 <p>How might this function be useful in a script designed to translate dna.txt?</p>
+
+<p>For a full reference on extraction and replacement operators in R, you can search for &ldquo;[&rdquo; in the Rstudio search box, or run <code>help(&quot;[&quot;)</code> at the prompt.</p>
 </section></section>
 <section><h1>Subsetting strings</h1>
 
@@ -471,9 +409,77 @@ UAG         X
 
 <pre class="knitr"><div class="source"><span class="functioncall">substr</span><span class="keyword">(</span><span class="symbol">sampleRNA</span><span class="keyword">,</span> <span class="argument">start</span> <span class="argument">=</span> <span class="functioncall">nchar</span><span class="keyword">(</span><span class="symbol">sampleRNA</span><span class="keyword">)</span> <span class="keyword">-</span> <span class="number">2</span><span class="keyword">,</span> <span class="argument">stop</span> <span class="argument">=</span> <span class="functioncall">nchar</span><span class="keyword">(</span><span class="symbol">sampleRNA</span><span class="keyword">)</span><span class="keyword">)</span></div><div class="output">[1] "AAC"
 </div></pre>
+</section>
+<section><h2>Your turn #3</h2>
 
-<p>For a full reference on extraction and replacement operators in R, you can search for &ldquo;[&rdquo; in the Rstudio search box, or run <code>help(&quot;[&quot;)</code> at the prompt.</p>
+<p>Write a function that takes a codon number <code>n</code> and returns the sequence</p>
+
+<pre class="knitr"><div class="source"><span class="symbol">getCodon</span> <span class="assignement">&lt;-</span> <span class="keyword">function</span><span class="keyword">(</span><span class="formalargs">n</span><span class="keyword">)</span> <span class="keyword">{</span>
+
+  <span class="comment">#Insert your code here</span>
+
+<span class="keyword">}</span></div></pre>
+
+<p>Make sure it works:</p>
+
+<pre class="knitr"><div class="source"><span class="functioncall">getCodon</span><span class="keyword">(</span><span class="number">5</span><span class="keyword">)</span></div><div class="output">[1] "TTA"
+</div></pre>
+</section>
+<section><h2>Almost there..</h2>
+
+<p>That&#39;s great, but now we need to generate a series of codon numbers (1..n)</p>
+
+<p>We&#39;ve seen the parts that let us do this!</p>
+
+<pre class="knitr"><div class="source"><span class="symbol">codonNumbers</span> <span class="assignement">&lt;-</span> <span class="number">1</span><span class="keyword">:</span><span class="keyword">(</span> <span class="functioncall">nchar</span><span class="keyword">(</span><span class="symbol">sampleRNA</span><span class="keyword">)</span> <span class="keyword">/</span> <span class="number">3</span><span class="keyword">)</span>
+<span class="symbol">codonNumbers</span></div><div class="output"> [1]  1  2  3  4  5  6  7  8  9 10
+</div></pre>
 </section></section>
+<section><h1>Apply Magic</h1>
+
+<p>The last piece in the puzzle is applying our <code>getCodon</code> to our <code>codonNumbers</code></p>
+
+<p>The *apply family of functions in R is:</p>
+
+<ul>
+<li>very powerful</li>
+<li>a little overwhelming at first</li>
+</ul>
+
+<section><h2>sapply</h2>
+
+<p>For this task we&#39;ll use <strong>s</strong>apply.  We&#39;ll look at the other apply&#39;s later.</p>
+
+<p>Let&#39;s see it in action:</p>
+
+<pre class="knitr"><div class="source"><span class="functioncall">sapply</span><span class="keyword">(</span> <span class="argument">x</span> <span class="argument">=</span> <span class="symbol">codonNumbers</span><span class="keyword">,</span> <span class="argument">FUN</span> <span class="argument">=</span> <span class="symbol">getCodon</span> <span class="keyword">)</span></div><div class="error">Error: argument "X" is missing, with no default
+</div></pre>
+
+<p>What happened there?</p>
+</section></section>
+<section><h1>Task #1</h1>
+
+<section><h2>Put it all together!</h2>
+
+<p>I&#39;ve given you all of the pieces we need to write a translator.<br/>
+Now you have to play with them and put it all together.</p>
+</section>
+<section><h2>The outline of your final function should look like</h2>
+
+<pre class="knitr"><div class="source"><span class="symbol">translate</span> <span class="assignement">&lt;-</span> <span class="keyword">function</span><span class="keyword">(</span><span class="formalargs">dnaFile</span><span class="keyword">)</span> <span class="keyword">{</span>
+
+  <span class="comment">#Do stuff here!</span>
+
+<span class="keyword">}</span></div></pre>
+</section></section>
+<section><h1>Challenge #1</h1>
+
+<p>Translate all 6 possible open reading frames</p>
+</section>
+<section><h1>Challenge #2</h1>
+
+<p>Find the open reading frame that is most likely the real one!</p>
+</section>
   </div>
   <!-- end of courser content -->
 

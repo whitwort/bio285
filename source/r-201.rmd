@@ -236,7 +236,7 @@ myNumbers
 
 ``` {r}
 # You can subset tables on a column: table[col]
-translationTable[1]
+## translationTable[1]
 
 # You can subset tables on both a row and a column
 translationTable[3,1]
@@ -298,6 +298,8 @@ translateRNA("UAU")
 ````
 
 How might this function be useful in a script designed to translate dna.txt?
+
+For a full reference on extraction and replacement operators in R, you can search for "[" in the Rstudio search box, or run `help("[")` at the prompt.
 
 # Subsetting strings
 
@@ -374,6 +376,79 @@ Our last codon is...
 substr(sampleRNA, start = nchar(sampleRNA) - 2, stop = nchar(sampleRNA))
 ````
 
+## Your turn #3
 
+Write a function that takes a codon number `n` and returns the sequence
 
-For a full reference on extraction and replacement operators in R, you can search for "[" in the Rstudio search box, or run `help("[")` at the prompt.
+``` {r}
+getCodon <- function(n) {
+
+  #Insert your code here
+
+}
+````
+
+``` {r include=FALSE}
+getCodon <- function(n) {
+  substr(sampleRNA, start = (n * 3) - 2, stop = n * 3)
+}
+````
+
+Make sure it works:
+``` {r}
+getCodon(5)
+````
+
+## Almost there..
+
+That's great, but now we need to generate a series of codon numbers (1..n)
+
+We've seen the parts that let us do this!
+``` {r}
+codonNumbers <- 1:( nchar(sampleRNA) / 3)
+codonNumbers
+````
+
+# Apply Magic
+
+The last piece in the puzzle is applying our `getCodon` to our `codonNumbers`
+
+The *apply family of functions in R is:
+
+* very powerful
+* a little overwhelming at first
+
+## sapply
+
+For this task we'll use **s**apply.  We'll look at the other apply's later.
+
+Let's see it in action:
+``` {r}
+sapply( x = codonNumbers, FUN = getCodon )
+````
+
+What happened there?
+
+# Task #1
+
+## Put it all together!
+
+I've given you all of the pieces we need to write a translator.
+Now you have to play with them and put it all together.
+
+## The outline of your final function should look like
+``` {r}
+translate <- function(dnaFile) {
+  
+  #Do stuff here!
+
+}
+````
+
+# Challenge #1
+
+Translate all 6 possible open reading frames
+
+# Challenge #2
+
+Find the open reading frame that is most likely the real one!
