@@ -1,0 +1,296 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+
+  <title>Yeast genome annotation lab</title>
+  <meta name="description" content="">
+
+  <!-- Mobile viewport optimized: h5bp.com/viewport -->
+  <meta name="viewport" content="width=device-width">
+
+  <!-- Tell iOS to run as an app if launched from home screen -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/page.css">
+  <link rel="stylesheet" href="css/code.css">
+  <link rel="stylesheet" href="css/print.css">
+
+  <!-- All JavaScript at the bottom, except this Modernizr build. -->
+  <script src="js/vendor/modernizr-2.5.3.min.js" type="text/javascript"></script>
+</head>
+
+<body>
+  <!-- Prompt IE 6 users to install Chrome Frame. -->
+  <!--[if lt IE 9]>
+    <p class=chromeframe>
+      Your web browser is <em>ancient!</em> <a href="http://browsehappy.com/">You should upgrade to a new browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.
+    </p>
+  <![endif]-->
+
+  <!-- courseR content will be injected here -->
+  <div id = "courser-stuff" class = "pageView">
+<section>  <h1>Lab:  Explorying Genomes</h1>
+
+<p>In lab today we are going to perform a <em>de novo</em> annotation of the entire yeast genome.  We&#39;ll be using R to find Open Reading Frames (ORFs) on yeast chromosomes, search for introns, and even annotate the locations of common transcription factor binding sites.  Because of the amazing power of R and modern computational hardware you&#39;ll be able to run your software to analyze the yeast genome in its entirety!</p>
+
+<p>Here&#39;s an overview of each of the stages of today&#39;s lab:</p>
+
+<ul>
+<li><p>Step 1: refine <code>transcribe</code> and <code>translate</code>.  We&#39;ll start by refining your earlier versions of the <code>transribe</code> and <code>translate</code> functions.  We&#39;re going to use these to help us write an ORF finder.</p></li>
+<li><p>Step 2: write an <code>findORF</code> function.  Next, we&#39;ll write a function which takes a string of amino acids and returns all of the possible true ORFs in that string.  This function will accept a <code>cutoff</code> argument which filters out ORFs which are likely too small to be real.</p></li>
+<li><p>Step 3: write an <code>annotateChromosome</code> function which takes the name of a file containing genomic DNA sequence for a yeast chromosome and returns a <code>data.frame</code> where each row is a description of a different putative ORF on that chromosome.</p></li>
+</ul>
+</section>
+<section><h1>Step 1: transcribe and translate</h1>
+
+<section><h2>Refine your transcribe function</h2>
+
+<p>In this lab we&#39;ll be using the two pieces of software you&#39;ve already written this week.  Let&#39;s start off by creating a fresh script file.  Use &ldquo;File&rdquo; &gt; &ldquo;New&rdquo; &gt; &ldquo;R Script&rdquo; in the Rstudio menus to open a blank script file.  Save this file with the name <code>genomeAnnotation.r</code>.</p>
+
+<p>Now copy and paste one of the <code>transcribe</code> functions you wrote earlier in the week.  We&#39;re going to update the function <em>interface</em> to better meet our needs today.  When we talk about a function&#39;s interface, we mean (a) what the function expects you to pass into it as arguments, and (b) what the result of the function is, or it&#39;s value.  Today we&#39;re going to practice the good habit of using comment lines to keep a clear record of the interface for each of our functions, so that we don&#39;t get confused.</p>
+
+<p>Here&#39;s a template for today&#39;s version of your transcribe function should look like:</p>
+
+<pre class="knitr"><div class="source"><span class="comment"># Transcibes DNA sequence into RNA equivalent</span>
+<span class="comment">#</span>
+<span class="comment"># dna   A character string containing DNA sequence</span>
+<span class="comment">#</span>
+<span class="comment"># value A character string containing RNA sequence</span>
+<span class="comment">#</span>
+<span class="symbol">transcribe</span> <span class="assignement">&lt;-</span> <span class="keyword">function</span><span class="keyword">(</span><span class="formalargs">dna</span><span class="keyword">)</span> <span class="keyword">{</span>
+
+  <span class="comment">#Insert your code here</span>
+
+<span class="keyword">}</span></div></pre>
+
+<p>See how we&#39;ve used the comment lines to clearly describe:</p>
+
+<ul>
+<li>What our function does (fist line)</li>
+<li>What kinds of data we expect for the arguments (dna)</li>
+<li>What kinds of data the function produces (value)</li>
+</ul>
+
+<p>We&#39;ll write descriptions like this for all of the functions we include in our <code>genomeAnnotation.r</code> script today.</p>
+
+<p>How is the interface for this transcribe function different from the version you wrote earlier in the week?  Update the body of your function so that it conforms to this new interface.  </p>
+
+<p>Once you&#39;re finished load your script into the interactive session (console) so that you can test it.  You can load or <code>source</code> your script easily in couple of ways:</p>
+
+<ul>
+<li>Click on the <code>source</code> button on the right hand side of the script editor window</li>
+<li>Hit <code>ctrl + shift + s</code></li>
+<li>Check the &ldquo;Source on save&rdquo; check box and then save you changes to the script by click on the save button (disk icon) or hitting <code>ctrl + s</code></li>
+</ul>
+
+<p>Now let&#39;s test your transcribe function with some sample input:</p>
+
+<pre class="knitr"><div class="source"><span class="functioncall">transcribe</span><span class="keyword">(</span><span class="string">"ATGCTTATCTA"</span><span class="keyword">)</span></div><div class="output">[1] "AUGCUUAUCUA"
+</div></pre>
+
+<p>If you got a different result, go back and try to fix your function.</p>
+</section>
+<section><h2>Refine your translate function</h2>
+
+<p>We&#39;re also going to make use of the <code>translate</code> function you wrote earlier in the week, but we&#39;ll need to update its interface a bit as well.</p>
+
+<p>Add a <code>translate</code> function to <code>genomeAnnotation.r</code> that follows the following template:</p>
+
+<pre class="knitr"><div class="source"><span class="comment"># Translates RNA sequence into amino acid sequence</span>
+<span class="comment">#</span>
+<span class="comment"># rna   A character string containing RNA sequence</span>
+<span class="comment">#</span>
+<span class="comment"># value A character string containing amino sequence</span>
+<span class="comment">#</span>
+<span class="symbol">translate</span> <span class="assignement">&lt;-</span> <span class="keyword">function</span><span class="keyword">(</span><span class="formalargs">rna</span><span class="keyword">)</span> <span class="keyword">{</span>
+
+  <span class="comment">#Insert your code here</span>
+
+<span class="keyword">}</span></div></pre>
+
+<p>There are two aspects to this new version of the <code>translate</code> function which are probably different than the version your wrote before.</p>
+
+<p>First, as was the case with the <code>transcribe</code> function, we&#39;ve written this function so it expects to recieve a string of RNA sequence, rather than the name of a file to load.</p>
+
+<p>Second, we&#39;ve explicitly stated that our function should return a <strong>single</strong> character string containing the amino acid sequence.  This is probably different than the value produced by your current version of <code>translate</code>.  Consider the difference between:</p>
+
+<pre class="knitr"><div class="source"><span class="comment"># Here are two example character vectors</span>
+
+<span class="comment"># A vector of many elements; each element is only one character</span>
+<span class="functioncall">c</span><span class="keyword">(</span><span class="string">"V"</span><span class="keyword">,</span><span class="string">"R"</span><span class="keyword">,</span><span class="string">"S"</span><span class="keyword">,</span><span class="string">"P"</span><span class="keyword">,</span><span class="string">"L"</span><span class="keyword">)</span></div><div class="output">[1] "V" "R" "S" "P" "L"
+</div><div class="source">
+<span class="comment"># A vector of one element; the element has many characters</span>
+<span class="string">"VRSPL"</span></div><div class="output">[1] "VRSPL"
+</div></pre>
+
+<p>What we want our translate function to produce is like the 2nd example, what it produces is like the first.  So how can you take a character vector of many elements and turn it into a single-element vector of many characters?</p>
+
+<p>The answer is the <code>paste</code> function:</p>
+
+<pre class="knitr"><div class="source"><span class="comment"># Some example uses of the paste function</span>
+
+<span class="functioncall">paste</span><span class="keyword">(</span><span class="functioncall">c</span><span class="keyword">(</span><span class="string">"A"</span><span class="keyword">,</span><span class="string">"B"</span><span class="keyword">,</span><span class="string">"C"</span><span class="keyword">,</span><span class="string">"D"</span><span class="keyword">)</span><span class="keyword">,</span> <span class="argument">sep</span> <span class="argument">=</span> <span class="string">""</span><span class="keyword">)</span></div><div class="output">[1] "A" "B" "C" "D"
+</div><div class="source">
+<span class="functioncall">paste</span><span class="keyword">(</span><span class="functioncall">c</span><span class="keyword">(</span><span class="string">"A"</span><span class="keyword">,</span><span class="string">"B"</span><span class="keyword">,</span><span class="string">"C"</span><span class="keyword">,</span><span class="string">"D"</span><span class="keyword">)</span><span class="keyword">,</span> <span class="argument">sep</span> <span class="argument">=</span> <span class="string">", "</span><span class="keyword">)</span></div><div class="output">[1] "A" "B" "C" "D"
+</div></pre>
+
+<p>Refactor your earlier version of the <code>translate</code> function so that it conforms to the interface in the template above.</p>
+
+<p>Now test your translate function with some different inputs:</p>
+
+<pre class="knitr"><div class="source"><span class="functioncall">translate</span><span class="keyword">(</span><span class="string">"AUG"</span><span class="keyword">)</span></div><div class="output">[1] "M"
+</div><div class="source"><span class="functioncall">translate</span><span class="keyword">(</span><span class="string">"UUCUAAAUUAACAAAAUC"</span><span class="keyword">)</span></div><div class="output">[1] "F" "X" "I" "N" "K" "I"
+</div><div class="source"><span class="functioncall">translate</span><span class="keyword">(</span><span class="string">"UUCUAAAUUAACAAAAU"</span><span class="keyword">)</span></div><div class="output">[1] "F" "X" "I" "N" "K"
+</div><div class="source"><span class="functioncall">translate</span><span class="keyword">(</span><span class="string">"UUCUAAAUUAACAAAA"</span><span class="keyword">)</span></div><div class="output">[1] "F" "X" "I" "N" "K"
+</div></pre>
+
+<p>Did those last two lines fail for your function or did it work?  If you got an error or an &ldquo;NA&rdquo; at the end of your result vector, let&#39;s make our <code>translate</code> function a little bit smarter, so we don&#39;t have to worry about it choking on input strings that aren&#39;t evenly divisible by 3.  The easiest thing to do is to just have it ignore incomplete final codons.  Use your knowledge of the <code>nchar</code> and <code>substr</code> functions along with the arithematic modulo operator <code>%%</code> to refine the <code>translate</code> function.</p>
+
+<p>When your function is working on all of the inputs above, you&#39;re ready to move on to step 2!</p>
+</section></section>
+<section><h1>Step 2: Writing an ORF finder</h1>
+
+<section><h2>Function template</h2>
+
+<p>We now have the tools in place that we&#39;ll need to write a function that finds ORFs.  This function will take a string containing a sequence of amino acids and find <em>all</em> of the possible ORFs in that string.  The logic of this function will be to identify stretches of aminoacids that start with a methionine (&ldquo;M&rdquo;) and end with one of our stop codons (&ldquo;X&rdquo;).  This function will also accept a &#39;cutoff&#39; argument which will be used to filter ORFs that are too short to be believable.</p>
+
+<p>Let&#39;s start off by adding a template for the <code>findORF</code> function to our <code>genomeAnnotation.r</code> script.</p>
+
+<pre class="knitr"><div class="source"><span class="comment"># Returns a data.frame describing the ORFs found in the given aminoacid sequence</span>
+<span class="comment">#</span>
+<span class="comment"># aminoacids  A character string containing aminoacid sequence</span>
+<span class="comment"># cutoff      An integer giving the minimum aminoacid length of valid ORFs</span>
+<span class="comment">#</span>
+<span class="comment"># value       A data.frame, coordinates refer to amino acid position</span>
+<span class="comment">#</span>
+<span class="symbol">findORF</span> <span class="assignement">&lt;-</span> <span class="keyword">function</span><span class="keyword">(</span><span class="formalargs">aminoacids</span><span class="keyword">,</span> <span class="formalargs">cutoff</span> <span class="eqformalargs">=</span> <span class="number">100</span><span class="keyword">)</span> <span class="keyword">{</span>
+
+  <span class="comment">#Insert your code here</span>
+
+<span class="keyword">}</span></div></pre>
+
+<p>In this function definition we&#39;ve done something new:  provide a default value for one of our arguments.  The expression <code>cutoff = 100</code> sets 100 as the default value of the cutoff argument.  If the user of the function supplies a cutoff it will override the default; if they don&#39;t the default will be used.  It is a good &ldquo;best-practice&rdquo; to provide reasonable default values for optional arguments.  Optional arguments are usually arguments which tweak the behavior of the function in some way, but don&#39;t represent data that are fundamental to its operation.</p>
+
+<p>So what&#39;s the first thing this function is going to need to do?  We want it to find stretches of amino acids that look like they correspond to real open reading frames.  What&#39;s the best way to look for small patterns in larger strings?  The answer is regular expressions.</p>
+</section>
+<section><h2>Regular expressions</h2>
+
+<p>Regular expressions are a powerful tool available in many programming languages which are designed to find patterns in text.  Regular expressions are a mini-programming language all of their own which allows us to describe many different types of complex patterns.</p>
+
+<p>In this case the pattern we need to find is:</p>
+
+<p><code>M...X</code></p>
+
+<p>Where &ldquo;M&rdquo; is a methionine, &ldquo;X&rdquo; is one of our stop codons, and &ldquo;&hellip;&rdquo; represents a variable number of amino acids between M and X.  Furthermore, we want to find ALL of the non-overlapping instances of the &ldquo;M&hellip;X&rdquo; pattern in our input aminoacid sequence.</p>
+
+<p>You can read about the full power of the <a href="http://stat.ethz.ch/R-manual/R-devel/library/base/html/regex.html">regular expression syntax</a> in the R help, but for today I&#39;ll guide you through how to write them.</p>
+
+<p>Our regular expression pattern is going to be the string:</p>
+
+<p><code>&quot;M(.*?)X&quot;</code></p>
+
+<p>Here&#39;s what&#39;s going on in the pattern:</p>
+
+<ul>
+<li>The &ldquo;M&rdquo; at the begining says &#39;look for patterns that start with M&#39;</li>
+<li>The &ldquo;X&rdquo; at the end says &#39;&hellip;and end with X&#39;</li>
+<li>The &ldquo;(&hellip;)&rdquo; adds a subpattern that we&#39;ll search for between the M and X</li>
+<li>&ldquo;.&rdquo; says &#39;find any character that isn&#39;t a space&#39;</li>
+<li>The &ldquo;*&rdquo; says &#39;find between 0 and an infinite number of those non-space characters&#39;</li>
+<li>The &ldquo;?&rdquo; says &#39;but make the stuff inside of the &ldquo;(&hellip;)&rdquo; as small as possible, while still conforming to my other rules&#39;.  If we didn&#39;t add the &ldquo;?&rdquo; this pattern would match starting at the first M in our sequence &ndash; then gobble up all other M&#39;s and X&#39;s &ndash; until it hit the last X in the sequence.  Obviously, not what we want!</li>
+</ul>
+
+<p>All of the functions listed on the help page for <code>?sub</code> can take regular expressions as their search patterns.  Today we&#39;ll use <code>gregexpr</code> (global regular expression) function.</p>
+
+<p>When trying to learn how a new function works, it&#39;s often useful to make up some example data that will make it easy to discover what a function is doing.  Let&#39;s make a sample &ldquo;amino acid&rdquo; sequence that will be easy to keep track of.</p>
+
+<pre class="knitr"><div class="source"><span class="symbol">sampleAminoAcids</span> <span class="assignement">&lt;-</span> <span class="string">"aaaaMbbbbXccccMddddXeeee"</span></div></pre>
+
+<p>See what I did there?  If everything is working correctly we should find &ldquo;MbbbbX&rdquo; and &ldquo;MddddX&rdquo; and nothing else.</p>
+
+<p>Let&#39;s give <code>gregexpr</code> a whirl with our sample data and our regular expression:</p>
+
+<pre class="knitr"><div class="source"><span class="functioncall">gregexpr</span><span class="keyword">(</span> <span class="argument">pattern</span> <span class="argument">=</span> <span class="string">"M(.*?)X"</span><span class="keyword">,</span> <span class="argument">text</span> <span class="argument">=</span> <span class="symbol">sampleAminoAcids</span> <span class="keyword">)</span></div><div class="output">[[1]]
+[1]  5 15
+attr(,"match.length")
+[1] 6 6
+attr(,"useBytes")
+[1] TRUE
+
+</div></pre>
+
+<p>There&#39;s a lot going with the output from this function &ndash; we&#39;re starting to get a peak at some advanced R features.  But notice that line that has the vector <code>5, 15</code>?  That suspiciously similar to the positions of our &ldquo;M&rdquo;&#39;s in the sample string.  See the line that has the vector <code>6, 6</code>?  Rather interesting, since both of our sample ORF sequences should be 6 amino acids long!  As a novice user, you should be thinking to yourself &ldquo;I think this is going to work for us&rdquo;!</p>
+
+<p>The structure being returned by <code>gregexpr</code> is called a <code>list</code>.  It&#39;s kind of like a basket that can hold other smaller types of data, like vectors.  We&#39;re not going to get distracted with the details today; instead let&#39;s jump to how we can extract our ORF start poistions and lengths from this structure.</p>
+
+<p>Try the following:</p>
+
+<pre class="knitr"><div class="source"><span class="symbol">matches</span> <span class="assignement">&lt;-</span> <span class="functioncall">gregexpr</span><span class="keyword">(</span> <span class="argument">pattern</span> <span class="argument">=</span> <span class="string">"M(.*?)X"</span><span class="keyword">,</span> <span class="argument">text</span> <span class="argument">=</span> <span class="symbol">sampleAminoAcids</span> <span class="keyword">)</span>
+<span class="symbol">startPositions</span> <span class="assignement">&lt;-</span> <span class="functioncall">as.vector</span><span class="keyword">(</span><span class="symbol">matches</span><span class="keyword">[[</span><span class="number">1</span><span class="keyword">]</span><span class="keyword">]</span><span class="keyword">)</span>
+<span class="symbol">lengths</span> <span class="assignement">&lt;-</span> <span class="functioncall">attr</span><span class="keyword">(</span><span class="symbol">matches</span><span class="keyword">[[</span><span class="number">1</span><span class="keyword">]</span><span class="keyword">]</span><span class="keyword">,</span> <span class="string">"match.length"</span><span class="keyword">)</span>
+
+<span class="comment">#ORF match staring positions</span>
+<span class="symbol">startPositions</span></div><div class="output">[1]  5 15
+</div><div class="source">
+<span class="comment">#ORF match lengths</span>
+<span class="symbol">lengths</span></div><div class="output">[1] 6 6
+</div></pre>
+
+<p>If you&#39;re interested in what the &ldquo;[[1]]&rdquo; is about:  had our text argument been a vector with more than one string matches would have had additional elements accisible with [[2]]&hellip;[[n]].  If this detail stresses you out; ignore it!</p>
+
+<p>Let&#39;s also use our knowledge of <code>substring</code> to get the actual amino acid sequence:</p>
+
+<pre class="knitr"><div class="source"><span class="symbol">orfSequence</span> <span class="assignement">&lt;-</span> <span class="functioncall">substring</span><span class="keyword">(</span> <span class="symbol">sampleAminoAcids</span><span class="keyword">,</span>
+                          <span class="argument">first</span> <span class="argument">=</span> <span class="symbol">startPositions</span><span class="keyword">,</span>
+                          <span class="argument">last</span> <span class="argument">=</span> <span class="symbol">startPositions</span> <span class="keyword">+</span> <span class="symbol">lengths</span> <span class="keyword">-</span><span class="number">1</span><span class="keyword">)</span></div></pre>
+
+<p>What does orfSequence hold now?  Why do we need the &ldquo;-1&rdquo; in the last argument?  </p>
+
+<p>So now we know how to write code that will match all of the possible ORFs in a sequence of amino acids!  Now let&#39;s think about how we want to collect our ORF information in a user friendly way.</p>
+</section>
+<section><h2>Creating a data.frame</h2>
+
+<p>We&#39;ve used data.frame&#39;s before by loading tabular data in from files, but you can also create them <em>de novo</em> from with in an R session.  The syntax is:</p>
+
+<pre class="knitr"><div class="source"><span class="functioncall">data.frame</span><span class="keyword">(</span><span class="argument">variable1</span> <span class="argument">=</span> <span class="functioncall">c</span><span class="keyword">(</span><span class="number">1</span><span class="keyword">,</span><span class="number">2</span><span class="keyword">,</span><span class="number">3</span><span class="keyword">,</span><span class="number">4</span><span class="keyword">)</span><span class="keyword">,</span> <span class="argument">variable2</span> <span class="argument">=</span> <span class="functioncall">c</span><span class="keyword">(</span><span class="string">"a"</span><span class="keyword">,</span><span class="string">"b"</span><span class="keyword">,</span><span class="string">"c"</span><span class="keyword">,</span><span class="string">"d"</span><span class="keyword">)</span><span class="keyword">)</span></div><div class="output">  variable1 variable2
+1         1         a
+2         2         b
+3         3         c
+4         4         d
+</div></pre>
+
+<p>See what happened there?  Each argument will become a column heading in your data.frame, and its value will become the data in that column.  You&#39;ll want to make sure your value vectors are all the same lengths or you&#39;ll get an error.</p>
+
+<p>So how can we store our ORF information in a convenient tabular format?  With something like this:</p>
+
+<pre class="knitr"><div class="source"><span class="symbol">orfTable</span> <span class="assignement">&lt;-</span> <span class="functioncall">data.frame</span><span class="keyword">(</span>
+              <span class="argument">startPosition</span> <span class="argument">=</span> <span class="symbol">startPositions</span><span class="keyword">,</span>
+              <span class="argument">length</span>        <span class="argument">=</span> <span class="symbol">lengths</span><span class="keyword">,</span>
+              <span class="argument">aminoacids</span>    <span class="argument">=</span> <span class="symbol">orfSequence</span>
+            <span class="keyword">)</span></div></pre>
+
+<p>Take a look at the contents of orfTable.  We&#39;re nearly there!  It&#39;s time to take all of the parts we&#39;ve just looked at and assemble them back into a whole.  </p>
+
+<p>Return to the template for your <code>findOrf</code> function above and fill in the function body.  The thing we promised that this function would do that we haven&#39;t handled yet is filtering out ORFs that are below the size given by the <code>cutoff</code> argument.  Use your knowledge of selectors (<code>[]</code>) to filter the final version version of your orfTable based on the values in the <code>length</code> column.</p>
+
+<p>Finally, we&#39;ve promised that our function returns a data.frame.  Up to this point we haven&#39;t explicitly addressed how we tell R what to return as the value of our functions.  If we don&#39;t tell R what to do, it will just return the result of the last computation by default.  We can be explicit about what we want to return from our function using the <code>return</code> function, like: <code>return(orfTable)</code></p>
+</section></section>
+<section><h1>Step 3:</h1>
+</section>
+  </div>
+  <!-- end of courser content -->
+
+  <!-- JavaScript at the bottom for fast page loading -->
+  <script src=js/vendor/jquery-1.7.2.min.js type="text/javascript"></script>
+  <script src=js/plugins.js type="text/javascript"></script>
+  <script src=js/main.js type="text/javascript"></script>
+  <script src=js/vendor/reveal.js type="text/javascript"></script>
+
+</body>
+</html>
