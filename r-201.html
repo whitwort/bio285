@@ -53,11 +53,11 @@
   <span class="symbol">dna</span> <span class="assignement">&lt;-</span> <span class="functioncall">readLines</span><span class="keyword">(</span><span class="symbol">dnaFile</span><span class="keyword">)</span>
 
   <span class="comment">#Substitute U's for T's</span>
-  <span class="symbol">rna</span> <span class="assignement">&lt;-</span> <span class="functioncall">sub</span><span class="keyword">(</span> <span class="argument">pattern</span>     <span class="argument">=</span> <span class="string">"T"</span><span class="keyword">,</span>
+  <span class="symbol">rna</span> <span class="assignement">&lt;-</span> <span class="functioncall">gsub</span><span class="keyword">(</span><span class="argument">pattern</span>     <span class="argument">=</span> <span class="string">"T"</span><span class="keyword">,</span>
               <span class="argument">replacement</span> <span class="argument">=</span> <span class="string">"U"</span><span class="keyword">,</span>
               <span class="argument">x</span>           <span class="argument">=</span> <span class="symbol">dna</span><span class="keyword">,</span>
               <span class="argument">fixed</span>       <span class="argument">=</span> <span class="number">TRUE</span>
-            <span class="keyword">)</span>
+             <span class="keyword">)</span>
 
   <span class="comment">#Save the results</span>
   <span class="functioncall">write</span><span class="keyword">(</span><span class="symbol">rna</span><span class="keyword">,</span> <span class="symbol">rnaFile</span><span class="keyword">)</span>
@@ -339,7 +339,7 @@ FALSE = don&#39;t</p>
 </section></section>
 <section><h1>Subsetting strings</h1>
 
-<p>We&#39;re getting close!  </p>
+<section><h2>We&#39;re getting close!</h2>
 
 <p>We can translate codons&hellip;</p>
 
@@ -349,7 +349,7 @@ FALSE = don&#39;t</p>
 <p>&hellip;but we need to be able to read a string of letters in sets of 3.</p>
 
 <pre class="knitr"><div class="source"><span class="symbol">sampleRNA</span> <span class="assignement">&lt;-</span> <span class="string">"GTAGCTGGCAAGTTAATAGAGATGGAAAAC"</span></div></pre>
-
+</section>
 <section><h2>Side bar: length of a string</h2>
 
 <p>Figuring out the number of characters in a piece of text is a little funny&hellip;</p>
@@ -452,7 +452,7 @@ FALSE = don&#39;t</p>
 
 <p>Let&#39;s see it in action:</p>
 
-<pre class="knitr"><div class="source"><span class="functioncall">sapply</span><span class="keyword">(</span> <span class="argument">x</span> <span class="argument">=</span> <span class="symbol">codonNumbers</span><span class="keyword">,</span> <span class="argument">FUN</span> <span class="argument">=</span> <span class="symbol">getCodon</span> <span class="keyword">)</span></div><div class="error">Error: argument "X" is missing, with no default
+<pre class="knitr"><div class="source"><span class="functioncall">sapply</span><span class="keyword">(</span><span class="symbol">codonNumbers</span><span class="keyword">,</span> <span class="argument">FUN</span> <span class="argument">=</span> <span class="symbol">getCodon</span><span class="keyword">)</span></div><div class="output"> [1] "GTA" "GCT" "GGC" "AAG" "TTA" "ATA" "GAG" "ATG" "GAA" "AAC"
 </div></pre>
 
 <p>What happened there?</p>

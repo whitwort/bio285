@@ -16,11 +16,11 @@ transcribe <- function(dnaFile, rnaFile) {
   dna <- readLines(dnaFile)
   
   #Substitute U's for T's
-  rna <- sub( pattern     = "T", 
+  rna <- gsub(pattern     = "T", 
               replacement = "U",
               x           = dna, 
               fixed       = TRUE
-            )
+             )
   
   #Save the results
   write(rna, rnaFile)
@@ -303,7 +303,7 @@ For a full reference on extraction and replacement operators in R, you can searc
 
 # Subsetting strings
 
-We're getting close!  
+## We're getting close!  
 
 We can translate codons...
 ``` {r}
@@ -424,7 +424,7 @@ For this task we'll use **s**apply.  We'll look at the other apply's later.
 
 Let's see it in action:
 ``` {r}
-sapply( x = codonNumbers, FUN = getCodon )
+sapply(codonNumbers, FUN = getCodon)
 ````
 
 What happened there?
