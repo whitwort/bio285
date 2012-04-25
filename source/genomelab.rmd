@@ -401,6 +401,8 @@ orfTable$length <- orfTable$ length * 2
 
 ## loadFASTA
 
+You can download yeast genome sequence [here](http://downloads.yeastgenome.org/sequence/S288C_reference/chromosomes/fasta/).  Each of these files contains the DNA sequence for one of the yeast chromosomes.
+
 Take a look at the format of FASTA files.  You'll want to omit the first line of this file because it doesn't contain sequence.  We can do that with selectors:
 
 ``` {r}
@@ -417,3 +419,80 @@ dna <- paste(dnaLines, collapse="", sep="")
 ## Combining data.frame objects
 
 In several places you'll want to be able to combine `data.frame` tables, adding the rows of one table to another.  See the `merge` function of a convenient way to do this!
+
+# Step 4: Annotate the whole genome!
+
+Once you have your annotateChromosome function working (takes the name of a chromosome FASTA file and produces a data.frame with ORF information), we're ready to write our final annotateGenome function.  This function should run annotateChromosome on each of the yeast chromosome FASTA files (in your directory), and aggregate all of the results in to a big table!
+
+You can save this final data.frame using the "write.table" function like:
+
+``` {r}
+sampleTable = data.frame()
+write.table(sampleTable, "myFile.txt", sep="\t")
+````
+
+# Challenge #1:  Transcription factor binding site
+
+The TATA-Binding Protein ([TBP](http://en.wikipedia.org/wiki/TATA-binding_protein)) is an important eukaryotic transcription factor.  It promotes transcription at many, but not all, eukaryotic genes.  It binds to the "TATA-box" sequence upstream of genes:
+
+TATAAA
+
+Modify your annotation script so that it produces a table listing TBP binding sites in the yeast genome.  Include a column that lists the likely ORF that is the target of TBP transcription target.  Remember that you'll have to keep track of both DNA strands.
+
+What percentage of yeast genes are likely transcribed by TBP bound promoters?
+
+
+# Challenge #2:  Handle introns
+
+Yeast is a eukaryote, which means the protein coding sequences (ORFs) can be interupted by introns.  Introns are defined by 3 sequences: start sequence, end sequence and a special sequence in the middle of the intron called a branch point sequence.  Unlike the TATA-Box however, each of these sequences comes in several different flavors.  Specifically, the variants are:
+
+Start sites: 
+GUAUGU 
+GUAAGU 
+GUAUGC 
+GUAUGA 
+GUACGU 
+GUCAGU 
+GUUAAG 
+GUAGUA 
+GCAUGU 
+GUUCGU 
+GUGAGU 
+GCAAGU
+
+Branch points:
+GACUAAC 
+UACUAAC 
+AACUAAC 
+AAUUAAC 
+CACUAAC 
+UGCUAAC 
+UAUUAAC 
+AGUUAAC 
+CGUUAAC 
+UGUUAAC 
+CAUUAAC
+
+End sites:
+CAG
+AAG
+UAG
+
+We can use regular expressions to find patterns that have variable characters at different positions.  Consider the following example:
+
+``` {r}
+grepl("bio285", "Hello bio285!")
+grepl("bio285", "Hello bio385!")
+
+#Match course number 285 or 385
+grepl("bio[23]85", "Hello bio285!")
+grepl("bio[23]85", "Hello bio285!")
+````
+
+See what happened there?  The "[ ... ]" say 'match any of the letters or numbers listed inside these brackets at this position.  So to match all splice end sites we could use the regular expression:
+
+`"[CAU]AG"`
+
+Refactor your annotateChromosome function so that it first finds and then removes (hint: gsub) all of the likely introns from the chromosomal sequence before attempting to annotate the ORFs.
+
+How did your ORF lsit change when you accounted for introns?

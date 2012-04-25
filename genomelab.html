@@ -386,6 +386,8 @@ attr(,"useBytes")
 </section>
 <section><h2>loadFASTA</h2>
 
+<p>You can download yeast genome sequence <a href="http://downloads.yeastgenome.org/sequence/S288C_reference/chromosomes/fasta/">here</a>.  Each of these files contains the DNA sequence for one of the yeast chromosomes.</p>
+
 <p>Take a look at the format of FASTA files.  You&#39;ll want to omit the first line of this file because it doesn&#39;t contain sequence.  We can do that with selectors:</p>
 
 <pre class="knitr"><div class="source"><span class="symbol">dnaLines</span> <span class="assignement">&lt;-</span> <span class="functioncall">readLines</span><span class="keyword">(</span><span class="string">"sample.fasta"</span><span class="keyword">)</span></div><div class="warning">Warning message: cannot open file 'sample.fasta': No such file or directory
@@ -402,6 +404,79 @@ attr(,"useBytes")
 
 <p>In several places you&#39;ll want to be able to combine <code>data.frame</code> tables, adding the rows of one table to another.  See the <code>merge</code> function of a convenient way to do this!</p>
 </section></section>
+<section><h1>Step 4: Annotate the whole genome!</h1>
+
+<p>Once you have your annotateChromosome function working (takes the name of a chromosome FASTA file and produces a data.frame with ORF information), we&#39;re ready to write our final annotateGenome function.  This function should run annotateChromosome on each of the yeast chromosome FASTA files (in your directory), and aggregate all of the results in to a big table!</p>
+
+<p>You can save this final data.frame using the &ldquo;write.table&rdquo; function like:</p>
+
+<pre class="knitr"><div class="source"><span class="symbol">sampleTable</span> <span class="assignement">=</span> <span class="functioncall">data.frame</span><span class="keyword">(</span><span class="keyword">)</span>
+<span class="functioncall">write.table</span><span class="keyword">(</span><span class="symbol">sampleTable</span><span class="keyword">,</span> <span class="string">"myFile.txt"</span><span class="keyword">,</span> <span class="argument">sep</span><span class="argument">=</span><span class="string">"\t"</span><span class="keyword">)</span></div></pre>
+</section>
+<section><h1>Challenge #1:  Transcription factor binding site</h1>
+
+<p>The TATA-Binding Protein (<a href="http://en.wikipedia.org/wiki/TATA-binding_protein">TBP</a>) is an important eukaryotic transcription factor.  It promotes transcription at many, but not all, eukaryotic genes.  It binds to the &ldquo;TATA-box&rdquo; sequence upstream of genes:</p>
+
+<p>TATAAA</p>
+
+<p>Modify your annotation script so that it produces a table listing TBP binding sites in the yeast genome.  Include a column that lists the likely ORF that is the target of TBP transcription target.  Remember that you&#39;ll have to keep track of both DNA strands.</p>
+
+<p>What percentage of yeast genes are likely transcribed by TBP bound promoters?</p>
+</section>
+<section><h1>Challenge #2:  Handle introns</h1>
+
+<p>Yeast is a eukaryote, which means the protein coding sequences (ORFs) can be interupted by introns.  Introns are defined by 3 sequences: start sequence, end sequence and a special sequence in the middle of the intron called a branch point sequence.  Unlike the TATA-Box however, each of these sequences comes in several different flavors.  Specifically, the variants are:</p>
+
+<p>Start sites: <br/>
+GUAUGU <br/>
+GUAAGU <br/>
+GUAUGC <br/>
+GUAUGA <br/>
+GUACGU <br/>
+GUCAGU <br/>
+GUUAAG <br/>
+GUAGUA <br/>
+GCAUGU <br/>
+GUUCGU <br/>
+GUGAGU <br/>
+GCAAGU</p>
+
+<p>Branch points:<br/>
+GACUAAC <br/>
+UACUAAC <br/>
+AACUAAC <br/>
+AAUUAAC <br/>
+CACUAAC <br/>
+UGCUAAC <br/>
+UAUUAAC <br/>
+AGUUAAC <br/>
+CGUUAAC <br/>
+UGUUAAC <br/>
+CAUUAAC</p>
+
+<p>End sites:<br/>
+CAG<br/>
+AAG<br/>
+UAG</p>
+
+<p>We can use regular expressions to find patterns that have variable characters at different positions.  Consider the following example:</p>
+
+<pre class="knitr"><div class="source"><span class="functioncall">grepl</span><span class="keyword">(</span><span class="string">"bio285"</span><span class="keyword">,</span> <span class="string">"Hello bio285!"</span><span class="keyword">)</span></div><div class="output">[1] TRUE
+</div><div class="source"><span class="functioncall">grepl</span><span class="keyword">(</span><span class="string">"bio285"</span><span class="keyword">,</span> <span class="string">"Hello bio385!"</span><span class="keyword">)</span></div><div class="output">[1] FALSE
+</div><div class="source">
+<span class="comment">#Match course number 285 or 385</span>
+<span class="functioncall">grepl</span><span class="keyword">(</span><span class="string">"bio[23]85"</span><span class="keyword">,</span> <span class="string">"Hello bio285!"</span><span class="keyword">)</span></div><div class="output">[1] TRUE
+</div><div class="source"><span class="functioncall">grepl</span><span class="keyword">(</span><span class="string">"bio[23]85"</span><span class="keyword">,</span> <span class="string">"Hello bio285!"</span><span class="keyword">)</span></div><div class="output">[1] TRUE
+</div></pre>
+
+<p>See what happened there?  The &ldquo;[ &hellip; ]&rdquo; say &#39;match any of the letters or numbers listed inside these brackets at this position.  So to match all splice end sites we could use the regular expression:</p>
+
+<p><code>&quot;[CAU]AG&quot;</code></p>
+
+<p>Refactor your annotateChromosome function so that it first finds and then removes (hint: gsub) all of the likely introns from the chromosomal sequence before attempting to annotate the ORFs.</p>
+
+<p>How did your ORF lsit change when you accounted for introns?</p>
+</section>
   </div>
   <!-- end of courser content -->
 

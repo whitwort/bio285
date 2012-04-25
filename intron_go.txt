@@ -1,0 +1,252 @@
+Intron	OrfLength	StartPos	RelOrfPos	Location	InLength	UpSS	DnSS	BPSeq	BPDist	AU%	Pyr%	CommonName	Process	Component	Function
+SNR17A	490	15	0.095541401	ORF	157	GUAUGU	CAG	GACUAAC	11	0.662420382	0.625	None	None	None	None
+SNR17B	462	15	0.115384615	ORF	130	GUAUGU	CAG	GACUAAC	11	0.669230769	0.5	None	None	None	None
+YAL001C	3573	71	0.788888889	ORF	90	GUAUGU	AAG	UACUAAC	12	0.644444444	0.444444444	TFC3	transcription initiation from RNA polymerase III promoter	mitochondrion*	RNA polymerase III transcription factor activity
+YAL003W	987	81	0.221311475	ORF	366	GUAUGU	UAG	UACUAAC	33	0.699453552	0.566666667	EFB1	translational elongation	ribosome*	translation elongation factor activity
+YAL030W	467	103	0.911504425	ORF	113	GUAAGU	UAG	UACUAAC	61	0.681415929	0.672413793	SNC1	endocytosis*	transport vesicle	v-SNARE activity
+YBL018C	477	48	0.64	ORF	75	GUAUGU	UAG	UACUAAC	18	0.733333333	0.6	POP8	rRNA processing*	ribonuclease MRP complex*	ribonuclease P activity*
+YBL026W	416	55	0.4296875	ORF	128	GUAUGU	CAG	UACUAAC	35	0.6640625	0.75	LSM2	nuclear mRNA splicing, via spliceosome*	nucleolus*	RNA binding
+YBL027W	954	3	0.0078125	ORF	384	GUAUGU	CAG	UACUAAC	40	0.671875	0.513513514	RPL19B	protein biosynthesis	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YBL040C	757	23	0.237113402	ORF	97	GUAUGU	CAG	UACUAAC	33	0.556701031	0.433333333	ERD2	protein retention in ER	integral to endoplasmic reticulum membrane	HDEL sequence binding
+YBL050W	995	31	0.267241379	ORF	116	GUAUGU	AAG	UACUAAC	38	0.672413793	0.514285714	SEC17	ER to Golgi transport*	peripheral to membrane of membrane fraction	soluble NSF attachment protein activity
+YBL059C-A	415	35	0.411764706	ORF	85	GUAAGU	UAG	UACUAAC	27	0.658823529	0.833333333		biological process unknown	cytoplasm*	molecular function unknown
+YBL059W	651	287	4.15942029	ORF	69	GUAUGC	UAG	UACUAAC	17	0.652173913	0.571428571		biological process unknown	mitochondrion	molecular function unknown
+YBL072C	918	0	0	5' UTR	308	GUAUGU	CAG	UACUAAC	26	0.668831169	0.565217391	RPS8A	protein biosynthesis	cytosolic small ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YBL087C	918	43	0.08531746	ORF	504	GUAUGU	UAG	UACUAAC	43	0.654761905	0.625	RPL23A	protein biosynthesis	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YBL092W	726	0	0	5' UTR	333	GUAUGU	UAG	UACUAAC	37	0.63963964	0.764705882	RPL32	protein biosynthesis	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YBR048W	982	46	0.090019569	ORF	511	GUAUGA	CAG	UACUAAC	18	0.663405088	0.666666667	RPS11B	protein biosynthesis*	cytosolic small ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YBR078W	1737	59	0.178787879	ORF	330	GUAUGU	CAG	UACUAAC	23	0.639393939	0.7	ECM33	cell wall organization and biogenesis	mitochondrion*	molecular function unknown
+YBR082C	542	48	0.505263158	ORF	95	GUAUGU	UAG	UACUAAC	24	0.694736842	0.428571429	UBC4	response to stress*	proteasome complex (sensu Eukaryota)	ubiquitin conjugating enzyme activity
+YBR084C-A	1076	3	0.005928854	ORF	506	GUAUGU	CAG	AACUAAC	13	0.652173913	0.5	RPL19A	protein biosynthesis	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YBR089C-A	441	0	0	5' UTR	114	GUAAGU	UAG	AAUUAAC	4	0.578947368	1	NHP6B	regulation of transcription from RNA polymerase II promoter*	nuclear chromatin*	chromatin binding
+YBR119W	986	9	0.101123596	ORF	89	GUAUGU	CAG	UACUAAC	38	0.730337079	0.571428571	MUD1	nuclear mRNA splicing, via spliceosome	snRNP U1	RNA binding
+YBR181C	1063	7	0.019886364	ORF	352	GUAUGU	CAG	UACUAAC	21	0.659090909	0.444444444	RPS6B	protein biosynthesis	cytoplasm*	structural constituent of ribosome
+YBR186W	1808	1552	13.73451327	ORF	113	GUAUGU	UAG	CACUAAC	35	0.734513274	0.5	PCH2	regulation of meiosis	nucleolus	molecular function unknown
+YBR189W	1001	8	0.01937046	ORF	413	GUACGU	UAG	GACUAAC	30	0.651331719	0.703703704	RPS9B	protein biosynthesis*	cytosolic small ribosomal subunit (sensu Eukaryota)*	structural constituent of ribosome
+YBR191W	871	12	0.030927835	ORF	388	GUAUGU	CAG	UACUAAC	47	0.667525773	0.636363636	RPL21A	protein biosynthesis*	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YBR220C	805	302	0.717339667	ORF	421	GUACGU	UAG	GACUAAC	31	0.612826603	0.75		biological process unknown	cellular component unknown	molecular function unknown
+YBR225C-A	457	64	0.680851064	ORF	94	GUAUGU	UAG	AAUUAAC	18	0.638297872	0.866666667	None	None	None	None
+YBR230C	502	12	0.12371134	ORF	97	GUAUGU	CAG	GACUAAC	34	0.618556701	0.741935484		biological process unknown	mitochondrion	molecular function unknown
+YCR028C-A	491	243	2.927710843	ORF	83	GUAUGU	CAG	UACUAAC	24	0.78313253	0.714285714	RIM1	mitochondrial genome maintenance	mitochondrion*	single-stranded DNA binding
+YCR031C	721	8	0.026058632	ORF	307	GUAUGU	UAG	UACUAAC	48	0.693811075	0.622222222	RPS14A	protein biosynthesis*	cytosolic small ribosomal subunit (sensu Eukaryota)*	structural constituent of ribosome*
+YCR097W	487	106	1.962962963	ORF	54	GUAUGU	CAG	UACUAAC	10	0.703703704	0.571428571	HMRA1	regulation of transcription, mating-type specific	nucleus	transcription corepressor activity
+YCR097W_2	487	406	7.807692308	ORF	52	GUAUGU	UAG	UACUAAC	9	0.769230769	0.5	None	None	None	None
+YDL012C	410	46	0.534883721	ORF	86	GUACGU	CAG	UACUAAC	37	0.651162791	0.676470588		biological process unknown	plasma membrane	molecular function unknown
+YDL029W	1299	23	0.18699187	ORF	123	GUAUGU	UAG	UACUAAC	13	0.634146341	0.6	ARP2	actin filament organization*	mitochondrion*	structural constituent of cytoskeleton*
+YDL061C	556	0	0	5' UTR	408	GUAUGU	UAG	UACUAAC	37	0.649509804	0.617647059	RPS29B	protein biosynthesis	cytosolic small ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YDL064W	584	39	0.354545455	ORF	110	GUAAGU	CAG	UACUAAC	37	0.663636364	0.5	UBC9	G2/M transition of mitotic cell cycle*	nucleus	ubiquitin-like conjugating enzyme activity
+YDL075W	763	58	0.137767221	ORF	421	GUAUGU	UAG	UACUAAC	28	0.70783848	0.56	RPL31A	protein biosynthesis	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YDL079C	1798	413	1.414383562	ORF	292	GUAUGU	UAG	UACUAAC	10	0.705479452	0.428571429	MRK1	protein amino acid phosphorylation*	cellular component unknown	glycogen synthase kinase 3 activity
+YDL082W	965	5	0.01369863	ORF	365	GUAUGU	CAG	UACUAAC	38	0.676712329	0.485714286	RPL13A	protein biosynthesis	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YDL083C	864	25	0.05787037	ORF	432	GUAUGU	CAG	UACUAAC	40	0.650462963	0.567567568	RPS16B	protein biosynthesis	cytosolic small ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YDL108W	1002	29	0.358024691	ORF	81	GUAUGU	CAG	UACUAAC	25	0.679012346	0.5	KIN28	protein amino acid phosphorylation*	transcription factor TFIIH complex	general RNA polymerase II transcription factor activity*
+YDL115C	1049	0	0	5' UTR	88	GUAUGU	AAG	GACUAAC	42	0.659090909	0.384615385	IWR1	meiosis	cytoplasm*	molecular function unknown
+YDL125C	588	98	0.882882883	ORF	111	GUAUGU	CAG	UACUAAC	21	0.630630631	0.5	HNT1	nucleotide metabolism	cytoplasm*	hydrolase activity*
+YDL130W	622	115	0.382059801	ORF	301	GUAUGU	UAG	UACUAAC	57	0.637873754	0.518518519	RPP1B	translational elongation*	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YDL136W	768	4	0.009876543	ORF	405	GUAUGU	UAG	UACUAAC	36	0.674074074	0.696969697	RPL35B	protein biosynthesis	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YDL137W	917	0	0	5' UTR	332	GUAUGU	UAG	UACUAAC	16	0.581325301	0.461538462	ARF2	ER to Golgi transport*	cytosol*	GTPase activity
+YDL189W	1512	0	0	5' UTR	99	GUAUGU	AAG	UACUAAC	16	0.727272727	0.461538462	RBS1	galactose metabolism	cytoplasm	molecular function unknown
+YDL191W	854	4	0.00814664	ORF	491	GUAUGU	UAG	UACUAAC	47	0.682281059	0.568181818	RPL35A	protein biosynthesis	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YDL219W	524	66	0.929577465	ORF	71	GUAUGU	CAG	UACUAAC	19	0.633802817	0.625	DTD1	translation*	cytoplasm	hydrolase activity, acting on ester bonds
+YDR005C	1268	7	0.0875	ORF	80	GUAUGU	UAG	UACUAAC	31	0.6375	0.785714286	MAF1	negative regulation of transcription from RNA polymerase III promoter	nucleus	molecular function unknown
+YDR025W	810	46	0.135693215	ORF	339	GUAUGA	UAG	UACUAAC	22	0.693215339	0.842105263	RPS11A	protein biosynthesis*	cytosolic small ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YDR059C	537	48	0.533333333	ORF	90	GUAUGU	AAG	UACUAAC	31	0.755555556	0.714285714	UBC5	endocytosis*	proteasome complex (sensu Eukaryota)	ubiquitin conjugating enzyme activity
+YDR064W	995	22	0.040816327	ORF	539	GUAUGU	CAG	UACUAAC	52	0.660482375	0.551020408	RPS13	protein biosynthesis	cytosolic small ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YDR092W	730	31	0.115671642	ORF	268	GUAUGU	UAG	UACUAAC	154	0.589552239	0.503311258	UBC13	protein monoubiquitination*	cytoplasm*	ubiquitin conjugating enzyme activity
+YDR129C	2040	22	0.198198198	ORF	111	GUAUGU	UAG	UACUAAC	18	0.63963964	0.6	SAC6	endocytosis*	actin cortical patch*	protein binding, bridging*
+YDR139C	307	150	2.054794521	ORF	73	GUAUGU	UAG	UACUAAC	11	0.684931507	0.25	RUB1	protein deneddylation*	cytoplasm	protein tag
+YDR305C	743	88	0.988764045	ORF	89	GUAUGC	CAG	UACUAAC	35	0.617977528	0.625	HNT2	nucleoside catabolism	cytoplasm*	hydrolase activity*
+YDR367W	767	31	0.306930693	ORF	101	GUAUGU	UAG	UACUAAC	29	0.693069307	0.730769231		biological process unknown	cytoplasm*	molecular function unknown
+YDR381C-A	539	27	0.139175258	ORF	194	GUAUGU	CAG	AACUAAC	144	0.649484536	0.546099291		biological process unknown	cellular component unknown	molecular function unknown
+YDR381W	1447	286	0.373368146	ORF	766	GUAUGU	UAG	GACUAAC	19	0.657963446	0.875	YRA1	mRNA-nucleus export	transcription export complex	RNA binding
+YDR397C	533	38	0.413043478	ORF	92	GUAUGU	UAG	UACUAAC	26	0.641304348	0.391304348	NCB2	negative regulation of transcription from RNA polymerase II promoter	nucleus	transcription corepressor activity
+YDR424C	455	26	0.270833333	ORF	96	GUAUGU	CAG	UACUAAC	36	0.65625	0.454545455	DYN2	microtubule-based process*	cytoplasmic microtubule*	microtubule motor activity
+YDR424C_2	455	145	1.8125	ORF	80	GUAUGU	UAG	UACUAAC	15	0.725	0.166666667	None	None	None	None
+YDR447C	725	4	0.012738854	ORF	314	GUACGU	UAG	UACUAAC	36	0.611464968	0.666666667	RPS17B	protein biosynthesis*	cytosolic small ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YDR450W	876	48	0.110344828	ORF	435	GUAUGU	CAG	UACUAAC	44	0.643678161	0.634146341	RPS18A	protein biosynthesis	mitochondrion*	structural constituent of ribosome
+YDR471W	795	32	0.083333333	ORF	384	GUACGU	UAG	UACUAAC	20	0.643229167	0.588235294	RPL27B	protein biosynthesis	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YDR500C	656	8	0.020565553	ORF	389	GUAUGU	CAG	AAUUAAC	23	0.66066838	0.7	RPL37B	protein biosynthesis	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YEL012W	780	6	0.048780488	ORF	123	GUAUGU	CAG	CACUAAC	45	0.715447154	0.357142857	UBC8	protein monoubiquitination*	cytoplasm	ubiquitin conjugating enzyme activity
+YER003C	1383	32	0.344086022	ORF	93	GUAUGU	UAG	AACUAAC	18	0.709677419	0.533333333	PMI40	protein amino acid glycosylation*	cytoplasm*	mannose-6-phosphate isomerase activity
+YER007C-A	649	12	0.116504854	ORF	103	GUAUGU	UAG	UACUAAC	14	0.640776699	0.545454545	RBF20	biological process unknown	cytoplasm	RNA binding
+YER044C-A	1315	64	0.727272727	ORF	88	GUACGU	CAG	UACUAAC	43	0.670454545	0.525	MEI4	sporulation (sensu Fungi)*	cellular component unknown	molecular function unknown
+YER056C-A	763	38	0.095717884	ORF	397	GUAUGU	UAG	UACUAAC	52	0.677581864	0.489795918	RPL34A	protein biosynthesis	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YER074W	874	4	0.008583691	ORF	466	GUAUGU	CAG	UACUAAC	41	0.67167382	0.657894737	RPS24A	protein biosynthesis	mitochondrion*	structural constituent of ribosome
+YER074W-A	307645	95	0.931372549	ORF	102	GUAUGU	CAG	UACUAAC	42	0.715686275	0.615384615	YOS1	ER to Golgi transport	endoplasmic reticulum membrane*	molecular function unknown
+YER074W-A_2	307645	305	2.747747748	ORF	111	GUAUGU	UAG	UACUAAC	22	0.693693694	0.684210526	None	None	None	None
+YER093C-A	489	125	1.666666667	ORF	75	GUAUGU	CAG	UACUAAC	18	0.64	0.466666667		biological process unknown	cellular component unknown	molecular function unknown
+YER102W	970	0	0	5' UTR	360	GUAUGU	UAG	AAUUAAC	14	0.655555556	0.181818182	RPS8B	protein biosynthesis	cytosolic small ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YER117W	885	43	0.091295117	ORF	471	GUAUGU	UAG	UACUAAC	51	0.662420382	0.625	RPL23B	protein biosynthesis	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YER131W	721	0	0	5' UTR	361	GUAUGU	UAG	UACUAAC	32	0.675900277	0.620689655	RPS26B	protein biosynthesis	cytosolic small ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YER133W	1464	178	0.339047619	ORF	525	GUAUGU	UAG	UACUAAC	29	0.638095238	0.923076923	GLC7	35S primary transcript processing*	nucleolus*	RNA binding*
+YER179W	1097	133	1.445652174	ORF	92	GUAUGU	UAG	UACUAAC	27	0.706521739	0.416666667	DMC1	meiosis*	nucleus*	single-stranded DNA binding*
+YFL034C-A	690	13	0.040498442	ORF	321	GUACGU	CAG	UACUAAC	15	0.651090343	0.333333333	RPL22B	protein biosynthesis	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YFL034C-B	978	21	0.184210526	ORF	114	GUAUGU	CAG	UACUAAC	55	0.640350877	0.538461538	MOB2	protein amino acid phosphorylation*	nucleus*	protein kinase activator activity
+YFL039C	1436	11	0.035714286	ORF	308	GUAUGU	UAG	UACUAAC	42	0.678571429	0.692307692	ACT1	cell wall organization and biogenesis*	actin cortical patch*	structural constituent of cytoskeleton
+YFR024C-A	1474	48	0.406779661	ORF	118	GUAUGU	UAG	UACUAAC	46	0.686440678	0.325581395	LSB3	actin filament organization	cytoplasm*	molecular function unknown
+YFR031C-A	912	5	0.034013605	ORF	147	GUAUGU	CAG	UACUAAC	34	0.659863946	0.709677419	RPL2A	protein biosynthesis	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YFR032C-A	514	0	0	5' UTR	331	GUACGU	CAG	UACUAAC	48	0.567975831	0.688888889	RPL29	protein biosynthesis	cytoplasm*	structural constituent of ribosome
+YGL030W	548	4	0.017391304	ORF	230	GUCAGU	CAG	UACUAAC	39	0.686956522	0.611111111	RPL30	protein biosynthesis*	cytoplasm*	structural constituent of ribosome
+YGL031C	456	0	0	5' UTR	456	GUAUGU	UAG	UACUAAC	43	0.649122807	0.525	RPL24A	protein biosynthesis	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome*
+YGL033W	727	56	0.8	ORF	70	GUUAAG	CAG	UACUAAC	25	0.657142857	0.590909091	HOP2	synapsis	condensed nuclear chromosome	protein binding*
+YGL076C	1662	565	1.207264957	ORF	468	GUAUGU	UAG	UACUAAC	37	0.683760684	0.764705882	RPL7A	protein biosynthesis	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YGL076C_2	1662	12	0.026143791	ORF	459	GUAUGU	CAG	UGCUAAC	30	0.684095861	0.555555556	None	None	None	None
+YGL087C	499	12	0.141176471	ORF	85	GUAUGU	CAG	UACUAAC	41	0.705882353	0.578947368	MMS2	DNA repair*	cytoplasm*	ubiquitin conjugating enzyme activity
+YGL103W	961	50	0.097847358	ORF	511	GUAUGU	CAG	UACUAAC	42	0.659491194	0.58974359	RPL28	protein biosynthesis	nucleus*	structural constituent of ribosome*
+YGL137W	2870	19	0.095	ORF	200	GUAUGU	UAG	UACUAAC	70	0.63	0.552238806	SEC27	ER to Golgi transport*	COPI vesicle coat	molecular function unknown
+YGL178W	3220	4	0.00625	ORF	640	GUAUGU	CAG	UACUAAC	23	0.6328125	0.65	MPT5	cell wall organization and biogenesis*	cytoplasm	mRNA binding
+YGL183C	525	4	0.048192771	ORF	83	GUAUGU	UAG	CACUAAC	38	0.602409639	0.628571429	MND1	meiotic recombination	condensed nuclear chromosome	protein binding*
+YGL187C	822	0	0	5' UTR	342	GUAUGU	UAG	UACUAAC	41	0.669590643	0.578947368	COX4	aerobic respiration*	respiratory chain complex IV (sensu Eukaryota)	cytochrome-c oxidase activity
+YGL189C	738	0	0	5' UTR	368	GUAUGU	UAG	UACUAAC	54	0.679347826	0.568627451	RPS26A	protein biosynthesis	cytosolic small ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YGL226C-A	410	22	0.147651007	ORF	149	GUACGU	AAG	UACUAAC	45	0.630872483	0.595238095	OST5	protein amino acid N-linked glycosylation	oligosaccharyl transferase complex	dolichyl-diphosphooligosaccharide-protein glycotransferase activity
+YGL232W	928	58	1	ORF	58	GUAUGU	UAG	UACUAAC	15	0.655172414	0.25	TAN1	tRNA modification	cytoplasm*	RNA binding
+YGL251C	3716	59	0.388157895	ORF	152	GUAGUA	UAG	GACUAAC	82	0.638157895	0.544303797	HFM1	meiosis*	nucleus	DNA helicase activity
+YGR001C	902	36	0.580645161	ORF	62	GUAAGU	UAG	AACUAAC	14	0.693548387	0.363636364		biological process unknown	cytoplasm	methyltransferase activity
+YGR001C_2	902	577	6.204301075	ORF	93	GUAUGU	UAG	UACUAAC	23	0.76344086	0.5	None	None	None	None
+YGR027C	654	0	0	5' UTR	312	GUAUGU	UAG	UACUAAC	31	0.669871795	0.678571429	RPS25A	protein biosynthesis	cytosolic small ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YGR029W	653	87	1.048192771	ORF	83	GUAUGU	UAG	UAUUAAC	16	0.686746988	0.538461538	ERV1	mitochondrion organization and biogenesis*	mitochondrion*	thiol oxidase activity
+YGR034W	744	20	0.041928721	ORF	477	GUAUGU	UAG	UACUAAC	28	0.691823899	0.68	RPL26B	protein biosynthesis	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome*
+YGR118W	758	66	0.20625	ORF	320	GUAUGU	UAG	UACUAAC	21	0.659375	0.722222222	RPS23A	protein biosynthesis*	cytosolic small ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YGR148C	867	0	0	5' UTR	392	GUAUGU	UAG	UACUAAC	64	0.614795918	0.606557377	RPL24B	protein biosynthesis	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome*
+YGR183C	414	4	0.018779343	ORF	213	GUAUGU	UAG	UACUAAC	20	0.58685446	0.352941176	QCR9	aerobic respiration*	respiratory chain complex III (sensu Eukaryota)	ubiquinol-cytochrome-c reductase activity
+YGR214W	1214	91	0.2	ORF	455	GUAUGU	CAG	UACUAAC	25	0.69010989	0.863636364	RPS0A	protein biosynthesis*	cytosolic small ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YGR225W	1782	1184	12.7311828	ORF	93	GUACGU	CAG	UACUAAC	15	0.709677419	0.583333333	AMA1	sporulation (sensu Fungi)*	anaphase-promoting complex	enzyme activator activity
+YHL001W	815	130	0.326633166	ORF	398	GUAUGU	UAG	UACUAAC	46	0.640703518	0.581395349	RPL14B	protein biosynthesis	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome*
+YHR001W-A	297	7	0.111111111	ORF	63	GUAAGU	CAG	UACUAAC	13	0.714285714	0.5	QCR10	aerobic respiration*	mitochondrion*	ubiquinol-cytochrome-c reductase activity
+YHR010W	972	32	0.057040998	ORF	561	GUACGU	CAG	UACUAAC	29	0.65597148	0.884615385	RPL27A	protein biosynthesis	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YHR012W	968	49	0.411764706	ORF	119	GUAUGU	UAG	UACUAAC	29	0.621848739	0.461538462	VPS29	retrograde transport, endosome to Golgi	endosome*	molecular function unknown
+YHR016C	1575	48	0.285714286	ORF	168	GUAUGU	CAG	UACUAAC	39	0.642857143	0.583333333	YSC84	endocytosis*	actin cortical patch	molecular function unknown
+YHR021C	799	4	0.007272727	ORF	550	GUAUGU	CAG	UACUAAC	54	0.663636364	0.68627451	RPS27B	protein biosynthesis	cytosolic small ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YHR039C-A	507	4	0.024691358	ORF	162	GUAUGU	UAG	UACUAAC	104	0.641975309	0.574257426	VMA10	vacuolar acidification*	hydrogen-transporting ATPase V1 domain	hydrogen-transporting ATPase activity, rotational mechanism
+YHR041C	734	15	0.148514851	ORF	101	GUAUGU	UAG	UGCUAAC	34	0.623762376	0.741935484	SRB2	transcription from RNA polymerase II promoter	mediator complex	RNA polymerase II transcription mediator activity
+YHR077C	3383	7	0.061946903	ORF	113	GUAUGU	CAG	UACUAAC	48	0.663716814	0.555555556	NMD2	mRNA catabolism*	cytoplasm*	protein binding
+YHR079C-A	362	114	1.325581395	ORF	86	GUAUGU	AAG	UAUUAAC	14	0.709302326	0.454545455	SAE3	meiotic recombination*	condensed nuclear chromosome	molecular function unknown
+YHR097C	1225	126	1.016129032	ORF	124	GUAUGU	CAG	UACUAAC	53	0.653225806	0.62		biological process unknown	cytoplasm*	molecular function unknown
+YHR101C	1095	111	1.275862069	ORF	87	GUAUGU	UAG	UACUAAC	34	0.747126437	0.548387097	BIG1	cell wall biosynthesis (sensu Fungi)	integral to endoplasmic reticulum membrane	molecular function unknown
+YHR123W	1267	51	0.56043956	ORF	91	GUAUGU	UAG	UACUAAC	31	0.637362637	0.714285714	EPT1	phosphatidylethanolamine biosynthesis	endoplasmic reticulum	ethanolaminephosphotransferase activity
+YHR141C	762	5	0.011337868	ORF	441	GUAUGU	CAG	UACUAAC	45	0.696145125	0.547619048	RPL42B	protein biosynthesis	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YHR203C	1055	15	0.055762082	ORF	269	GUAUGU	UAG	UACUAAC	40	0.676579926	0.486486486	RPS4B	protein biosynthesis	cytosolic small ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YIL004C	560	12	0.091603053	ORF	131	GUAUGA	UAG	UACUAAC	18	0.65648855	0.466666667	BET1	ER to Golgi transport*	endoplasmic reticulum membrane*	v-SNARE activity
+YIL018W	1165	5	0.0125	ORF	400	GUAUGU	CAG	UACUAAC	32	0.67	0.551724138	RPL2B	protein biosynthesis	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YIL052C	838	38	0.080508475	ORF	472	GUAUGU	CAG	UACUAAC	34	0.663135593	0.548387097	RPL34B	protein biosynthesis*	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YIL069C	817	4	0.009779951	ORF	409	GUAUGU	UAG	UACUAAC	56	0.667481663	0.622641509	RPS24B	protein biosynthesis	cytosolic small ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YIL106W	1030	21	0.247058824	ORF	85	GUAUGU	CAG	UAUUAAC	31	0.705882353	0.428571429	MOB1	protein amino acid phosphorylation*	bud neck*	kinase regulator activity
+YIL111W	544	2	0.022727273	ORF	88	GCAUGU	CAG	UACUAAC	30	0.681818182	0.444444444	COX5B	mitochondrial electron transport, cytochrome c to oxygen*	respiratory chain complex IV (sensu Eukaryota)	cytochrome-c oxidase activity
+YIL133C	890	32	0.110344828	ORF	290	GUACGU	CAG	UACUAAC	56	0.631034483	0.58490566	RPL16A	protein biosynthesis	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome*
+YIL148W	821	9	0.020737327	ORF	434	GUAUGC	CAG	UACUAAC	34	0.679723502	0.677419355	RPL40A	protein biosynthesis*	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome*
+YJL001W	764	66	0.568965517	ORF	116	GUAUGU	UAG	UACUAAC	33	0.732758621	0.466666667	PRE3	response to stress*	proteasome core complex, beta-subunit complex (sensu Eukaryota)	endopeptidase activity
+YJL024C	662	23	0.298701299	ORF	77	GUAUGU	UAG	UACUAAC	23	0.714285714	0.6	APS3	vesicle-mediated transport*	AP-3 adaptor complex	molecular function unknown
+YJL041W	2590	2	0.016949153	ORF	118	GUAUGU	UAG	UACUAAC	42	0.677966102	0.487179487	NSP1	mRNA-nucleus export*	nuclear pore	structural molecule activity
+YJL136C	724	25	0.054347826	ORF	460	GUACGU	UAG	UACUAAC	25	0.658695652	0.681818182	RPS21B	protein biosynthesis	cytosolic small ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YJL177W	872	310	0.977917981	ORF	317	GUAUGU	CAG	UACUAAC	33	0.735015773	0.566666667	RPL17B	protein biosynthesis	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YJL189W	542	7	0.018134715	ORF	386	GUAUGU	UAG	UACUAAC	54	0.660621762	0.647058824	RPL39	protein biosynthesis	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YJL191W	825	11	0.026960784	ORF	408	GUACGU	UAG	UACUAAC	24	0.678921569	0.619047619	RPS14B	protein biosynthesis*	cytosolic small ribosomal subunit (sensu Eukaryota)*	structural constituent of ribosome*
+YJL205C-A	305	33	0.230769231	ORF	143	GUAUGU	CAG	AGUUAAC	70	0.643356643	0.552238806	None	None	None	None
+YJR021C	1025	317	3.9625	ORF	80	GUUCGU	UAG	UACUAAC	13	0.6625	0.4	REC107	meiotic recombination	cellular component unknown	molecular function unknown
+YJR094W-A	554	3	0.010909091	ORF	275	GUAUGC	CAG	UACUAAC	32	0.643636364	0.75862069	RPL43B	protein biosynthesis	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YJR145C	1042	15	0.05859375	ORF	256	GUAUGU	CAG	UACUAAC	81	0.6953125	0.615384615	RPS4A	protein biosynthesis*	cytoplasm*	structural constituent of ribosome
+YKL002W	767	61	0.897058824	ORF	68	GUAUGU	UAG	UACUAAC	21	0.735294118	0.611111111	DID4	protein retention in Golgi*	cytoplasm*	protein binding
+YKL006C-A	435	37	0.262411348	ORF	141	GUAUGU	CAG	UACUAAC	63	0.595744681	0.566666667	SFT1	intra-Golgi transport	Golgi membrane	v-SNARE activity
+YKL006W	815	130	0.326633166	ORF	398	GUAUGU	UAG	UACUAAC	47	0.670854271	0.590909091	RPL14A	protein biosynthesis	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome*
+YKL081W	1565	206	0.63190184	ORF	326	GUAUGU	UAG	UACUAAC	48	0.705521472	0.533333333	TEF4	translational elongation	mitochondrion*	translation elongation factor activity
+YKL156W	599	4	0.011428571	ORF	350	GUAUGU	CAG	UACUAAC	32	0.642857143	0.620689655	RPS27A	protein biosynthesis	cytoplasm*	structural constituent of ribosome
+YKL157W	3191	282	0.736292428	ORF	383	GUAUGU	CAG	UACUAAC	54	0.668407311	0.470588235	APE2	peptide metabolism	cytoplasm*	leucyl aminopeptidase activity
+YKL180W	861	310	1.013071895	ORF	306	GUAUGU	CAG	UACUAAC	22	0.718954248	0.578947368	RPL17A	protein biosynthesis	cytoplasm*	structural constituent of ribosome
+YKL186C	792	71	0.435582822	ORF	163	GUACGU	CAG	AACUAAC	76	0.63190184	0.493150685	MTR2	poly(A)+ mRNA-nucleus export	nuclear pore	protein binding
+YKL186C_2	792	71	0.461038961	ORF	154	GUACGU	CAG	AACUAAC	67	0.623376623	0.515625	None	None	None	None
+YKL186C_3	792	71	0.717171717	ORF	99	GUACGU	UAG	AACUAAC	12	0.676767677	0.777777778	None	None	None	None
+YKL186C_4	792	21	0.098591549	ORF	213	GUAUGU	CAG	AACUAAC	76	0.624413146	0.493150685	None	None	None	None
+YKL186C_5	792	21	0.102941176	ORF	204	GUAUGU	CAG	AACUAAC	67	0.617647059	0.515625	None	None	None	None
+YKL186C_6	792	21	0.140939597	ORF	149	GUAUGU	UAG	AACUAAC	12	0.651006711	0.777777778	None	None	None	None
+YKL190W	604	53	0.697368421	ORF	76	GUAUGU	CAG	UACUAAC	17	0.618421053	0.5	CNB1	cell wall organization and biogenesis*	cytoplasm*	calcium ion binding*
+YKR057W	586	25	0.077639752	ORF	322	GUAUGU	CAG	AACUAAC	20	0.664596273	0.529411765	RPS21A	protein biosynthesis	cytosolic small ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YKR094C	755	9	0.024456522	ORF	368	GUAUGU	CAG	UACUAAC	78	0.676630435	0.6	RPL40B	protein biosynthesis*	mitochondrion*	structural constituent of ribosome*
+YKR095W-A	408	39	0.52	ORF	75	GUAAGU	UAG	UACUAAC	23	0.653333333	0.6	PCC1	biological process unknown	cellular component unknown	molecular function unknown
+YLL050C	611	15	0.083798883	ORF	179	GUAUGC	UAG	UACUAAC	131	0.659217877	0.5234375	COF1	actin filament organization*	actin cortical patch	protein binding
+YLR048W	1118	91	0.253481894	ORF	359	GUAUGU	UAG	UACUAAC	28	0.657381616	0.84	RPS0B	protein biosynthesis*	cytosolic small ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YLR061W	755	13	0.033419023	ORF	389	GUAUGA	UAG	UACUAAC	54	0.709511568	0.647058824	RPL22A	protein biosynthesis	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YLR078C	824	4	0.04494382	ORF	89	GUAUGU	UAG	UACUAAC	28	0.640449438	0.52	BOS1	ER to Golgi transport	endoplasmic reticulum membrane	v-SNARE activity
+YLR093C	903	17	0.120567376	ORF	141	GUAUGU	UAG	GACUAAC	34	0.680851064	0.677419355	NYV1	vesicle fusion	vacuolar membrane	v-SNARE activity
+YLR128W	904	4	0.042553191	ORF	94	GUAUGU	UAG	UACUAAC	43	0.638297872	0.475	DCN1	protein neddylation*	cellular component unknown	enzyme activator activity
+YLR185W	626	8	0.022284123	ORF	359	GUAUGU	UAG	UACUAAC	45	0.64902507	0.547619048	RPL37A	protein biosynthesis	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YLR211C	740	19	0.322033898	ORF	59	GUAAGU	UAG	GACUAAC	9	0.677966102	0.333333333		biological process unknown	cytoplasm	molecular function unknown
+YLR275W	423	6	0.066666667	ORF	90	GUAUGU	CAG	UACUAAC	29	0.755555556	0.576923077	SMD2	nuclear mRNA splicing, via spliceosome	U4/U6 x U5 tri-snRNP complex	RNA splicing factor activity, transesterification mechanism
+YLR287C-A	622	4	0.009302326	ORF	430	GUACGU	UAG	UACUAAC	38	0.702325581	0.6	RPS30A	protein biosynthesis	cytosolic small ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YLR306W	701	4	0.029850746	ORF	134	GUACGU	UAG	UACUAAC	69	0.649253731	0.5	UBC12	protein monoubiquitination*	cellular component unknown	ubiquitin conjugating enzyme activity
+YLR316C	1093	230	4.107142857	ORF	56	GUAUGU	UAG	AACUAAC	11	0.732142857	0.25	TAD3	tRNA modification	cytoplasm*	tRNA specific adenosine deaminase activity
+YLR316C_2	1093	110	1.617647059	ORF	68	GUAUGU	CAG	AACUAAC	22	0.705882353	0.473684211	None	None	None	None
+YLR333C	763	0	0	5' UTR	423	GUAUGU	CAG	CACUAAC	29	0.657210402	0.769230769	RPS25B	protein biosynthesis	cytosolic small ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YLR344W	831	20	0.044742729	ORF	447	GUAUGU	UAG	UACUAAC	19	0.66442953	0.75	RPL26A	protein biosynthesis	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome*
+YLR367W	1440	698	1.445134576	ORF	483	GUAUGU	UAG	UACUAAC	17	0.660455487	0.785714286	RPS22B	protein biosynthesis	cytosolic small ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YLR367W_2	1440	0	0	5' UTR	550	GUAUGU	UAG	UACUAAC	14	0.638181818	0.454545455	None	None	None	None
+YLR388W	664	0	0	5' UTR	488	GUAUGU	CAG	UACUAAC	20	0.62704918	0.647058824	RPS29A	protein biosynthesis	cytosolic small ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YLR406C	691	58	0.166189112	ORF	349	GUAUGU	UAG	UACUAAC	29	0.618911175	0.461538462	RPL31B	protein biosynthesis	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YLR426W	1052	81	1.14084507	ORF	71	GUAUGU	UAG	AACUAAC	4	0.661971831	1		biological process unknown	mitochondrion	molecular function unknown
+YLR448W	915	16	0.041666667	ORF	384	GUAUGU	UAG	UACUAAC	37	0.658854167	0.529411765	RPL6B	protein biosynthesis*	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome*
+YML024W	809	4	0.010050251	ORF	398	GUAUGU	UAG	UACUAAC	57	0.66080402	0.62962963	RPS17A	protein biosynthesis*	cytosolic small ribosomal subunit (sensu Eukaryota)*	structural constituent of ribosome
+YML025C	960	28	0.282828283	ORF	99	GUACGU	UAG	UACUAAC	23	0.616161616	0.55	YML6	protein biosynthesis*	mitochondrial large ribosomal subunit	structural constituent of ribosome
+YML026C	842	48	0.119700748	ORF	401	GUAUGU	CAG	UACUAAC	39	0.658354115	0.527777778	RPS18B	protein biosynthesis	cytosolic small ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YML034W	2631	1921	15.24603175	ORF	126	GUGAGU	UAG	UACUAAC	22	0.817460317	0.842105263	SRC1	mitotic sister chromatid segregation	cellular component unknown	molecular function unknown
+YML034W_2	2631	1917	14.74615385	ORF	130	GCAAGU	UAG	UACUAAC	22	0.807692308	0.842105263	None	None	None	None
+YML056C	1983	461	1.129901961	ORF	408	GUAUGU	CAG	UACUAAC	112	0.700980392	0.52293578	IMD4	biological process unknown	cytoplasm	IMP dehydrogenase activity
+YML067C	1152	32	0.344086022	ORF	93	GUAUGU	CAG	CACUAAC	21	0.698924731	0.444444444	ERV41	ER to Golgi transport	integral to endoplasmic reticulum membrane*	molecular function unknown
+YML073C	946	16	0.038554217	ORF	415	GUAUGU	UAG	UACUAAC	33	0.660240964	0.733333333	RPL6A	protein biosynthesis*	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome*
+YML085C	1460	26	0.224137931	ORF	116	GUAUGU	CAG	UACUAAC	40	0.681034483	0.72972973	TUB1	mitotic sister chromatid segregation*	spindle pole body*	structural constituent of cytoskeleton
+YML094W	575	17	0.204819277	ORF	83	GUAUGU	UAG	UACUAAC	29	0.638554217	0.576923077	GIM5	tubulin folding	cytoplasm*	tubulin binding
+YML124C	1636	26	0.087248322	ORF	298	GUAUGU	CAG	UACUAAC	138	0.617449664	0.614814815	TUB3	mitotic sister chromatid segregation*	spindle pole body*	structural constituent of cytoskeleton
+YMR033W	1490	31	0.360465116	ORF	86	GUACGU	CAG	UACUAAC	15	0.720930233	0.416666667	ARP9	chromatin remodeling	nucleus*	general RNA polymerase II transcription factor activity
+YMR079W	1071	10	0.064102564	ORF	156	GUAUGU	UAG	UACUAAC	38	0.737179487	0.485714286	SEC14	sporulation (sensu Fungi)*	cytosol	phosphatidylinositol transporter activity
+YMR116C	1233	538	1.970695971	ORF	273	GUAUGU	CAG	UACUAAC	19	0.692307692	0.25	ASC1	biological process unknown	cytoplasm	molecular function unknown
+YMR125W	2908	26	0.080745342	ORF	322	GUAUGU	UAG	UACUAAC	41	0.658385093	0.631578947	STO1	nuclear mRNA splicing, via spliceosome*	commitment complex*	mRNA binding
+YMR133W	1403	1243	10.71551724	ORF	116	GUAUGU	AAG	AACUAAC	31	0.646551724	0.464285714	REC114	meiotic recombination*	nucleus	molecular function unknown
+YMR142C	1002	5	0.012437811	ORF	402	GUAUGU	UAG	UACUAAC	20	0.654228856	0.647058824	RPL13B	protein biosynthesis	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YMR143W	976	25	0.045955882	ORF	544	GUAUGU	UAG	UACUAAC	38	0.658088235	0.657142857	RPS16A	protein biosynthesis	cytosolic small ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YMR194W	766	17	0.036717063	ORF	463	GUAUGU	UAG	UACUAAC	28	0.656587473	0.56	RPL36A	protein biosynthesis	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome*
+YMR201C	1200	28	0.333333333	ORF	84	GUAUGU	CAG	UACUAAC	27	0.654761905	0.375	RAD14	nucleotide-excision repair, DNA damage recognition	nucleotide excision repair factor 1 complex	damaged DNA binding
+YMR225C	444	59	0.401360544	ORF	147	GUAUGU	CAG	UACUAAC	32	0.632653061	0.482758621	MRPL44	protein biosynthesis	mitochondrial large ribosomal subunit	structural constituent of ribosome
+YMR230W	728	53	0.129268293	ORF	410	GUAUGU	UAG	UACUAAC	38	0.685365854	0.371428571	RPS10B	protein biosynthesis	cytosolic small ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YMR292W	499	23	0.280487805	ORF	82	GUAUGU	UAG	UACUAAC	17	0.682926829	0.714285714	GOT1	ER to Golgi transport*	Golgi membrane	molecular function unknown
+YNL012W	1980	106	1.261904762	ORF	84	GUAAGU	UAG	AACUAAC	37	0.678571429	0.617647059	SPO1	meiosis	nucleus	phospholipase activity
+YNL044W	610	25	0.316455696	ORF	79	GUAAGU	UAG	CGUUAAC	21	0.734177215	0.833333333	YIP3	ER to Golgi transport	COPII-coated vesicle	molecular function unknown
+YNL050C	904	18	0.197802198	ORF	91	GUAUGC	CAG	UACUAAC	38	0.736263736	0.628571429		biological process unknown	cellular component unknown	molecular function unknown
+YNL069C	1046	29	0.064587973	ORF	449	GUACGU	UAG	UACUAAC	24	0.668151448	0.857142857	RPL16B	protein biosynthesis	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome*
+YNL096C	918	145	0.420289855	ORF	345	GUAUGU	UAG	UACUAAC	34	0.655072464	0.709677419	RPS7B	protein biosynthesis	cytosolic small ribosomal subunit (sensu Eukaryota)*	structural constituent of ribosome
+YNL112W	2643	1274	1.271457086	ORF	1002	GUAUGU	CAG	UACUAAC	42	0.703592814	0.692307692	DBP2	mRNA catabolism, nonsense-mediated decay	cytoplasm*	RNA helicase activity
+YNL130C	1602	30	0.068027211	ORF	441	GCAUGU	UAG	UACUAAC	33	0.675736961	0.566666667	CPT1	phosphatidylcholine biosynthesis	endoplasmic reticulum	diacylglycerol cholinephosphotransferase activity
+YNL147W	444	19	0.158333333	ORF	120	GUAUGU	CAG	UACUAAC	57	0.7	0.462962963	LSM7	nuclear mRNA splicing, via spliceosome*	nucleolus*	RNA binding
+YNL162W	833	5	0.009765625	ORF	512	GUAUGU	UAG	UACUAAC	35	0.658203125	0.6875	RPL42A	protein biosynthesis	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YNL246W	890	33	0.347368421	ORF	95	GUAUGU	CAG	UACUAAC	33	0.589473684	0.4	VPS75	protein-vacuolar targeting	nucleus	molecular function unknown
+YNL265C	1002	28	0.266666667	ORF	105	GUAUGU	UAG	UACUAAC	39	0.752380952	0.416666667	IST1	protein biosynthesis	endosome	translation initiation factor activity
+YNL301C	993	113	0.261574074	ORF	432	GUAUGU	CAG	UACUAAC	39	0.643518519	0.611111111	RPL18B	protein biosynthesis	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YNL302C	986	21	0.038112523	ORF	551	GUACGU	UAG	UACUAAC	33	0.666061706	0.566666667	RPS19B	protein biosynthesis	cytosolic small ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YNL312W	930	8	0.074074074	ORF	108	GUAUGU	CAG	UACUAAC	22	0.685185185	0.368421053	RFA2	DNA recombination*	chromosome, telomeric region*	DNA binding
+YNR053C	1992	811	1.527306968	ORF	531	GUAUGU	UAG	UACUAAC	37	0.677966102	0.588235294	NOG2	ribosome assembly*	nucleus*	GTPase activity
+YOL047C	1134	244	3.873015873	ORF	63	GUAUGU	AAG	UACUAAC	11	0.619047619	0.75		biological process unknown	cytoplasm	molecular function unknown
+YOL048C	1107	286	3.666666667	ORF	78	GUAAGU	UAG	UGUUAAC	5	0.756410256	0.5		biological process unknown	lipid particle	molecular function unknown
+YOL120C	1008	113	0.252796421	ORF	447	GUAUGU	UAG	UACUAAC	23	0.684563758	0.9	RPL18A	protein biosynthesis	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YOL121C	825	21	0.053846154	ORF	390	GUACGU	CAG	UACUAAC	34	0.687179487	0.709677419	RPS19A	protein biosynthesis	cytosolic small ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YOL127W	843	14	0.033816425	ORF	414	GUAUGU	UAG	CAUUAAC	34	0.649758454	0.64516129	RPL25	protein biosynthesis*	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome*
+YOR096W	974	145	0.36159601	ORF	401	GUAUGU	UAG	UACUAAC	31	0.66084788	0.892857143	RPS7A	protein biosynthesis	cytosolic small ribosomal subunit (sensu Eukaryota)*	structural constituent of ribosome
+YOR122C	590	14	0.066985646	ORF	209	GUAUGU	CAG	UACUAAC	71	0.669856459	0.573529412	PFY1	response to osmotic stress*	actin cap*	actin monomer binding
+YOR182C	603	4	0.00973236	ORF	411	GUACGU	UAG	UACUAAC	39	0.705596107	0.638888889	RPS30B	protein biosynthesis	cytosolic small ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YOR234C	851	20	0.037950664	ORF	527	GUAUGU	UAG	UACUAAC	48	0.648956357	0.622222222	RPL33B	protein biosynthesis	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YOR293W	755	53	0.121281465	ORF	437	GUAUGU	CAG	UACUAAC	68	0.629290618	0.615384615	RPS10A	protein biosynthesis	cytosolic small ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YOR312C	932	2	0.004694836	ORF	426	GUAUGU	CAG	UACUAAC	36	0.699530516	0.606060606	RPL20B	protein biosynthesis	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YPL031C	1020	18	0.176470588	ORF	102	GUAUGU	CAG	UACUAAC	40	0.68627451	0.405405405	PHO85	protein amino acid phosphorylation*	nucleus	cyclin-dependent protein kinase activity
+YPL075W	3109	9	0.011984021	ORF	751	GUAUGA	UAG	UACUAAC	50	0.665778961	0.489361702	GCR1	positive regulation of transcription from RNA polymerase II promoter*	nucleus	DNA binding*
+YPL079W	904	12	0.028503563	ORF	421	GUAUGU	CAG	UACUAAC	61	0.70783848	0.431034483	RPL21B	protein biosynthesis	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YPL081W	1095	8	0.015968064	ORF	501	GUACGU	CAG	CACUAAC	27	0.662674651	0.458333333	RPS9A	protein biosynthesis*	cytoplasm*	structural constituent of ribosome
+YPL090C	1105	7	0.017766497	ORF	394	GUAUGA	UAG	UACUAAC	36	0.697969543	0.484848485	RPS6A	protein biosynthesis	cytosolic small ribosomal subunit (sensu Eukaryota)*	structural constituent of ribosome
+YPL129W	840	10	0.095238095	ORF	105	GUAUGU	CAG	UACUAAC	35	0.676190476	0.59375	TAF14	chromatin remodeling*	mediator complex*	general RNA polymerase II transcription factor activity
+YPL143W	849	20	0.038095238	ORF	525	GUAUGU	UAG	UACUAAC	37	0.68952381	0.794117647	RPL33A	protein biosynthesis	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YPL175W	1459	18	0.18	ORF	100	GUAUGU	UAG	UACUAAC	33	0.68	0.3	SPT14	GPI anchor biosynthesis	endoplasmic reticulum*	UDP-glycosyltransferase activity
+YPL198W	1551	12	0.029339853	ORF	409	GUAUGU	UAG	UGCUAAC	21	0.687041565	0.722222222	RPL7B	protein biosynthesis	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YPL198W_2	1551	515	1.265356265	ORF	407	GUAUGU	UAG	UACUAAC	34	0.702702703	0.516129032	None	None	None	None
+YPL218W	712	29	0.208633094	ORF	139	GUAUGU	CAG	UACUAAC	17	0.705035971	0.714285714	SAR1	ER to Golgi transport	COPII vesicle coat	GTPase activity
+YPL241C	887	26	0.325	ORF	80	GUAUGU	UAG	AAUUAAC	34	0.7	0.677419355	CIN2	microtubule-based process	cellular component unknown	molecular function unknown
+YPL249C-A	541	17	0.071428571	ORF	238	GUAUGU	UAG	UACUAAC	27	0.630252101	0.708333333	RPL36B	protein biosynthesis	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome*
+YPR028W	676	52	0.390977444	ORF	133	GUAUGU	CAG	UACUAAC	44	0.609022556	0.658536585	YOP1	vesicle-mediated transport	integral to membrane	protein binding
+YPR043W	682	3	0.007444169	ORF	403	GUAUGA	CAG	UACUAAC	32	0.662531017	0.689655172	RPL43A	protein biosynthesis	cytosolic large ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
+YPR063C	509	42	0.488372093	ORF	86	GUAUGU	CAG	UACUAAC	27	0.639534884	0.708333333		biological process unknown	endoplasmic reticulum	molecular function unknown
+YPR098C	582	48	0.5	ORF	96	GUAUGU	CAG	GACUAAC	29	0.739583333	0.653846154		biological process unknown	mitochondrion	molecular function unknown
+YPR132W	803	66	0.180821918	ORF	365	GUAUGU	CAG	UACUAAC	59	0.682191781	0.517857143	RPS23B	protein biosynthesis*	cytosolic small ribosomal subunit (sensu Eukaryota)	structural constituent of ribosome
