@@ -10,6 +10,9 @@ Here's an overview of each of the stages of today's lab:
 
 * Step 3: write an `annotateChromosome` function which takes the name of a file containing genomic DNA sequence for a yeast chromosome and returns a `data.frame` where each row is a description of a different putative ORF on that chromosome.
 
+* Step 4: glue everything together with an `annotateGenome` function that loads DNA sequence for each yeast chromosome and annotates it with `annotateChromosome`.
+
+
 # Step 1: transcribe and translate
 
 ## Refine your transcribe function
@@ -286,4 +289,131 @@ Return to the template for your `findOrf` function above and fill in the functio
 Finally, we've promised that our function returns a data.frame.  Up to this point we haven't explicitly addressed how we tell R what to return as the value of our functions.  If we don't tell R what to do, it will just return the result of the last computation by default.  We can be explicit about what we want to return from our function using the `return` function, like: `return(orfTable)`
 
 
-# Step 3:
+# Step 3:  Chromosome annotation
+
+## Overview
+
+Now we're ready to think about the structure of our function which will annotate all of the possible ORFs in the sequence for a chromosome.  Here's the template we'll use for our big annotation function:
+
+``` {r}
+# Finds all open reading frames in the chromosome sequence in a FASTA file
+#
+# fastaFile   A string containing the name of a chromosome file in FASTA format
+#
+# value       A data.frame.  Coordinates are relative to DNA sequence in input.
+#
+annotateChromosome <- function(fastaFile) {
+
+  #Insert your code here
+
+}
+````
+
+We'll also write a few helper functions to keep annotateChromosome from becomming too bloated.
+
+Here are the templates:
+
+``` {r}
+# Parses a sequence file in FASTA format
+#
+# fastaFile   A string giving the name of a fasta file to parse
+#
+# value       A string containing the parsed sequence
+#
+loadFASTA <- function(fastaFile) {
+
+  #Insert your code here
+
+}
+
+# Annotates the ORFs found in a given frame of a dnaString
+#
+# dnaStrand   A string containing DNA sequence
+# offset      The frame offset (0, 1, or 2)
+#
+# value       A data.frame.  Coordinates are relative to dnaStrand.
+#
+annotateFrame <- function(dnaStrand, offset) {
+
+  #Insert your code here
+
+}
+
+# Calculates the reverse complement of a dnaStrand
+#
+# dnaStrand   A string containing the forward DNA sequence
+#
+# value       A string containing the reverse complement to dnaStrand
+#
+reverseComplement <- function(dnaStrand) {
+
+  #Insert your code here
+
+}
+
+# Reverses the characters in a string
+reverseString <- function(a) {
+  paste(rev(substring(a,1:nchar(a),1:nchar(a))),collapse="") 
+}
+````
+
+I snuck in a function implementation in the last section; this is a common idiom used in R to reverse the sequence of a string.  Hopefully you can prove to yourself that you understand why it works!
+
+I'm not going to walk you through exactly how to write the body of each of these functions.  Instead, I'll give some pointers for each in the sections that follow.
+
+## reverseComplement
+
+To implement this function you'll probably want to use the `reverseString` utility function.  You'll hopefully also be thinking that you'll want to use `gsub` to switch A -> T, G -> C and visa versa.
+
+However, consider the following:
+
+``` {r}
+dna <- "ATGCATCG"
+dna <- gsub("A","T", dna)
+dna
+dna <- gsub("G","C", dna)
+dna
+dna <- gsub("T","A", dna)
+dna
+dna <- gsub("C","G", dna)
+dna
+````
+
+What happened here?  To get around this problem you can use a little trick: switch the case of the substitution letter then use the `toupper` function to convert lower case letters back to upper case.  For example:
+
+``` {r}
+dna <- "ATGCATCG"
+dna <- gsub("A","t", dna)
+dna
+dna <- toupper(dna)
+dna
+````
+
+## annotateFrame
+
+This function is setup to accept a frame `offset` argument.  You'll call `annotateFrame` from annotate chromosome six times, once for each strand, and three times with offset = 0, offset = 1, and offset = 2.
+
+If you call findORFs from annotateFrame remember that you'll want to convert lenths and startPositions from the amino acid coordinates to the correct DNA coordinates.  To update the data from a data.frame in place you can use the following syntax:
+
+``` {r}
+orfTable$length <- orfTable$ length * 2
+````
+
+## loadFASTA
+
+Take a look at the format of FASTA files.  You'll want to omit the first line of this file because it doesn't contain sequence.  We can do that with selectors:
+
+``` {r}
+dnaLines <- readLines("sample.fasta")
+dnaLines <- dnaLines[2:length(dnaLines)]
+````
+
+Also we'll want to collapse all of the strings in this vector into a single string.  We can use paste to do that:
+
+``` {r}
+dna <- paste(dnaLines, collapse="", sep="")
+````
+
+## Combining data.frame objects
+
+In several places you'll want to be able to combine `data.frame` tables, adding the rows of one table to another.  See the `merge` function of a convenient way to do this!

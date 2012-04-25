@@ -45,6 +45,7 @@
 <li><p>Step 1: refine <code>transcribe</code> and <code>translate</code>.  We&#39;ll start by refining your earlier versions of the <code>transribe</code> and <code>translate</code> functions.  We&#39;re going to use these to help us write an ORF finder.</p></li>
 <li><p>Step 2: write an <code>findORF</code> function.  Next, we&#39;ll write a function which takes a string of amino acids and returns all of the possible true ORFs in that string.  This function will accept a <code>cutoff</code> argument which filters out ORFs which are likely too small to be real.</p></li>
 <li><p>Step 3: write an <code>annotateChromosome</code> function which takes the name of a file containing genomic DNA sequence for a yeast chromosome and returns a <code>data.frame</code> where each row is a description of a different putative ORF on that chromosome.</p></li>
+<li><p>Step 4: glue everything together with an <code>annotateGenome</code> function that loads DNA sequence for each yeast chromosome and annotates it with <code>annotateChromosome</code>.</p></li>
 </ul>
 </section>
 <section><h1>Step 1: transcribe and translate</h1>
@@ -281,8 +282,126 @@ attr(,"useBytes")
 
 <p>Finally, we&#39;ve promised that our function returns a data.frame.  Up to this point we haven&#39;t explicitly addressed how we tell R what to return as the value of our functions.  If we don&#39;t tell R what to do, it will just return the result of the last computation by default.  We can be explicit about what we want to return from our function using the <code>return</code> function, like: <code>return(orfTable)</code></p>
 </section></section>
-<section><h1>Step 3:</h1>
+<section><h1>Step 3:  Chromosome annotation</h1>
+
+<section><h2>Overview</h2>
+
+<p>Now we&#39;re ready to think about the structure of our function which will annotate all of the possible ORFs in the sequence for a chromosome.  Here&#39;s the template we&#39;ll use for our big annotation function:</p>
+
+<pre class="knitr"><div class="source"><span class="comment"># Finds all open reading frames in the chromosome sequence in a FASTA file</span>
+<span class="comment">#</span>
+<span class="comment"># fastaFile   A string containing the name of a chromosome file in FASTA format</span>
+<span class="comment">#</span>
+<span class="comment"># value       A data.frame.  Coordinates are relative to DNA sequence in input.</span>
+<span class="comment">#</span>
+<span class="symbol">annotateChromosome</span> <span class="assignement">&lt;-</span> <span class="keyword">function</span><span class="keyword">(</span><span class="formalargs">fastaFile</span><span class="keyword">)</span> <span class="keyword">{</span>
+
+  <span class="comment">#Insert your code here</span>
+
+<span class="keyword">}</span></div></pre>
+
+<p>We&#39;ll also write a few helper functions to keep annotateChromosome from becomming too bloated.</p>
+
+<p>Here are the templates:</p>
+
+<pre class="knitr"><div class="source"><span class="comment"># Parses a sequence file in FASTA format</span>
+<span class="comment">#</span>
+<span class="comment"># fastaFile   A string giving the name of a fasta file to parse</span>
+<span class="comment">#</span>
+<span class="comment"># value       A string containing the parsed sequence</span>
+<span class="comment">#</span>
+<span class="symbol">loadFASTA</span> <span class="assignement">&lt;-</span> <span class="keyword">function</span><span class="keyword">(</span><span class="formalargs">fastaFile</span><span class="keyword">)</span> <span class="keyword">{</span>
+
+  <span class="comment">#Insert your code here</span>
+
+<span class="keyword">}</span>
+
+<span class="comment"># Annotates the ORFs found in a given frame of a dnaString</span>
+<span class="comment">#</span>
+<span class="comment"># dnaStrand   A string containing DNA sequence</span>
+<span class="comment"># offset      The frame offset (0, 1, or 2)</span>
+<span class="comment">#</span>
+<span class="comment"># value       A data.frame.  Coordinates are relative to dnaStrand.</span>
+<span class="comment">#</span>
+<span class="symbol">annotateFrame</span> <span class="assignement">&lt;-</span> <span class="keyword">function</span><span class="keyword">(</span><span class="formalargs">dnaStrand</span><span class="keyword">,</span> <span class="formalargs">offset</span><span class="keyword">)</span> <span class="keyword">{</span>
+
+  <span class="comment">#Insert your code here</span>
+
+<span class="keyword">}</span>
+
+<span class="comment"># Calculates the reverse complement of a dnaStrand</span>
+<span class="comment">#</span>
+<span class="comment"># dnaStrand   A string containing the forward DNA sequence</span>
+<span class="comment">#</span>
+<span class="comment"># value       A string containing the reverse complement to dnaStrand</span>
+<span class="comment">#</span>
+<span class="symbol">reverseComplement</span> <span class="assignement">&lt;-</span> <span class="keyword">function</span><span class="keyword">(</span><span class="formalargs">dnaStrand</span><span class="keyword">)</span> <span class="keyword">{</span>
+
+  <span class="comment">#Insert your code here</span>
+
+<span class="keyword">}</span>
+
+<span class="comment"># Reverses the characters in a string</span>
+<span class="symbol">reverseString</span> <span class="assignement">&lt;-</span> <span class="keyword">function</span><span class="keyword">(</span><span class="formalargs">a</span><span class="keyword">)</span> <span class="keyword">{</span>
+  <span class="functioncall">paste</span><span class="keyword">(</span><span class="functioncall">rev</span><span class="keyword">(</span><span class="functioncall">substring</span><span class="keyword">(</span><span class="symbol">a</span><span class="keyword">,</span><span class="number">1</span><span class="keyword">:</span><span class="functioncall">nchar</span><span class="keyword">(</span><span class="symbol">a</span><span class="keyword">)</span><span class="keyword">,</span><span class="number">1</span><span class="keyword">:</span><span class="functioncall">nchar</span><span class="keyword">(</span><span class="symbol">a</span><span class="keyword">)</span><span class="keyword">)</span><span class="keyword">)</span><span class="keyword">,</span><span class="argument">collapse</span><span class="argument">=</span><span class="string">""</span><span class="keyword">)</span>
+<span class="keyword">}</span></div></pre>
+
+<p>I snuck in a function implementation in the last section; this is a common idiom used in R to reverse the sequence of a string.  Hopefully you can prove to yourself that you understand why it works!</p>
+
+<p>I&#39;m not going to walk you through exactly how to write the body of each of these functions.  Instead, I&#39;ll give some pointers for each in the sections that follow.</p>
 </section>
+<section><h2>reverseComplement</h2>
+
+<p>To implement this function you&#39;ll probably want to use the <code>reverseString</code> utility function.  You&#39;ll hopefully also be thinking that you&#39;ll want to use <code>gsub</code> to switch A -&gt; T, G -&gt; C and visa versa.</p>
+
+<p>However, consider the following:</p>
+
+<pre class="knitr"><div class="source"><span class="symbol">dna</span> <span class="assignement">&lt;-</span> <span class="string">"ATGCATCG"</span>
+<span class="symbol">dna</span> <span class="assignement">&lt;-</span> <span class="functioncall">gsub</span><span class="keyword">(</span><span class="string">"A"</span><span class="keyword">,</span><span class="string">"T"</span><span class="keyword">,</span> <span class="symbol">dna</span><span class="keyword">)</span>
+<span class="symbol">dna</span></div><div class="output">[1] "TTGCTTCG"
+</div><div class="source"><span class="symbol">dna</span> <span class="assignement">&lt;-</span> <span class="functioncall">gsub</span><span class="keyword">(</span><span class="string">"G"</span><span class="keyword">,</span><span class="string">"C"</span><span class="keyword">,</span> <span class="symbol">dna</span><span class="keyword">)</span>
+<span class="symbol">dna</span></div><div class="output">[1] "TTCCTTCC"
+</div><div class="source"><span class="symbol">dna</span> <span class="assignement">&lt;-</span> <span class="functioncall">gsub</span><span class="keyword">(</span><span class="string">"T"</span><span class="keyword">,</span><span class="string">"A"</span><span class="keyword">,</span> <span class="symbol">dna</span><span class="keyword">)</span>
+<span class="symbol">dna</span></div><div class="output">[1] "AACCAACC"
+</div><div class="source"><span class="symbol">dna</span> <span class="assignement">&lt;-</span> <span class="functioncall">gsub</span><span class="keyword">(</span><span class="string">"C"</span><span class="keyword">,</span><span class="string">"G"</span><span class="keyword">,</span> <span class="symbol">dna</span><span class="keyword">)</span>
+<span class="symbol">dna</span></div><div class="output">[1] "AAGGAAGG"
+</div></pre>
+
+<p>What happened here?  To get around this problem you can use a little trick: switch the case of the substitution letter then use the <code>toupper</code> function to convert lower case letters back to upper case.  For example:</p>
+
+<pre class="knitr"><div class="source"><span class="symbol">dna</span> <span class="assignement">&lt;-</span> <span class="string">"ATGCATCG"</span>
+<span class="symbol">dna</span> <span class="assignement">&lt;-</span> <span class="functioncall">gsub</span><span class="keyword">(</span><span class="string">"A"</span><span class="keyword">,</span><span class="string">"t"</span><span class="keyword">,</span> <span class="symbol">dna</span><span class="keyword">)</span>
+<span class="symbol">dna</span></div><div class="output">[1] "tTGCtTCG"
+</div><div class="source"><span class="symbol">dna</span> <span class="assignement">&lt;-</span> <span class="functioncall">toupper</span><span class="keyword">(</span><span class="symbol">dna</span><span class="keyword">)</span>
+<span class="symbol">dna</span></div><div class="output">[1] "TTGCTTCG"
+</div></pre>
+</section>
+<section><h2>annotateFrame</h2>
+
+<p>This function is setup to accept a frame <code>offset</code> argument.  You&#39;ll call <code>annotateFrame</code> from annotate chromosome six times, once for each strand, and three times with offset = 0, offset = 1, and offset = 2.</p>
+
+<p>If you call findORFs from annotateFrame remember that you&#39;ll want to convert lenths and startPositions from the amino acid coordinates to the correct DNA coordinates.  To update the data from a data.frame in place you can use the following syntax:</p>
+
+<pre class="knitr"><div class="source"><span class="symbol">orfTable</span><span class="keyword">$</span><span class="symbol">length</span> <span class="assignement">&lt;-</span> <span class="symbol">orfTable</span><span class="keyword">$</span> <span class="symbol">length</span> <span class="keyword">*</span> <span class="number">2</span></div></pre>
+</section>
+<section><h2>loadFASTA</h2>
+
+<p>Take a look at the format of FASTA files.  You&#39;ll want to omit the first line of this file because it doesn&#39;t contain sequence.  We can do that with selectors:</p>
+
+<pre class="knitr"><div class="source"><span class="symbol">dnaLines</span> <span class="assignement">&lt;-</span> <span class="functioncall">readLines</span><span class="keyword">(</span><span class="string">"sample.fasta"</span><span class="keyword">)</span></div><div class="warning">Warning message: cannot open file 'sample.fasta': No such file or directory
+</div><div class="error">Error: cannot open the connection
+</div><div class="source"><span class="symbol">dnaLines</span> <span class="assignement">&lt;-</span> <span class="symbol">dnaLines</span><span class="keyword">[</span><span class="number">2</span><span class="keyword">:</span><span class="functioncall">length</span><span class="keyword">(</span><span class="symbol">dnaLines</span><span class="keyword">)</span><span class="keyword">]</span></div><div class="error">Error: object 'dnaLines' not found
+</div></pre>
+
+<p>Also we&#39;ll want to collapse all of the strings in this vector into a single string.  We can use paste to do that:</p>
+
+<pre class="knitr"><div class="source"><span class="symbol">dna</span> <span class="assignement">&lt;-</span> <span class="functioncall">paste</span><span class="keyword">(</span><span class="symbol">dnaLines</span><span class="keyword">,</span> <span class="argument">collapse</span><span class="argument">=</span><span class="string">""</span><span class="keyword">,</span> <span class="argument">sep</span><span class="argument">=</span><span class="string">""</span><span class="keyword">)</span></div><div class="error">Error: object 'dnaLines' not found
+</div></pre>
+</section>
+<section><h2>Combining data.frame objects</h2>
+
+<p>In several places you&#39;ll want to be able to combine <code>data.frame</code> tables, adding the rows of one table to another.  See the <code>merge</code> function of a convenient way to do this!</p>
+</section></section>
   </div>
   <!-- end of courser content -->
 
