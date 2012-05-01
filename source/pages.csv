@@ -4,3 +4,5 @@ source/sequencing.md,"Sequencing technologies","Class","How do we sequence DNA? 
 source/r-introduction.rmd,"Welcome to R","Lab","An introduction to R with an emphasis on why it is an *awesome* data analysis tool."
 source/r-201.rmd,"R 201: tables, filters and apply's, oh my!","Lab","R language features that useful when working with tabular data."
 source/genomelab.rmd,"Yeast genome annotation lab","Lab","Today in lab you will perform a *de novo* annotation of the entire yeast genome."
+source/genomelab-solutions.rmd,"Yeast genome annotation lab (solutions)","Lab","Solutions to the function implementation challenges from the yeast genome annotation lab."
+source/plotstats.rmd,"Basic plotting and statistics","Lab","An introduction to producing simple plots and performing basic statistical analysis in R."

@@ -3,7 +3,7 @@ make <- function() {
   
   #Load courseR
   source('~/courseR/courseR.R')
-  
+
   #Build the site
   makeSite(html.template  = "templates/page.html",
            pages          = read.csv("source/pages.csv", stringsAsFactors = FALSE),

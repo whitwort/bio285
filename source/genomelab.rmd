@@ -495,4 +495,4 @@ See what happened there?  The "[ ... ]" say 'match any of the letters or numbers
 
 Refactor your annotateChromosome function so that it first finds and then removes (hint: gsub) all of the likely introns from the chromosomal sequence before attempting to annotate the ORFs.
 
-How did your ORF lsit change when you accounted for introns?
+How did your ORF list change when you accounted for introns?
