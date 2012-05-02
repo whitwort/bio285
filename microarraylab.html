@@ -1,0 +1,147 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+
+  <title>Micrarray data analysis lab</title>
+  <meta name="description" content="">
+
+  <!-- Mobile viewport optimized: h5bp.com/viewport -->
+  <meta name="viewport" content="width=device-width">
+
+  <!-- Tell iOS to run as an app if launched from home screen -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/page.css">
+  <link rel="stylesheet" href="css/code.css">
+  <link rel="stylesheet" href="css/print.css">
+
+  <!-- All JavaScript at the bottom, except this Modernizr build. -->
+  <script src="js/vendor/modernizr-2.5.3.min.js" type="text/javascript"></script>
+</head>
+
+<body>
+  <!-- Prompt IE 6 users to install Chrome Frame. -->
+  <!--[if lt IE 9]>
+    <p class=chromeframe>
+      Your web browser is <em>ancient!</em> <a href="http://browsehappy.com/">You should upgrade to a new browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.
+    </p>
+  <![endif]-->
+
+  <!-- courseR content will be injected here -->
+  <div id = "courser-stuff" class = "pageView">
+<section>  <h1>Lab:  Explorying Gene Expression Data</h1>
+
+<p>Today in lab we will be exploring the original DeRisi 1997 yeast diauxic shift microarray dataset.  We&#39;ll begin our data analysis with the image analysis data that is derived directly from the scan of microarray and see how to use a number of different data processing and visualization procedures.</p>
+</section>
+<section><h1>Step 1: Download the data</h1>
+
+<p>There are two major public repositories of microarray datasets:  <a href="http://www.ncbi.nlm.nih.gov/geo/">GEO</a> (NCBI) and <a href="http://www.ebi.ac.uk/arrayexpress/">ArrayExpress</a> (EMBL).  Today we&#39;ll be pulling data from GEO.</p>
+
+<p>Using the search features on the <a href="http://www.ncbi.nlm.nih.gov/geo/">GEO website</a>, find the DeRisi 1997 yeast diauxic shift dataset.</p>
+
+<p>(<em>Hint:  if the series is not GSE28, you’re on the wrong record</em>)</p>
+
+<ul>
+<li>Take a moment to look at how information about microarray experiments is annotated in this database.  What information is recorded in this database?  How is it organized?</li>
+<li>Examine at the Platform record.  The term &#39;platform&#39; here refers to the microarray design itself.  Explore the information that is annotated in the platform record.</li>
+<li>  Explore the structure of the Sample records.  You can use the &ldquo;View full table&rdquo; button to get a view of all of the data.  What is the structure of these records?  What kinds of data does each contain?</li>
+<li>Find a way to download this data so that you can save the tabular image analysis information for sample records in text files in your home directory.  You&#39;ll want to make sure that these files do not have the header (&ldquo;#&rdquo;) lines in them, since <code>read.delim</code> won&#39;t be able to parse these lines.</li>
+</ul>
+
+<p>Download microarray data corresponding to the pre-diauxic shift samples (0’ time point) and at least one other time point of your choosing.  Save the two data sets in text files in your folder.</p>
+</section>
+<section><h1>Step 2:  Look at the format of the data table</h1>
+
+<p>The two files you just downloaded hold the results of a microarray image analysis, along with the results of the data pre-processing done for the published paper.</p>
+
+<p>Answer the following questions for yourself about the structure of the data:</p>
+
+<ul>
+<li>  There are two sections to these text files, a header and a data table.  What information is held in each?</li>
+<li>  What do the rows of the data table represent?</li>
+<li>  What information about each row does each of the columns hold?  Is there anything odd here?</li>
+<li>  What is the text format of this table?  How are rows separated?  How are elements within each row separated?</li>
+</ul>
+
+<p>Use R to load the data in these tables into data.frame structures.  Think carefully about how you are naming your variables and keeping track of your work.  Unlike the last lab, today I won&#39;t be providing templates for you to follow, so its up to you and your lab partner to keep yourselves organized!</p>
+</section>
+<section><h1>Step 3:  Calculating a ratio</h1>
+
+<p>In this data file the authors have done some of the data pre-processing work for us – namely, normalizing the ratios – but let’s pretend they haven’t!</p>
+
+<p>Using ONLY the data in the “CH1D_MEAN” and “CH2D_MEAN” columns, add a column to your data structure that calculates the ratio of the Cy5 (CH1) to Cy3 (CH2) samples for each spot on the array.  </p>
+
+<p>(<em>Hint:  you may have to convert the numbers read from the file from strings to integers.</em>)</p>
+
+<p>Add another column that converts these plain ratios to the Log2(ratio). </p>
+</section>
+<section><h1>Step 4:  Distribution of ratio values</h1>
+
+<p>At this point, it would make sense for us to look at the distribution of the ratio values on our array.  One common problem with competitive hybridization microarrays (two-color arrays) is that a sample with one of the dies has often been loaded at a slightly higher concentration than the other.  This is usually do to subtle pipetting or cDNA concentration calculation errors.  Examining a distribution of ratio values on our array should help us identify any bias towards the green or red end of the color spectrum.</p>
+
+<p>Functions which might prove useful to you are the <code>density</code>, <code>hist</code>, or <code>boxplot</code> functions.  Use R to produce at least two different plots that allow us to visualize the distribution of ratio values.  </p>
+
+<p>For this excercise will you want to be working with the raw ratio values or the Log2 transformed values?  Why?</p>
+
+<p>Save these plots in your home directory using the &ldquo;Export&rdquo; button.  </p>
+
+<p>Do you see a ratio bias in these data?</p>
+</section>
+<section><h1>Step 5:  Distribution of ratio values, Part 2</h1>
+
+<p>To help us to better understand the distributions we see above, it might be useful to consider a couple additional strategies for visualizing these data.</p>
+
+<p>First, it might be interesting to examine a scatter plot comparing the red channel pixel intensity to the green channel pixel intensity for each individual spot on the array.  You will be able to use the standard <code>plot</code> function to accomplis this!  Produce this scatter plot.  Make sure your plot includes clearly labeled axes.  What can we learn about the overall distribution of ratios on the array from this plot?  On average are the changes large or small?  Are few genes affected or only a small number?</p>
+
+<p>Second, we should also examine whether or not the total intensity of a spot is related to the ratio bias observed above.  Make a scatter plot aimed at addressing this question (compare the color ratio of each spot to its total intensity).  You&#39;ll have to decide how you want to calculate the total intensity for spot.  Was there an intensity bias?  Why might this be of a concern to us?  What might this tell us about the behavior of the dies used to label the two samples on this array?</p>
+</section>
+<section><h1>Step 6:  Background intensity</h1>
+
+<p>So far we&#39;ve been ignoring background pixel intensities.  These values are a measure of the brightness in the regions surround each spot (the &ldquo;background&rdquo;).  Background is obviously noise and doesn&#39;t correspond to cDNA&#39;s binding specifically to probes on the array.</p>
+
+<p>Produce a visualization to help us asses how variable the background intensities are across the surface of the array. One great way to do this would be to produce a heat map, where each box corresponds to a spot position on our array and the color corresponds to the intensity of the background at that spot.  This can be done with the <code>heatmap</code> function.  Explore the way the heatmap function works using some sample data.  Think about the structure of the data you want to pass into <code>heatmap</code> and how you can make a matrix conforming to this architecture using your existing data.frames.</p>
+
+<p>Are they regular or are some much higher than others?  Where are the problems the greatest?</p>
+
+<p>How should we use background intensity information?  </p>
+</section>
+<section><h1>Step 8:  Normalize your data</h1>
+
+<p>Knowing what you know now about your data, design a way to add a normalized ratio column to your data structure in python.  Implement it, run it, and check to make sure it worked!</p>
+</section>
+<section><h1>Step 9:  Collecting pre-processed data and integrating annotations</h1>
+
+<p>Up to this point we’ve been looking at our data one microarray table at a time.  As we start exploring the data it would be more convenient to have a new table which contains just the set of final normalized ratio values for each array.  Let’s list arrays across the columns and genes down the rows.</p>
+
+<p>You also may have noticed that the array data files we downloaded from GEO don’t tell us which row is associated with which yeast gene – instead it gives us an ID_REF column.  The IDs in this column match up with the IDs in the platform table (see step #1).  Since we’re building a new table at this point it makes sense to pull in the gene annotations at this point as well.</p>
+
+<p>Here’s an example o f the table we’re aiming to construct:</p>
+
+<p>ID_REF  ORFName GeneName    Array_1 Array _2<br/>
+1   YGR250C Gene #1 0.51    5.02<br/>
+2       Gene #2 -4.25   -1.32<br/>
+…             </p>
+
+<p>Implement a function to do it!  Your function will probably need to take multiple source array data tables, know which column to pull data from and take a platform table…</p>
+</section>
+<section><h1>Step 10:  Exploring the data set</h1>
+
+<p>Now explore the data set!  Find genes which showed expression level changes &gt; 2x between the 0’ time point and the experimental time point you chose.</p>
+</section>
+  </div>
+  <!-- end of courser content -->
+
+  <!-- JavaScript at the bottom for fast page loading -->
+  <script src=js/vendor/jquery-1.7.2.min.js type="text/javascript"></script>
+  <script src=js/plugins.js type="text/javascript"></script>
+  <script src=js/main.js type="text/javascript"></script>
+  <script src=js/vendor/reveal.js type="text/javascript"></script>
+
+</body>
+</html>

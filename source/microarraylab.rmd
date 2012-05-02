@@ -1,0 +1,104 @@
+# Lab:  Explorying Gene Expression Data
+
+Today in lab we will be exploring the original DeRisi 1997 yeast diauxic shift microarray dataset.  We'll begin our data analysis with the image analysis data that is derived directly from the scan of microarray and see how to use a number of different data processing and visualization procedures.
+
+
+# Step 1: Download the data
+
+There are two major public repositories of microarray datasets:  [GEO](http://www.ncbi.nlm.nih.gov/geo/) (NCBI) and [ArrayExpress](http://www.ebi.ac.uk/arrayexpress/) (EMBL).  Today we'll be pulling data from GEO.
+
+Using the search features on the [GEO website](http://www.ncbi.nlm.nih.gov/geo/), find the DeRisi 1997 yeast diauxic shift dataset.
+
+(*Hint:  if the series is not GSE28, you’re on the wrong record*)
+
+* Take a moment to look at how information about microarray experiments is annotated in this database.  What information is recorded in this database?  How is it organized?
+* Examine at the Platform record.  The term 'platform' here refers to the microarray design itself.  Explore the information that is annotated in the platform record.
+*	Explore the structure of the Sample records.  You can use the "View full table" button to get a view of all of the data.  What is the structure of these records?  What kinds of data does each contain?
+* Find a way to download this data so that you can save the tabular image analysis information for sample records in text files in your home directory.  You'll want to make sure that these files do not have the header ("#") lines in them, since `read.delim` won't be able to parse these lines.
+
+Download microarray data corresponding to the pre-diauxic shift samples (0’ time point) and at least one other time point of your choosing.  Save the two data sets in text files in your folder.
+
+
+#  Step 2:  Look at the format of the data table
+
+The two files you just downloaded hold the results of a microarray image analysis, along with the results of the data pre-processing done for the published paper.
+
+Answer the following questions for yourself about the structure of the data:
+
+*	There are two sections to these text files, a header and a data table.  What information is held in each?
+*	What do the rows of the data table represent?
+*	What information about each row does each of the columns hold?  Is there anything odd here?
+*	What is the text format of this table?  How are rows separated?  How are elements within each row separated?
+
+Use R to load the data in these tables into data.frame structures.  Think carefully about how you are naming your variables and keeping track of your work.  Unlike the last lab, today I won't be providing templates for you to follow, so its up to you and your lab partner to keep yourselves organized!
+
+
+#  Step 3:  Calculating a ratio
+
+In this data file the authors have done some of the data pre-processing work for us – namely, normalizing the ratios – but let’s pretend they haven’t!
+
+Using ONLY the data in the “CH1D_MEAN” and “CH2D_MEAN” columns, add a column to your data structure that calculates the ratio of the Cy5 (CH1) to Cy3 (CH2) samples for each spot on the array.  
+
+(*Hint:  you may have to convert the numbers read from the file from strings to integers.*)
+
+Add another column that converts these plain ratios to the Log2(ratio). 
+
+
+# Step 4:  Distribution of ratio values
+
+At this point, it would make sense for us to look at the distribution of the ratio values on our array.  One common problem with competitive hybridization microarrays (two-color arrays) is that a sample with one of the dies has often been loaded at a slightly higher concentration than the other.  This is usually do to subtle pipetting or cDNA concentration calculation errors.  Examining a distribution of ratio values on our array should help us identify any bias towards the green or red end of the color spectrum.
+
+Functions which might prove useful to you are the `density`, `hist`, or `boxplot` functions.  Use R to produce at least two different plots that allow us to visualize the distribution of ratio values.  
+
+For this excercise will you want to be working with the raw ratio values or the Log2 transformed values?  Why?
+
+Save these plots in your home directory using the "Export" button.  
+
+Do you see a ratio bias in these data?
+
+
+# Step 5:  Distribution of ratio values, Part 2
+
+To help us to better understand the distributions we see above, it might be useful to consider a couple additional strategies for visualizing these data.
+
+First, it might be interesting to examine a scatter plot comparing the red channel pixel intensity to the green channel pixel intensity for each individual spot on the array.  You will be able to use the standard `plot` function to accomplis this!  Produce this scatter plot.  Make sure your plot includes clearly labeled axes.  What can we learn about the overall distribution of ratios on the array from this plot?  On average are the changes large or small?  Are few genes affected or only a small number?
+
+Second, we should also examine whether or not the total intensity of a spot is related to the ratio bias observed above.  Make a scatter plot aimed at addressing this question (compare the color ratio of each spot to its total intensity).  You'll have to decide how you want to calculate the total intensity for spot.  Was there an intensity bias?  Why might this be of a concern to us?  What might this tell us about the behavior of the dies used to label the two samples on this array?
+
+
+# Step 6:  Background intensity
+
+So far we've been ignoring background pixel intensities.  These values are a measure of the brightness in the regions surround each spot (the "background").  Background is obviously noise and doesn't correspond to cDNA's binding specifically to probes on the array.
+
+Produce a visualization to help us asses how variable the background intensities are across the surface of the array. One great way to do this would be to produce a heat map, where each box corresponds to a spot position on our array and the color corresponds to the intensity of the background at that spot.  This can be done with the `heatmap` function.  Explore the way the heatmap function works using some sample data.  Think about the structure of the data you want to pass into `heatmap` and how you can make a matrix conforming to this architecture using your existing data.frames.
+
+Are they regular or are some much higher than others?  Where are the problems the greatest?
+
+How should we use background intensity information?  
+
+
+#  Step 8:  Normalize your data
+
+Knowing what you know now about your data, design a way to add a normalized ratio column to your data structure in python.  Implement it, run it, and check to make sure it worked!
+
+
+#  Step 9:  Collecting pre-processed data and integrating annotations
+
+Up to this point we’ve been looking at our data one microarray table at a time.  As we start exploring the data it would be more convenient to have a new table which contains just the set of final normalized ratio values for each array.  Let’s list arrays across the columns and genes down the rows.
+
+You also may have noticed that the array data files we downloaded from GEO don’t tell us which row is associated with which yeast gene – instead it gives us an ID_REF column.  The IDs in this column match up with the IDs in the platform table (see step #1).  Since we’re building a new table at this point it makes sense to pull in the gene annotations at this point as well.
+
+Here’s an example o f the table we’re aiming to construct:
+
+ID_REF	ORFName	GeneName	Array_1	Array _2
+1	YGR250C	Gene #1	0.51	5.02
+2		Gene #2	-4.25	-1.32
+…				
+
+Implement a function to do it!  Your function will probably need to take multiple source array data tables, know which column to pull data from and take a platform table…
+
+
+#  Step 10:  Exploring the data set
+
+Now explore the data set!  Find genes which showed expression level changes > 2x between the 0’ time point and the experimental time point you chose.
+
