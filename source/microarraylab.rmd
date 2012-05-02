@@ -70,7 +70,9 @@ Second, we should also examine whether or not the total intensity of a spot is r
 
 So far we've been ignoring background pixel intensities.  These values are a measure of the brightness in the regions surround each spot (the "background").  Background is obviously noise and doesn't correspond to cDNA's binding specifically to probes on the array.
 
-Produce a visualization to help us asses how variable the background intensities are across the surface of the array. One great way to do this would be to produce a heat map, where each box corresponds to a spot position on our array and the color corresponds to the intensity of the background at that spot.  This can be done with the `heatmap` function.  Explore the way the heatmap function works using some sample data.  Think about the structure of the data you want to pass into `heatmap` and how you can make a matrix conforming to this architecture using your existing data.frames.
+Produce a visualization to help us asses how variable the background intensities are across the surface of the array. One great way to do this would be to produce a heat map, where each box corresponds to a spot position on our array and the color corresponds to the intensity of the background at that spot.  
+
+This can be done with the `image` and `heat.colors` functions.  Explore the way these functions work using some sample data.  Think about the structure of the data you want to pass into `image` and how you can make a matrix conforming to this architecture using your existing data.frames.
 
 Are they regular or are some much higher than others?  Where are the problems the greatest?
 
@@ -100,5 +102,8 @@ Implement a function to do it!  Your function will probably need to take multipl
 
 #  Step 10:  Exploring the data set
 
-Now explore the data set!  Find genes which showed expression level changes > 2x between the 0’ time point and the experimental time point you chose.
+Now explore the data set!  Here are some ideas:
+
+*  Find genes which showed expression level changes > 2x between the 0’ time point and the experimental time point you chose.
+*  Produce a [hierarchical cluster](http://en.wikipedia.org/wiki/Hierarchical_clustering) like the "phasograms" you saw in this week's malaria paper.  As you may have already noticed, you can use the `heatmap` function to do this!
 

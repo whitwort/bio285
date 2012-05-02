@@ -105,7 +105,9 @@
 
 <p>So far we&#39;ve been ignoring background pixel intensities.  These values are a measure of the brightness in the regions surround each spot (the &ldquo;background&rdquo;).  Background is obviously noise and doesn&#39;t correspond to cDNA&#39;s binding specifically to probes on the array.</p>
 
-<p>Produce a visualization to help us asses how variable the background intensities are across the surface of the array. One great way to do this would be to produce a heat map, where each box corresponds to a spot position on our array and the color corresponds to the intensity of the background at that spot.  This can be done with the <code>heatmap</code> function.  Explore the way the heatmap function works using some sample data.  Think about the structure of the data you want to pass into <code>heatmap</code> and how you can make a matrix conforming to this architecture using your existing data.frames.</p>
+<p>Produce a visualization to help us asses how variable the background intensities are across the surface of the array. One great way to do this would be to produce a heat map, where each box corresponds to a spot position on our array and the color corresponds to the intensity of the background at that spot.  </p>
+
+<p>This can be done with the <code>image</code> and <code>heat.colors</code> functions.  Explore the way these functions work using some sample data.  Think about the structure of the data you want to pass into <code>image</code> and how you can make a matrix conforming to this architecture using your existing data.frames.</p>
 
 <p>Are they regular or are some much higher than others?  Where are the problems the greatest?</p>
 
@@ -132,7 +134,12 @@
 </section>
 <section><h1>Step 10:  Exploring the data set</h1>
 
-<p>Now explore the data set!  Find genes which showed expression level changes &gt; 2x between the 0’ time point and the experimental time point you chose.</p>
+<p>Now explore the data set!  Here are some ideas:</p>
+
+<ul>
+<li> Find genes which showed expression level changes &gt; 2x between the 0’ time point and the experimental time point you chose.</li>
+<li> Produce a <a href="http://en.wikipedia.org/wiki/Hierarchical_clustering">hierarchical cluster</a> like the &ldquo;phasograms&rdquo; you saw in this week&#39;s malaria paper.  As you may have already noticed, you can use the <code>heatmap</code> function to do this!</li>
+</ul>
 </section>
   </div>
   <!-- end of courser content -->
