@@ -7,3 +7,5 @@ source/genomelab.rmd,"Yeast genome annotation lab","Lab","Today in lab you will 
 source/genomelab-solutions.rmd,"Yeast genome annotation lab (solutions)","Lab","Solutions to the function implementation challenges from the yeast genome annotation lab."
 source/plotstats.rmd,"Basic plotting and statistics","Lab","An introduction to producing simple plots and performing basic statistical analysis in R."
 source/microarraylab.rmd,"Micrarray data analysis lab","Lab","Today in lab you will perform a *de novo* analysis of a  microarray dataset."
+source/network.rmd,"Clustering and network analysis tools","Lab","Today in lab you will explore computation tools which allow us to perform clustering and network analysis of large scale datasets."
+source/microarrays.rmd,"Microarray analysis (solutions)","Lab","A set of reference implementations that are useful for microarray data analysis."
