@@ -35,7 +35,7 @@ $(function() {
             $('.fadeyThing').addClass('fadeOut')
           }, 3 * 1000)
 
-        // if this isn't the index page, set it up to with nav buttons
+        // if this isn't the index page, set it up with nav buttons
         $('#nav-buttons').remove()
         if ($('#index').length == 0) {
 
@@ -62,7 +62,7 @@ $(function() {
 
   function launchPresentation() {
 
-    // Unbind out popstate watcher
+    // Unbind popstate watcher
     $(window).unbind('popstate')
 
     // Get the current content from #courser-stuff
