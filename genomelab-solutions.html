@@ -43,7 +43,7 @@
 
 <p>Implementation:</p>
 
-<pre class="knitr"><div class="source"><span class="comment"># Transcibes DNA sequence into RNA equivalent</span>
+<div class="chunk"><div class="rcode"><div class="source"><span class="comment"># Transcibes DNA sequence into RNA equivalent</span>
 <span class="comment">#</span>
 <span class="comment"># dna   A character string containing DNA sequence</span>
 <span class="comment">#</span>
@@ -51,25 +51,24 @@
 <span class="comment">#</span>
 <span class="symbol">transcribe</span> <span class="assignement">&lt;-</span> <span class="keyword">function</span><span class="keyword">(</span><span class="formalargs">dna</span><span class="keyword">)</span> <span class="keyword">{</span>
 
-  <span class="comment">#Replace all T's with U's</span>
-  <span class="functioncall">gsub</span><span class="keyword">(</span> <span class="argument">pattern</span>     <span class="argument">=</span> <span class="string">"T"</span><span class="keyword">,</span>
-        <span class="argument">replacement</span> <span class="argument">=</span> <span class="string">"U"</span><span class="keyword">,</span>
+  <span class="comment">#Replace all T&rsquo;s with U&rsquo;s</span>
+  <span class="functioncall">gsub</span><span class="keyword">(</span> <span class="argument">pattern</span>     <span class="argument">=</span> <span class="string">&ldquo;T&rdquo;</span><span class="keyword">,</span>
+        <span class="argument">replacement</span> <span class="argument">=</span> <span class="string">&ldquo;U&rdquo;</span><span class="keyword">,</span>
         <span class="argument">x</span>           <span class="argument">=</span> <span class="symbol">dna</span><span class="keyword">,</span>
         <span class="argument">fixed</span>       <span class="argument">=</span> <span class="number">TRUE</span>
         <span class="keyword">)</span>
 
-<span class="keyword">}</span></div></pre>
+<span class="keyword">}</span></div></div></div>
 
 <p>Tests:</p>
 
-<pre class="knitr"><div class="source"><span class="functioncall">transcribe</span><span class="keyword">(</span><span class="string">"ATGCTTATCTA"</span><span class="keyword">)</span></div><div class="output">[1] "AUGCUUAUCUA"
-</div></pre>
+<div class="chunk"><div class="rcode"><div class="source"><span class="functioncall">transcribe</span><span class="keyword">(</span><span class="string">&ldquo;ATGCTTATCTA&rdquo;</span><span class="keyword">)</span></div><div class="output"><pre class="knitr">[1] "AUGCUUAUCUA"</pre></div></div></div>
 </section>
 <section><h2>Refine your translate function</h2>
 
 <p>Implementation:</p>
 
-<pre class="knitr"><div class="source"><span class="comment"># Translates RNA sequence into amino acid sequence</span>
+<div class="chunk"><div class="rcode"><div class="source"><span class="comment"># Translates RNA sequence into amino acid sequence</span>
 <span class="comment">#</span>
 <span class="comment"># rna   A character string containing RNA sequence</span>
 <span class="comment">#</span>
@@ -78,7 +77,7 @@
 <span class="symbol">translate</span> <span class="assignement">&lt;-</span> <span class="keyword">function</span><span class="keyword">(</span><span class="formalargs">rna</span><span class="keyword">)</span> <span class="keyword">{</span>
 
   <span class="comment">#Read a table with codons as the first column and amino acids as the second</span>
-  <span class="symbol">translationTable</span> <span class="assignement">&lt;-</span> <span class="functioncall">read.delim</span><span class="keyword">(</span><span class="string">"translationTable.txt"</span><span class="keyword">,</span>
+  <span class="symbol">translationTable</span> <span class="assignement">&lt;-</span> <span class="functioncall">read.delim</span><span class="keyword">(</span><span class="string">&ldquo;translationTable.txt&rdquo;</span><span class="keyword">,</span>
                                   <span class="argument">stringsAsFactors</span> <span class="argument">=</span> <span class="number">FALSE</span><span class="keyword">)</span>
 
   <span class="comment">#Takes a 3-letter codon and returns the matching 1-letter amino acid</span>
@@ -105,23 +104,19 @@
                       <span class="keyword">}</span><span class="keyword">)</span>
 
   <span class="comment">#Return a single string by joining the elements in aminoAcids</span>
-  <span class="functioncall">return</span><span class="keyword">(</span> <span class="functioncall">paste</span><span class="keyword">(</span><span class="symbol">aminoAcids</span><span class="keyword">,</span> <span class="argument">collapse</span> <span class="argument">=</span> <span class="string">""</span><span class="keyword">,</span> <span class="argument">sep</span> <span class="argument">=</span> <span class="string">""</span><span class="keyword">)</span> <span class="keyword">)</span>
+  <span class="functioncall">return</span><span class="keyword">(</span> <span class="functioncall">paste</span><span class="keyword">(</span><span class="symbol">aminoAcids</span><span class="keyword">,</span> <span class="argument">collapse</span> <span class="argument">=</span> <span class="string">&ldquo;&rdquo;</span><span class="keyword">,</span> <span class="argument">sep</span> <span class="argument">=</span> <span class="string">&ldquo;&rdquo;</span><span class="keyword">)</span> <span class="keyword">)</span>
 
-<span class="keyword">}</span></div></pre>
+<span class="keyword">}</span></div></div></div>
 
 <p>Tests:</p>
 
-<pre class="knitr"><div class="source"><span class="functioncall">translate</span><span class="keyword">(</span><span class="string">"AUG"</span><span class="keyword">)</span></div><div class="output">[1] "M"
-</div><div class="source"><span class="functioncall">translate</span><span class="keyword">(</span><span class="string">"UUCUAAAUUAACAAAAUC"</span><span class="keyword">)</span></div><div class="output">[1] "FXINKI"
-</div><div class="source"><span class="functioncall">translate</span><span class="keyword">(</span><span class="string">"UUCUAAAUUAACAAAAU"</span><span class="keyword">)</span></div><div class="output">[1] "FXINK"
-</div><div class="source"><span class="functioncall">translate</span><span class="keyword">(</span><span class="string">"UUCUAAAUUAACAAAA"</span><span class="keyword">)</span></div><div class="output">[1] "FXINK"
-</div></pre>
+<div class="chunk"><div class="rcode"><div class="source"><span class="functioncall">translate</span><span class="keyword">(</span><span class="string">&ldquo;AUG&rdquo;</span><span class="keyword">)</span></div><div class="output"><pre class="knitr">[1] "M"</pre></div><div class="source"><span class="functioncall">translate</span><span class="keyword">(</span><span class="string">&ldquo;UUCUAAAUUAACAAAAUC&rdquo;</span><span class="keyword">)</span></div><div class="output"><pre class="knitr">[1] "FXINKI"</pre></div><div class="source"><span class="functioncall">translate</span><span class="keyword">(</span><span class="string">&ldquo;UUCUAAAUUAACAAAAU&rdquo;</span><span class="keyword">)</span></div><div class="output"><pre class="knitr">[1] "FXINK"</pre></div><div class="source"><span class="functioncall">translate</span><span class="keyword">(</span><span class="string">&ldquo;UUCUAAAUUAACAAAA&rdquo;</span><span class="keyword">)</span></div><div class="output"><pre class="knitr">[1] "FXINK"</pre></div></div></div>
 </section>
 <section><h2>ORF finder</h2>
 
 <p>Implementation:</p>
 
-<pre class="knitr"><div class="source"><span class="comment"># Returns a data.frame describing the ORFs found in the given aminoacid sequence</span>
+<div class="chunk"><div class="rcode"><div class="source"><span class="comment"># Returns a data.frame describing the ORFs found in the given aminoacid sequence</span>
 <span class="comment">#</span>
 <span class="comment"># aminoacids  A character string containing aminoacid sequence</span>
 <span class="comment"># cutoff      An integer giving the minimum aminoacid length of valid ORFs</span>
@@ -131,13 +126,13 @@
 <span class="symbol">findORF</span> <span class="assignement">&lt;-</span> <span class="keyword">function</span><span class="keyword">(</span><span class="formalargs">aminoacids</span><span class="keyword">,</span> <span class="formalargs">cutoff</span> <span class="eqformalargs">=</span> <span class="number">100</span><span class="keyword">)</span> <span class="keyword">{</span>
 
   <span class="comment">#Use a regular expression to find all Start - Stop codon stretches</span>
-  <span class="symbol">matches</span> <span class="assignement">&lt;-</span> <span class="functioncall">gregexpr</span><span class="keyword">(</span><span class="argument">pattern</span> <span class="argument">=</span> <span class="string">"M(.*?)X"</span><span class="keyword">,</span> <span class="argument">text</span> <span class="argument">=</span> <span class="symbol">aminoacids</span><span class="keyword">)</span>
+  <span class="symbol">matches</span> <span class="assignement">&lt;-</span> <span class="functioncall">gregexpr</span><span class="keyword">(</span><span class="argument">pattern</span> <span class="argument">=</span> <span class="string">&ldquo;M(.*?)X&rdquo;</span><span class="keyword">,</span> <span class="argument">text</span> <span class="argument">=</span> <span class="symbol">aminoacids</span><span class="keyword">)</span>
 
   <span class="comment">#Extract match starting positions</span>
   <span class="symbol">startPositions</span> <span class="assignement">=</span> <span class="functioncall">as.vector</span><span class="keyword">(</span><span class="symbol">matches</span><span class="keyword">[[</span><span class="number">1</span><span class="keyword">]</span><span class="keyword">]</span><span class="keyword">)</span>
 
   <span class="comment">#Extract the match lengths</span>
-  <span class="symbol">lengths</span> <span class="assignement">&lt;-</span> <span class="functioncall">attr</span><span class="keyword">(</span><span class="symbol">matches</span><span class="keyword">[[</span><span class="number">1</span><span class="keyword">]</span><span class="keyword">]</span><span class="keyword">,</span> <span class="string">"match.length"</span><span class="keyword">)</span>
+  <span class="symbol">lengths</span> <span class="assignement">&lt;-</span> <span class="functioncall">attr</span><span class="keyword">(</span><span class="symbol">matches</span><span class="keyword">[[</span><span class="number">1</span><span class="keyword">]</span><span class="keyword">]</span><span class="keyword">,</span> <span class="string">&ldquo;match.length&rdquo;</span><span class="keyword">)</span>
 
   <span class="comment">#Extract the amino acid sequence of the matches</span>
   <span class="symbol">proteinSequence</span> <span class="assignement">&lt;-</span> <span class="functioncall">substring</span><span class="keyword">(</span> <span class="symbol">sampleAminoAcids</span><span class="keyword">,</span>
@@ -153,25 +148,22 @@
   <span class="comment">#Filter the table with the cutoff value, return the result</span>
   <span class="functioncall">return</span><span class="keyword">(</span> <span class="symbol">preliminaryTable</span><span class="keyword">[</span><span class="symbol">lengths</span> <span class="keyword">&gt;=</span> <span class="symbol">cutoff</span><span class="keyword">,</span><span class="keyword">]</span> <span class="keyword">)</span>
 
-<span class="keyword">}</span></div></pre>
+<span class="keyword">}</span></div></div></div>
 
 <p>Tests:</p>
 
-<pre class="knitr"><div class="source"><span class="symbol">sampleAminoAcids</span> <span class="assignement">&lt;-</span> <span class="string">"aaaaMbbbbXccccMddddddXeeee"</span>
-<span class="functioncall">findORF</span><span class="keyword">(</span><span class="symbol">sampleAminoAcids</span><span class="keyword">,</span> <span class="argument">cutoff</span> <span class="argument">=</span> <span class="number">1</span><span class="keyword">)</span></div><div class="output">  startPosition length proteinSequence
+<div class="chunk"><div class="rcode"><div class="source"><span class="symbol">sampleAminoAcids</span> <span class="assignement">&lt;-</span> <span class="string">&ldquo;aaaaMbbbbXccccMddddddXeeee&rdquo;</span>
+<span class="functioncall">findORF</span><span class="keyword">(</span><span class="symbol">sampleAminoAcids</span><span class="keyword">,</span> <span class="argument">cutoff</span> <span class="argument">=</span> <span class="number">1</span><span class="keyword">)</span></div><div class="output"><pre class="knitr">  startPosition length proteinSequence
 1             5      6          MbbbbX
-2            15      8        MddddddX
-</div><div class="source"><span class="functioncall">findORF</span><span class="keyword">(</span><span class="symbol">sampleAminoAcids</span><span class="keyword">,</span> <span class="argument">cutoff</span> <span class="argument">=</span> <span class="number">100</span><span class="keyword">)</span></div><div class="output">[1] startPosition   length          proteinSequence
-<0 rows> (or 0-length row.names)
-</div><div class="source"><span class="functioncall">findORF</span><span class="keyword">(</span><span class="symbol">sampleAminoAcids</span><span class="keyword">,</span> <span class="argument">cutoff</span> <span class="argument">=</span> <span class="number">7</span><span class="keyword">)</span></div><div class="output">  startPosition length proteinSequence
-2            15      8        MddddddX
-</div></pre>
+2            15      8        MddddddX</pre></div><div class="source"><span class="functioncall">findORF</span><span class="keyword">(</span><span class="symbol">sampleAminoAcids</span><span class="keyword">,</span> <span class="argument">cutoff</span> <span class="argument">=</span> <span class="number">100</span><span class="keyword">)</span></div><div class="output"><pre class="knitr">[1] startPosition   length          proteinSequence
+<0 rows> (or 0-length row.names)</pre></div><div class="source"><span class="functioncall">findORF</span><span class="keyword">(</span><span class="symbol">sampleAminoAcids</span><span class="keyword">,</span> <span class="argument">cutoff</span> <span class="argument">=</span> <span class="number">7</span><span class="keyword">)</span></div><div class="output"><pre class="knitr">  startPosition length proteinSequence
+2            15      8        MddddddX</pre></div></div></div>
 </section>
 <section><h2>FASTA file loader</h2>
 
 <p>Implementation:</p>
 
-<pre class="knitr"><div class="source"><span class="comment"># Parses a sequence file in FASTA format</span>
+<div class="chunk"><div class="rcode"><div class="source"><span class="comment"># Parses a sequence file in FASTA format</span>
 <span class="comment">#</span>
 <span class="comment"># fastaFile   A string giving the name of a fasta file to parse</span>
 <span class="comment">#</span>
@@ -186,24 +178,22 @@
   <span class="symbol">dnaLines</span> <span class="assignement">&lt;-</span> <span class="symbol">lines</span><span class="keyword">[</span><span class="number">2</span><span class="keyword">:</span><span class="functioncall">length</span><span class="keyword">(</span><span class="symbol">lines</span><span class="keyword">)</span><span class="keyword">]</span>
 
   <span class="comment">#Return a single string, using paste to collapse the vector of strings</span>
-  <span class="functioncall">return</span><span class="keyword">(</span> <span class="functioncall">paste</span><span class="keyword">(</span><span class="symbol">dnaLines</span><span class="keyword">,</span> <span class="argument">collapse</span> <span class="argument">=</span> <span class="string">""</span><span class="keyword">,</span> <span class="argument">sep</span> <span class="argument">=</span> <span class="string">""</span><span class="keyword">)</span> <span class="keyword">)</span>
+  <span class="functioncall">return</span><span class="keyword">(</span> <span class="functioncall">paste</span><span class="keyword">(</span><span class="symbol">dnaLines</span><span class="keyword">,</span> <span class="argument">collapse</span> <span class="argument">=</span> <span class="string">&ldquo;&rdquo;</span><span class="keyword">,</span> <span class="argument">sep</span> <span class="argument">=</span> <span class="string">&ldquo;&rdquo;</span><span class="keyword">)</span> <span class="keyword">)</span>
 
-<span class="keyword">}</span></div></pre>
+<span class="keyword">}</span></div></div></div>
 
 <p>Tests:</p>
 
-<pre class="knitr"><div class="source"><span class="comment">#This test assumes you've saved "chr1.fsa" in the current working directory.</span>
+<div class="chunk"><div class="rcode"><div class="source"><span class="comment">#This test assumes you&rsquo;ve saved &ldquo;chr1.fsa&rdquo; in the current working directory.</span>
 <span class="comment">#This and subsequent tests are being run with a truncated version of chr1.fsa</span>
-<span class="symbol">dna</span> <span class="assignement">&lt;-</span> <span class="functioncall">loadFASTA</span><span class="keyword">(</span><span class="string">"chr01.fsa"</span><span class="keyword">)</span>
-<span class="functioncall">substr</span><span class="keyword">(</span><span class="symbol">dna</span><span class="keyword">,</span> <span class="number">1</span><span class="keyword">,</span> <span class="number">10</span><span class="keyword">)</span></div><div class="output">[1] "CCACACCACA"
-</div><div class="source"><span class="functioncall">nchar</span><span class="keyword">(</span><span class="symbol">dna</span><span class="keyword">)</span></div><div class="output">[1] 29880
-</div></pre>
+<span class="symbol">dna</span> <span class="assignement">&lt;-</span> <span class="functioncall">loadFASTA</span><span class="keyword">(</span><span class="string">&ldquo;chr01.fsa&rdquo;</span><span class="keyword">)</span>
+<span class="functioncall">substr</span><span class="keyword">(</span><span class="symbol">dna</span><span class="keyword">,</span> <span class="number">1</span><span class="keyword">,</span> <span class="number">10</span><span class="keyword">)</span></div><div class="output"><pre class="knitr">[1] "CCACACCACA"</pre></div><div class="source"><span class="functioncall">nchar</span><span class="keyword">(</span><span class="symbol">dna</span><span class="keyword">)</span></div><div class="output"><pre class="knitr">[1] 29880</pre></div></div></div>
 </section>
 <section><h2>Frame annotation</h2>
 
 <p>Implementation:</p>
 
-<pre class="knitr"><div class="source"><span class="comment"># Annotates the ORFs found in a given frame of a dnaString</span>
+<div class="chunk"><div class="rcode"><div class="source"><span class="comment"># Annotates the ORFs found in a given frame of a dnaString</span>
 <span class="comment">#</span>
 <span class="comment"># dnaStrand   A string containing DNA sequence</span>
 <span class="comment"># offset      The frame offset (0, 1, or 2)</span>
@@ -221,7 +211,7 @@
   <span class="comment">#Call findORF to get a table of ORFs (coordinates = amino acid sequence)</span>
   <span class="symbol">orfTable</span> <span class="assignement">&lt;-</span> <span class="functioncall">findORF</span><span class="keyword">(</span><span class="symbol">proteinFrame</span><span class="keyword">)</span>
 
-  <span class="comment">#Update the coordinates in 'length' and 'startPosition' columns to match </span>
+  <span class="comment">#Update the coordinates in &lsquo;length&rsquo; and &lsquo;startPosition&rsquo; columns to match </span>
   <span class="comment">#nucleic acid coordinates in dnaStrand</span>
   <span class="symbol">orfTable</span><span class="keyword">$</span><span class="symbol">length</span>         <span class="assignement">&lt;-</span> <span class="symbol">orfTable</span><span class="keyword">$</span><span class="symbol">length</span> <span class="keyword">*</span> <span class="number">3</span>
   <span class="symbol">orfTable</span><span class="keyword">$</span><span class="symbol">startPosition</span>  <span class="assignement">&lt;-</span> <span class="keyword">(</span><span class="symbol">orfTable</span><span class="keyword">$</span><span class="symbol">startPosition</span> <span class="keyword">*</span> <span class="number">3</span><span class="keyword">)</span> <span class="keyword">+</span> <span class="symbol">offset</span>
@@ -229,28 +219,24 @@
   <span class="comment">#Return the table</span>
   <span class="functioncall">return</span><span class="keyword">(</span><span class="symbol">orfTable</span><span class="keyword">)</span>
 
-<span class="keyword">}</span></div></pre>
+<span class="keyword">}</span></div></div></div>
 
 <p>Tests:</p>
 
-<pre class="knitr"><div class="source"><span class="symbol">dna</span> <span class="assignement">&lt;-</span> <span class="functioncall">loadFASTA</span><span class="keyword">(</span><span class="string">"chr01.fsa"</span><span class="keyword">)</span>
+<div class="chunk"><div class="rcode"><div class="source"><span class="symbol">dna</span> <span class="assignement">&lt;-</span> <span class="functioncall">loadFASTA</span><span class="keyword">(</span><span class="string">&ldquo;chr01.fsa&rdquo;</span><span class="keyword">)</span>
 <span class="symbol">frame1</span> <span class="assignement">&lt;-</span> <span class="functioncall">annotateFrame</span><span class="keyword">(</span><span class="symbol">dna</span><span class="keyword">,</span> <span class="number">0</span><span class="keyword">)</span>
-<span class="symbol">frame1</span></div><div class="output">    startPosition length proteinSequence
+<span class="symbol">frame1</span></div><div class="output"><pre class="knitr">    startPosition length proteinSequence
 61          12048    381                
 114         24480    402                
-125         26736    426                
-</div><div class="source"><span class="functioncall">nrow</span><span class="keyword">(</span><span class="symbol">frame1</span><span class="keyword">)</span></div><div class="output">[1] 3
-</div><div class="source"><span class="symbol">frame2</span> <span class="assignement">&lt;-</span> <span class="functioncall">annotateFrame</span><span class="keyword">(</span><span class="symbol">dna</span><span class="keyword">,</span> <span class="number">1</span><span class="keyword">)</span>
-<span class="functioncall">nrow</span><span class="keyword">(</span><span class="symbol">frame2</span><span class="keyword">)</span></div><div class="output">[1] 2
-</div><div class="source"><span class="symbol">frame3</span> <span class="assignement">&lt;-</span> <span class="functioncall">annotateFrame</span><span class="keyword">(</span><span class="symbol">dna</span><span class="keyword">,</span> <span class="number">3</span><span class="keyword">)</span>
-<span class="functioncall">nrow</span><span class="keyword">(</span><span class="symbol">frame3</span><span class="keyword">)</span></div><div class="output">[1] 3
-</div></pre>
+125         26736    426                </pre></div><div class="source"><span class="functioncall">nrow</span><span class="keyword">(</span><span class="symbol">frame1</span><span class="keyword">)</span></div><div class="output"><pre class="knitr">[1] 3</pre></div><div class="source"><span class="symbol">frame2</span> <span class="assignement">&lt;-</span> <span class="functioncall">annotateFrame</span><span class="keyword">(</span><span class="symbol">dna</span><span class="keyword">,</span> <span class="number">1</span><span class="keyword">)</span>
+<span class="functioncall">nrow</span><span class="keyword">(</span><span class="symbol">frame2</span><span class="keyword">)</span></div><div class="output"><pre class="knitr">[1] 2</pre></div><div class="source"><span class="symbol">frame3</span> <span class="assignement">&lt;-</span> <span class="functioncall">annotateFrame</span><span class="keyword">(</span><span class="symbol">dna</span><span class="keyword">,</span> <span class="number">3</span><span class="keyword">)</span>
+<span class="functioncall">nrow</span><span class="keyword">(</span><span class="symbol">frame3</span><span class="keyword">)</span></div><div class="output"><pre class="knitr">[1] 3</pre></div></div></div>
 </section>
 <section><h2>Reverse complement</h2>
 
 <p>Implementation:</p>
 
-<pre class="knitr"><div class="source"><span class="comment"># Calculates the reverse complement of a dnaStrand</span>
+<div class="chunk"><div class="rcode"><div class="source"><span class="comment"># Calculates the reverse complement of a dnaStrand</span>
 <span class="comment">#</span>
 <span class="comment"># dnaStrand   A string containing the forward DNA sequence</span>
 <span class="comment">#</span>
@@ -262,10 +248,10 @@
   <span class="symbol">reversed</span> <span class="assignement">&lt;-</span> <span class="functioncall">reverseString</span><span class="keyword">(</span><span class="symbol">dnaStrand</span><span class="keyword">)</span>
 
   <span class="comment">#Replace bases with lower-case complements</span>
-  <span class="symbol">complement</span> <span class="assignement">&lt;-</span> <span class="functioncall">sub</span><span class="keyword">(</span><span class="string">"C"</span><span class="keyword">,</span> <span class="string">"g"</span><span class="keyword">,</span>
-                    <span class="functioncall">sub</span><span class="keyword">(</span><span class="string">"G"</span><span class="keyword">,</span><span class="string">"c"</span><span class="keyword">,</span>
-                        <span class="functioncall">sub</span><span class="keyword">(</span><span class="string">"A"</span><span class="keyword">,</span><span class="string">"t"</span><span class="keyword">,</span>
-                            <span class="functioncall">sub</span><span class="keyword">(</span><span class="string">"T"</span><span class="keyword">,</span> <span class="string">"a"</span><span class="keyword">,</span> <span class="symbol">reversed</span><span class="keyword">)</span>
+  <span class="symbol">complement</span> <span class="assignement">&lt;-</span> <span class="functioncall">sub</span><span class="keyword">(</span><span class="string">&ldquo;C&rdquo;</span><span class="keyword">,</span> <span class="string">&ldquo;g&rdquo;</span><span class="keyword">,</span>
+                    <span class="functioncall">sub</span><span class="keyword">(</span><span class="string">&ldquo;G&rdquo;</span><span class="keyword">,</span><span class="string">&ldquo;c&rdquo;</span><span class="keyword">,</span>
+                        <span class="functioncall">sub</span><span class="keyword">(</span><span class="string">&ldquo;A&rdquo;</span><span class="keyword">,</span><span class="string">&ldquo;t&rdquo;</span><span class="keyword">,</span>
+                            <span class="functioncall">sub</span><span class="keyword">(</span><span class="string">&ldquo;T&rdquo;</span><span class="keyword">,</span> <span class="string">&ldquo;a&rdquo;</span><span class="keyword">,</span> <span class="symbol">reversed</span><span class="keyword">)</span>
                             <span class="keyword">)</span>
                         <span class="keyword">)</span>
                     <span class="keyword">)</span>
@@ -277,20 +263,18 @@
 
 <span class="comment"># Reverses the characters in a string</span>
 <span class="symbol">reverseString</span> <span class="assignement">&lt;-</span> <span class="keyword">function</span><span class="keyword">(</span><span class="formalargs">a</span><span class="keyword">)</span> <span class="keyword">{</span>
-  <span class="functioncall">paste</span><span class="keyword">(</span><span class="functioncall">rev</span><span class="keyword">(</span><span class="functioncall">substring</span><span class="keyword">(</span><span class="symbol">a</span><span class="keyword">,</span><span class="number">1</span><span class="keyword">:</span><span class="functioncall">nchar</span><span class="keyword">(</span><span class="symbol">a</span><span class="keyword">)</span><span class="keyword">,</span><span class="number">1</span><span class="keyword">:</span><span class="functioncall">nchar</span><span class="keyword">(</span><span class="symbol">a</span><span class="keyword">)</span><span class="keyword">)</span><span class="keyword">)</span><span class="keyword">,</span><span class="argument">collapse</span><span class="argument">=</span><span class="string">""</span><span class="keyword">)</span>
-<span class="keyword">}</span></div></pre>
+  <span class="functioncall">paste</span><span class="keyword">(</span><span class="functioncall">rev</span><span class="keyword">(</span><span class="functioncall">substring</span><span class="keyword">(</span><span class="symbol">a</span><span class="keyword">,</span><span class="number">1</span><span class="keyword">:</span><span class="functioncall">nchar</span><span class="keyword">(</span><span class="symbol">a</span><span class="keyword">)</span><span class="keyword">,</span><span class="number">1</span><span class="keyword">:</span><span class="functioncall">nchar</span><span class="keyword">(</span><span class="symbol">a</span><span class="keyword">)</span><span class="keyword">)</span><span class="keyword">)</span><span class="keyword">,</span><span class="argument">collapse</span><span class="argument">=</span><span class="string">&ldquo;&rdquo;</span><span class="keyword">)</span>
+<span class="keyword">}</span></div></div></div>
 
 <p>Tests:</p>
 
-<pre class="knitr"><div class="source"><span class="functioncall">reverseString</span><span class="keyword">(</span><span class="string">"ATGC"</span><span class="keyword">)</span></div><div class="output">[1] "CGTA"
-</div><div class="source"><span class="functioncall">reverseComplement</span><span class="keyword">(</span><span class="string">"ATGC"</span><span class="keyword">)</span></div><div class="output">[1] "GCAT"
-</div></pre>
+<div class="chunk"><div class="rcode"><div class="source"><span class="functioncall">reverseString</span><span class="keyword">(</span><span class="string">&ldquo;ATGC&rdquo;</span><span class="keyword">)</span></div><div class="output"><pre class="knitr">[1] "CGTA"</pre></div><div class="source"><span class="functioncall">reverseComplement</span><span class="keyword">(</span><span class="string">&ldquo;ATGC&rdquo;</span><span class="keyword">)</span></div><div class="output"><pre class="knitr">[1] "GCAT"</pre></div></div></div>
 </section>
 <section><h2>Annotation chromosome</h2>
 
 <p>Implementation:</p>
 
-<pre class="knitr"><div class="source"><span class="comment"># Finds all open reading frames in the chromosome sequence in a FASTA file</span>
+<div class="chunk"><div class="rcode"><div class="source"><span class="comment"># Finds all open reading frames in the chromosome sequence in a FASTA file</span>
 <span class="comment">#</span>
 <span class="comment"># fastaFile   A string containing the name of a chromosome file in FASTA format</span>
 <span class="comment">#</span>
@@ -331,13 +315,12 @@
 
   <span class="functioncall">return</span><span class="keyword">(</span><span class="symbol">allFrames</span><span class="keyword">)</span>
 
-<span class="keyword">}</span></div></pre>
+<span class="keyword">}</span></div></div></div>
 
 <p>Tests:</p>
 
-<pre class="knitr"><div class="source"><span class="symbol">chr01</span> <span class="assignement">&lt;-</span> <span class="functioncall">annotateChromosome</span><span class="keyword">(</span><span class="string">"chr01.fsa"</span><span class="keyword">)</span>
-<span class="functioncall">nrow</span><span class="keyword">(</span><span class="symbol">chr01</span><span class="keyword">)</span></div><div class="output">[1] 9
-</div><div class="source"><span class="symbol">chr01</span></div><div class="output">     startPosition length proteinSequence
+<div class="chunk"><div class="rcode"><div class="source"><span class="symbol">chr01</span> <span class="assignement">&lt;-</span> <span class="functioncall">annotateChromosome</span><span class="keyword">(</span><span class="string">&ldquo;chr01.fsa&rdquo;</span><span class="keyword">)</span>
+<span class="functioncall">nrow</span><span class="keyword">(</span><span class="symbol">chr01</span><span class="keyword">)</span></div><div class="output"><pre class="knitr">[1] 9</pre></div><div class="source"><span class="symbol">chr01</span></div><div class="output"><pre class="knitr">     startPosition length proteinSequence
 61           12048    381                
 114          24480    402                
 125          26736    426                
@@ -346,8 +329,7 @@
 611          12048    381                
 1141         24480    402                
 1251         26736    426                
-119            825    318                
-</div></pre>
+119            825    318                </pre></div></div></div>
 </section>
 <section><h2>Annotate the whole genome</h2>
 
@@ -355,13 +337,13 @@
 
 <p>Implementation:</p>
 
-<pre class="knitr"><div class="source"><span class="comment"># Loads all .fsa files in a given directory and saves an ORF annotation table</span>
+<div class="chunk"><div class="rcode"><div class="source"><span class="comment"># Loads all .fsa files in a given directory and saves an ORF annotation table</span>
 <span class="comment">#</span>
 <span class="comment"># </span>
-<span class="symbol">annotateGenome</span> <span class="assignement">&lt;-</span> <span class="keyword">function</span><span class="keyword">(</span><span class="formalargs">fastaDirectory</span> <span class="eqformalargs">=</span> <span class="string">"."</span><span class="keyword">,</span> <span class="formalargs">tableFile</span> <span class="eqformalargs">=</span> <span class="string">"orftable.txt"</span><span class="keyword">)</span> <span class="keyword">{</span>
+<span class="symbol">annotateGenome</span> <span class="assignement">&lt;-</span> <span class="keyword">function</span><span class="keyword">(</span><span class="formalargs">fastaDirectory</span> <span class="eqformalargs">=</span> <span class="string">&ldquo;.&rdquo;</span><span class="keyword">,</span> <span class="formalargs">tableFile</span> <span class="eqformalargs">=</span> <span class="string">&ldquo;orftable.txt&rdquo;</span><span class="keyword">)</span> <span class="keyword">{</span>
 
   <span class="comment">#Load a list of all .fsa files found in fastaDirectory</span>
-  <span class="symbol">fastaFiles</span> <span class="assignement">&lt;-</span> <span class="functioncall">list.files</span><span class="keyword">(</span><span class="symbol">fastaDirectory</span><span class="keyword">,</span> <span class="argument">pattern</span> <span class="argument">=</span> <span class="string">".fsa"</span><span class="keyword">)</span>
+  <span class="symbol">fastaFiles</span> <span class="assignement">&lt;-</span> <span class="functioncall">list.files</span><span class="keyword">(</span><span class="symbol">fastaDirectory</span><span class="keyword">,</span> <span class="argument">pattern</span> <span class="argument">=</span> <span class="string">&ldquo;.fsa&rdquo;</span><span class="keyword">)</span>
 
   <span class="comment">#Create an empty data.frame to use to aggregate results</span>
   <span class="symbol">genomeORFs</span> <span class="assignement">&lt;-</span> <span class="functioncall">data.frame</span><span class="keyword">(</span> <span class="argument">file</span>            <span class="argument">=</span> <span class="functioncall">character</span><span class="keyword">(</span><span class="number">0</span><span class="keyword">)</span><span class="keyword">,</span>
@@ -372,7 +354,7 @@
   <span class="comment">#For each file in fastaFiles</span>
   <span class="keyword">for</span> <span class="keyword">(</span><span class="symbol">fileName</span> <span class="keyword">in</span> <span class="symbol">fastaFiles</span><span class="keyword">)</span> <span class="keyword">{</span>
 
-    <span class="functioncall">message</span><span class="keyword">(</span><span class="string">"Annotating:"</span><span class="keyword">,</span> <span class="symbol">fileName</span><span class="keyword">)</span>
+    <span class="functioncall">message</span><span class="keyword">(</span><span class="string">&ldquo;Annotating:&rdquo;</span><span class="keyword">,</span> <span class="symbol">fileName</span><span class="keyword">)</span>
 
     <span class="comment">#Generate the ORF table for this fasta file</span>
     <span class="symbol">chromosomeORFs</span> <span class="assignement">&lt;-</span> <span class="functioncall">annotateChromosome</span><span class="keyword">(</span><span class="symbol">fileName</span><span class="keyword">)</span>
@@ -386,18 +368,17 @@
   <span class="keyword">}</span>
 
   <span class="comment">#Save genomeORFs</span>
-  <span class="functioncall">write.table</span><span class="keyword">(</span><span class="symbol">genomeORFs</span><span class="keyword">,</span> <span class="symbol">tableFile</span><span class="keyword">,</span> <span class="argument">sep</span><span class="argument">=</span><span class="string">"\t"</span><span class="keyword">)</span>
+  <span class="functioncall">write.table</span><span class="keyword">(</span><span class="symbol">genomeORFs</span><span class="keyword">,</span> <span class="symbol">tableFile</span><span class="keyword">,</span> <span class="argument">sep</span><span class="argument">=</span><span class="string">&ldquo;\t&rdquo;</span><span class="keyword">)</span>
 
   <span class="comment">#Return it for good measure</span>
   <span class="functioncall">return</span><span class="keyword">(</span><span class="symbol">genomeORFs</span><span class="keyword">)</span>
 
-<span class="keyword">}</span></div></pre>
+<span class="keyword">}</span></div></div></div>
 
 <p>Tests:</p>
 
-<pre class="knitr"><div class="source"><span class="comment">#This test assumes you have .fsa files in the current working directory</span>
-<span class="symbol">orfs</span> <span class="assignement">&lt;-</span> <span class="functioncall">annotateGenome</span><span class="keyword">(</span><span class="keyword">)</span></div><div class="message">Annotating:chr01.fsa
-</div><div class="source"><span class="symbol">orfs</span></div><div class="output">     startPosition length proteinSequence      file
+<div class="chunk"><div class="rcode"><div class="source"><span class="comment">#This test assumes you have .fsa files in the current working directory</span>
+<span class="symbol">orfs</span> <span class="assignement">&lt;-</span> <span class="functioncall">annotateGenome</span><span class="keyword">(</span><span class="keyword">)</span></div><div class="message"><pre class="knitr">Annotating:chr01.fsa</pre></div><div class="source"><span class="symbol">orfs</span></div><div class="output"><pre class="knitr">     startPosition length proteinSequence      file
 61           12048    381                 chr01.fsa
 114          24480    402                 chr01.fsa
 125          26736    426                 chr01.fsa
@@ -406,8 +387,7 @@
 611          12048    381                 chr01.fsa
 1141         24480    402                 chr01.fsa
 1251         26736    426                 chr01.fsa
-119            825    318                 chr01.fsa
-</div></pre>
+119            825    318                 chr01.fsa</pre></div></div></div>
 </section></section>
   </div>
   <!-- end of courser content -->
