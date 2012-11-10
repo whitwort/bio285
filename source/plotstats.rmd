@@ -126,6 +126,7 @@ help.search("t.test")
 library(stats)
 t.test(clotData$clotTime ~ clotData$drugType)
 ````
+
 ## The data.frame short cut
 
 ``` {r}
