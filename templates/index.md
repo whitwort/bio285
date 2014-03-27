@@ -5,8 +5,9 @@
 
 Welcome to the course website for Bio 285: Introduction to systems biology!  Here you'll find links to all of the key resources for this class.  The course syllabus, assignments and links to licensed primary research articles can be found on our [sakai.wlu.edu site](https://sakai.wlu.edu/portal/site/2011_12_SPRING-BIOL_285_01).
 
-<div id = "index"></div>
+<div id = "index">
 {{index}}
+</div>
 
 ## Credits
 
