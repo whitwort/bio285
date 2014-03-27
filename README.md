@@ -8,7 +8,7 @@ Herein lie the source files for the [Introduction to Systems Biology](http://rna
 
 The [tiny bit](https://github.com/whitwort/bio285/blob/master/make.R) of code used to build this site goes a long way because:
 
-* [courseR](https://github.com/whitwort/courseR) is the backend R script that builds the html pages from markdown source (see `/source`).  It uses [knitr](https://github.com/yihui/knitr) ([GPL][]) to handle [literate programming](http://en.wikipedia.org/wiki/Literate_programming), [highlight](http://cran.r-project.org/web/packages/highlight/index.html) ([GPL2][]) to handle html class annotation on R code fragments, and [markdown](http://cran.r-project.org/web/packages/markdown/) ([GPL3](http://cran.r-project.org/web/licenses/GPL-3)) to compile the rest of the document.
+* [courseR](https://github.com/whitwort/courseR) is the backend R script that builds the html pages from markdown source (see `/source`).  It uses [knitr](https://github.com/yihui/knitr) ([GPL][]) to handle [literate programming](http://en.wikipedia.org/wiki/Literate_programming), [highlight](http://cran.r-project.org/web/packages/highlight/index.html) ([GPL][]) to handle html class annotation on R code fragments, and [markdown](http://cran.r-project.org/web/packages/markdown/) ([GPL3](http://cran.r-project.org/web/licenses/GPL-3)) to compile the rest of the document.
 * [reveal.js](https://github.com/hakimel/reveal.js) is used as the html slide show engine ([MIT](http://www.opensource.org/licenses/MIT))
 * [HTML5BoilerPlate](http://html5boilerplate.com/) is used as the starting point for our html and css ([Unlicense](https://github.com/h5bp/html5-boilerplate)).
 * [jQuery](http://jquery.com/) is used extensively for DOM hacking. ([MIT/GPL](http://jquery.org/license/)).
