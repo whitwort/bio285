@@ -22,7 +22,7 @@ All images used in the project are links to a hosted file or their original sour
 
 ## License
 
-Original work copyright © 2012 [Gregg Whitworth](http://www.wlu.edu/x23921.xml?InsertFile=x55999) and licensed under [CC BY-SA 3.0][].  See project credits above for additional license information.
+Original work copyright © 2014 [Gregg Whitworth](http://www.wlu.edu/x23921.xml?InsertFile=x55999) and licensed under [CC BY-SA 3.0][].  See project credits above for additional license information.
 
 [CC BY-SA 3.0]: http://creativecommons.org/licenses/by-sa/3.0/
 [The Noun Project]: http://www.thenounproject.com
