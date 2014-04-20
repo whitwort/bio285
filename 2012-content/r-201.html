@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>R 201:</title>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: rgb(88, 72, 246)
+   }
+
+   pre .number {
+     color: rgb(0, 0, 205);
+   }
+
+   pre .comment {
+     color: rgb(76, 136, 107);
+   }
+
+   pre .keyword {
+     color: rgb(0, 0, 255);
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: rgb(3, 106, 7);
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+
+</head>
+
+<body>
+<h1>R 201:</h1>
+
+<h3>Tables, filters and apply&#39;s, oh my!</h3>
+
+<p><img src="http://imgs.xkcd.com/comics/well_2.png" alt="well"/></p>
+
+<h1>RNA Transcribe Solutions</h1>
+
+<h2>Yours&hellip;</h2>
+
+<h2>Mine:</h2>
+
+<pre><code class="r">transcribe &lt;- function(dnaFile, rnaFile) {
+
+    # Read the file
+    dna &lt;- readLines(dnaFile)
+
+    # Substitute U&#39;s for T&#39;s
+    rna &lt;- gsub(pattern = &quot;T&quot;, replacement = &quot;U&quot;, x = dna, fixed = TRUE)
+
+    # Save the results
+    write(rna, rnaFile)
+
+}
+</code></pre>
+
+<p>Take a moment to see how I&#39;ve formatted the call to <code>sub</code>.  The formatting here is designed to make this function as easy to read as possible.  R doesn&#39;t care if your code is pretty or not; if it has correct syntax it will read it just fine (<a href="http://en.wikipedia.org/wiki/Lexical_analysis">lexical analysis</a>).  But if you write ugly code you and others will have trouble reading it in the future.  </p>
+
+<h2>An ugly version</h2>
+
+<p>This function is equivalent to the last one, but ugly.</p>
+
+<pre><code class="r">transcribe &lt;- function(f1, f2) {
+    write(sub(&quot;T&quot;, &quot;U&quot;, readLines(f1), fixed = TRUE), f2)
+}
+</code></pre>
+
+<h2>To use it:</h2>
+
+<pre><code class="r">transcribe(&quot;dna.txt&quot;, &quot;rna.txt&quot;)
+</code></pre>
+
+<h1>So how would we tackle the translation problem?</h1>
+
+<h1>Time for a table</h1>
+
+<h2>It&#39;d be nice to be working with the genetic code in table format.</h2>
+
+<h2>Look at the contents of translationTable.txt</h2>
+
+<p>This is a &ldquo;tab-delimited&rdquo; file.</p>
+
+<p>You can make one in a text editor, Excel, Minitab, etc&hellip;</p>
+
+<h2>The read.* family of functions load tabular data into R</h2>
+
+<pre><code class="r"># Read a tab-delimited file
+translationTable &lt;- read.delim(&quot;translationTable.txt&quot;, stringsAsFactors = FALSE)
+</code></pre>
+
+<p>What&#39;s up with the <code>stringsAsFactors = FALSE</code> part?  Factors are a more advanced topic, so we&#39;re not going to get into them today (but we <em>will</em>).  Try ommiting this argument to <code>read.delim</code> and see what happens when you run through the exercises below.  It&#39;s close to the same result.</p>
+
+<h2>If you have comma-separated file</h2>
+
+<pre><code class="r">myTable &lt;- read.csv(&quot;myTable.csv&quot;)
+</code></pre>
+
+<h2>If you need finer control over how the table is loaded</h2>
+
+<pre><code class="r">`?`(read.table)
+</code></pre>
+
+<h1>Tables</h1>
+
+<h2>It&#39;s not a number, it&#39;s not a string&hellip;</h2>
+
+<pre><code class="r"># Class tells you what kind of data a variable holds
+
+# So far we&#39;ve seen
+class(&quot;hello&quot;)
+</code></pre>
+
+<pre><code>## [1] &quot;character&quot;
+</code></pre>
+
+<pre><code class="r">class(100)
+</code></pre>
+
+<pre><code>## [1] &quot;numeric&quot;
+</code></pre>
+
+<pre><code class="r">
+# We&#39;ve also used TRUE as an argument for a function...
+class(TRUE)
+</code></pre>
+
+<pre><code>## [1] &quot;logical&quot;
+</code></pre>
+
+<pre><code class="r">
+# The other logical value is FALSE
+class(FALSE)
+</code></pre>
+
+<pre><code>## [1] &quot;logical&quot;
+</code></pre>
+
+<pre><code class="r">
+# So what&#39;s our translationTable?
+class(translationTable)
+</code></pre>
+
+<pre><code>## [1] &quot;data.frame&quot;
+</code></pre>
+
+<h2>The R terminology for a table is a &ldquo;data.frame&rdquo;</h2>
+
+<p>How does the structure of translationTable related to our original file?</p>
+
+<table><thead>
+<tr>
+<th>row.names</th>
+<th>aminoacid</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>GCU</td>
+<td>A</td>
+</tr>
+<tr>
+<td>GCC</td>
+<td>A</td>
+</tr>
+<tr>
+<td>GCA</td>
+<td>A</td>
+</tr>
+</tbody></table>
+
+<p>The relationship between the column headings in a data.frame the the original file can be a bit tricky to understand when you first start working with tables in R.</p>
+
+<h2>Two flavors of data.frame (depending on your data)</h2>
+
+<ul>
+<li>Unique values in the 1st column (row.names)</li>
+<li>Non-unique values in the 1st column (no row.names)</li>
+</ul>
+
+<p>When you use one of the simple read.* functions, R will try to figure out whether or not it can treat the values in the left-most column as unique.  If it can, it will make a <code>data.frame</code> with a <code>row.names</code> column on the left side of the table.  In this case, you want the heading line of your file to have one <em>fewer</em> labels than you have columns.  See how I did this in translationTable.txt?</p>
+
+<p>If your left most column does <strong>not</strong> contain unique values, R will add a new left-hand column that just contains numbers (1..n where n is the number of rows you have).  You&#39;ll see why we want to have some kind of unique label for each row in our <code>data.frame</code> objects in a moment.</p>
+
+<h1>Sidebar:  Extract &amp; Replace</h1>
+
+<p>Remember how we mentioned that the fundamental data type in R is the vector and then I promised that this would be both hard for you to wrap your heads around at first, but also extremely powerful?  Well, prepare to have your minds blown because we&#39;re about to see our first real <code>vectorized</code> operations in R!</p>
+
+<h2>Let&#39;s say we have a vector of numbers:</h2>
+
+<pre><code class="r">myNumbers &lt;- c(10, 20, 30, 40, 50)
+</code></pre>
+
+<p>Here&#39;s how we can <code>extract</code> a subset of vector:</p>
+
+<pre><code class="r">myNumbers
+</code></pre>
+
+<pre><code>## [1] 10 20 30 40 50
+</code></pre>
+
+<pre><code class="r">myNumbers[1]
+</code></pre>
+
+<pre><code>## [1] 10
+</code></pre>
+
+<pre><code class="r">myNumbers[3]
+</code></pre>
+
+<pre><code>## [1] 30
+</code></pre>
+
+<h2>What if we want more than one at once?</h2>
+
+<pre><code class="r">myNumbers
+</code></pre>
+
+<pre><code>## [1] 10 20 30 40 50
+</code></pre>
+
+<pre><code class="r">myNumbers[c(1, 3)]
+</code></pre>
+
+<pre><code>## [1] 10 30
+</code></pre>
+
+<p>What happened there?</p>
+
+<h2>How can we extract a range of numbers?</h2>
+
+<pre><code class="r"># The : operator creates a series of numbers
+1:5
+</code></pre>
+
+<pre><code>## [1] 1 2 3 4 5
+</code></pre>
+
+<pre><code class="r">2:10
+</code></pre>
+
+<pre><code>## [1]  2  3  4  5  6  7  8  9 10
+</code></pre>
+
+<pre><code class="r">
+# We can use this inside of our [...]
+myNumbers
+</code></pre>
+
+<pre><code>## [1] 10 20 30 40 50
+</code></pre>
+
+<pre><code class="r">myNumbers[2:3]
+</code></pre>
+
+<pre><code>## [1] 20 30
+</code></pre>
+
+<h2>We can also use logical vectors</h2>
+
+<p>TRUE = keep it
+FALSE = don&#39;t</p>
+
+<pre><code class="r">myNumbers
+</code></pre>
+
+<pre><code>## [1] 10 20 30 40 50
+</code></pre>
+
+<pre><code class="r">myNumbers[c(FALSE, TRUE, TRUE, TRUE, TRUE)]
+</code></pre>
+
+<pre><code>## [1] 20 30 40 50
+</code></pre>
+
+<pre><code class="r">myNumbers[c(TRUE, FALSE, FALSE, FALSE, FALSE)]
+</code></pre>
+
+<pre><code>## [1] 10
+</code></pre>
+
+<h2>Now things get interesting!</h2>
+
+<pre><code class="r">myNumbers
+</code></pre>
+
+<pre><code>## [1] 10 20 30 40 50
+</code></pre>
+
+<pre><code class="r">myNumbers[TRUE]
+</code></pre>
+
+<pre><code>## [1] 10 20 30 40 50
+</code></pre>
+
+<pre><code class="r">myNumbers[c(TRUE, FALSE)]
+</code></pre>
+
+<pre><code>## [1] 10 30 50
+</code></pre>
+
+<h2>All operations in R are vectorized&hellip;</h2>
+
+<p>Yesterday we saw that the <code>+</code> works on vectors. </p>
+
+<p>Others basic math operators:</p>
+
+<pre><code class="r">myNumbers
+</code></pre>
+
+<pre><code>## [1] 10 20 30 40 50
+</code></pre>
+
+<pre><code class="r">myNumbers + 5
+</code></pre>
+
+<pre><code>## [1] 15 25 35 45 55
+</code></pre>
+
+<pre><code class="r">myNumbers - 5
+</code></pre>
+
+<pre><code>## [1]  5 15 25 35 45
+</code></pre>
+
+<pre><code class="r">myNumbers * c(10, 0)
+</code></pre>
+
+<pre><code>## [1] 100   0 300   0 500
+</code></pre>
+
+<pre><code class="r">myNumbers/0.1
+</code></pre>
+
+<pre><code>## [1] 100 200 300 400 500
+</code></pre>
+
+<h2>&hellip;including comparison!</h2>
+
+<pre><code class="r">myNumbers
+</code></pre>
+
+<pre><code>## [1] 10 20 30 40 50
+</code></pre>
+
+<pre><code class="r">myNumbers &gt; 25
+</code></pre>
+
+<pre><code>## [1] FALSE FALSE  TRUE  TRUE  TRUE
+</code></pre>
+
+<pre><code class="r">myNumbers &lt; 25
+</code></pre>
+
+<pre><code>## [1]  TRUE  TRUE FALSE FALSE FALSE
+</code></pre>
+
+<pre><code class="r">
+# Equality comparison uses == instead of =
+myNumbers == 30
+</code></pre>
+
+<pre><code>## [1] FALSE FALSE  TRUE FALSE FALSE
+</code></pre>
+
+<pre><code class="r">
+# The `!` operator negates logical vectors (&#39;not&#39;)
+myNumbers != 30
+</code></pre>
+
+<pre><code>## [1]  TRUE  TRUE FALSE  TRUE  TRUE
+</code></pre>
+
+<pre><code class="r">!(myNumbers &gt; 25)
+</code></pre>
+
+<pre><code>## [1]  TRUE  TRUE FALSE FALSE FALSE
+</code></pre>
+
+<p>To compare equality we use the <code>==</code> operator.  This is to prevent confusion with the <code>=</code> which is used to pass arguments to functions (or do assignment like <code>&lt;-</code>).  This will probably trip you up at first, but you&#39;ll get used to it.  See what happens if you run <code>myNumbers = 30</code>.</p>
+
+<h2>So what does it all mean?</h2>
+
+<p>We can use our extraction operators <code>[</code> <code>]</code> to filter data in our vectors.</p>
+
+<p>This is a very common idiom in R:</p>
+
+<pre><code class="r">myNumbers
+</code></pre>
+
+<pre><code>## [1] 10 20 30 40 50
+</code></pre>
+
+<pre><code class="r">myNumbers[myNumbers &gt; 25]
+</code></pre>
+
+<pre><code>## [1] 30 40 50
+</code></pre>
+
+<pre><code class="r">myNumbers[myNumbers &lt; 25]
+</code></pre>
+
+<pre><code>## [1] 10 20
+</code></pre>
+
+<h2>You can get fancy&hellip;</h2>
+
+<p>Explore the parts of this code, then explain what it does:</p>
+
+<pre><code class="r">myNumbers[(myNumbers%%4) == 0]
+</code></pre>
+
+<pre><code>## [1] 20 40
+</code></pre>
+
+<h2>You can use [] to replace data too!</h2>
+
+<pre><code class="r">myNumbers
+</code></pre>
+
+<pre><code>## [1] 10 20 30 40 50
+</code></pre>
+
+<pre><code class="r">myNumbers[3] &lt;- 100
+myNumbers
+</code></pre>
+
+<pre><code>## [1]  10  20 100  40  50
+</code></pre>
+
+<pre><code class="r">myNumbers[2:3] &lt;- c(1, 2)
+myNumbers
+</code></pre>
+
+<pre><code>## [1] 10  1  2 40 50
+</code></pre>
+
+<h1>Back to our table</h1>
+
+<h2>The [] operators work with data.frames as well</h2>
+
+<pre><code class="r"># You can subset tables on a column: table[col] translationTable[1]
+
+# You can subset tables on both a row and a column
+translationTable[3, 1]
+</code></pre>
+
+<pre><code>## [1] &quot;A&quot;
+</code></pre>
+
+<pre><code class="r">
+# If you leave out the column, but keep the , you&#39;ll get all columns
+translationTable[3, ]
+</code></pre>
+
+<pre><code>## [1] &quot;A&quot;
+</code></pre>
+
+<h2>You can use text to refer to columns or rows by name</h2>
+
+<p>Only works for rows if your <code>data.frame</code> has unique <code>row.name</code>&#39;s</p>
+
+<pre><code class="r">translationTable[&quot;GUC&quot;, &quot;aminoacid&quot;]
+</code></pre>
+
+<pre><code>## [1] &quot;V&quot;
+</code></pre>
+
+<pre><code class="r">translationTable[&quot;GUC&quot;, ]
+</code></pre>
+
+<pre><code>## [1] &quot;V&quot;
+</code></pre>
+
+<pre><code class="r">
+# Oh hey!  Remember vectors?
+translationTable[c(&quot;GUA&quot;, &quot;UAG&quot;), ]
+</code></pre>
+
+<pre><code>## [1] &quot;V&quot; &quot;X&quot;
+</code></pre>
+
+<pre><code class="r">
+# ... and logicals?
+translationTable[c(TRUE, FALSE), ]
+</code></pre>
+
+<pre><code>##  [1] &quot;A&quot; &quot;A&quot; &quot;R&quot; &quot;R&quot; &quot;R&quot; &quot;N&quot; &quot;D&quot; &quot;C&quot; &quot;Q&quot; &quot;E&quot; &quot;G&quot; &quot;G&quot; &quot;H&quot; &quot;I&quot; &quot;I&quot; &quot;L&quot; &quot;L&quot;
+## [18] &quot;L&quot; &quot;K&quot; &quot;F&quot; &quot;P&quot; &quot;P&quot; &quot;S&quot; &quot;S&quot; &quot;S&quot; &quot;T&quot; &quot;T&quot; &quot;W&quot; &quot;Y&quot; &quot;V&quot; &quot;V&quot; &quot;X&quot;
+</code></pre>
+
+<h2>A couple other tricks&hellip;</h2>
+
+<pre><code class="r"># If your table has row names, you can get a vector of them with:
+row.names(translationTable)
+</code></pre>
+
+<pre><code>##  [1] &quot;GCU&quot; &quot;GCC&quot; &quot;GCA&quot; &quot;GCG&quot; &quot;CGU&quot; &quot;CGC&quot; &quot;CGA&quot; &quot;CGG&quot; &quot;AGA&quot; &quot;AGG&quot; &quot;AAU&quot;
+## [12] &quot;AAC&quot; &quot;GAU&quot; &quot;GAC&quot; &quot;UGU&quot; &quot;UGC&quot; &quot;CAA&quot; &quot;CAG&quot; &quot;GAA&quot; &quot;GAG&quot; &quot;GGU&quot; &quot;GGC&quot;
+## [23] &quot;GGA&quot; &quot;GGG&quot; &quot;CAU&quot; &quot;CAC&quot; &quot;AUU&quot; &quot;AUC&quot; &quot;AUA&quot; &quot;AUG&quot; &quot;UUA&quot; &quot;UUG&quot; &quot;CUU&quot;
+## [34] &quot;CUC&quot; &quot;CUA&quot; &quot;CUG&quot; &quot;AAA&quot; &quot;AAG&quot; &quot;UUU&quot; &quot;UUC&quot; &quot;CCU&quot; &quot;CCC&quot; &quot;CCA&quot; &quot;CCG&quot;
+## [45] &quot;UCU&quot; &quot;UCC&quot; &quot;UCA&quot; &quot;UCG&quot; &quot;AGU&quot; &quot;AGC&quot; &quot;ACU&quot; &quot;ACC&quot; &quot;ACA&quot; &quot;ACG&quot; &quot;UGG&quot;
+## [56] &quot;UAU&quot; &quot;UAC&quot; &quot;GUU&quot; &quot;GUC&quot; &quot;GUA&quot; &quot;GUG&quot; &quot;UAA&quot; &quot;UGA&quot; &quot;UAG&quot;
+</code></pre>
+
+<pre><code class="r">
+# The $ is a short hand notation for selecting a column of data from a
+# table
+translationTable$aminoacid
+</code></pre>
+
+<pre><code>##  [1] &quot;A&quot; &quot;A&quot; &quot;A&quot; &quot;A&quot; &quot;R&quot; &quot;R&quot; &quot;R&quot; &quot;R&quot; &quot;R&quot; &quot;R&quot; &quot;N&quot; &quot;N&quot; &quot;D&quot; &quot;D&quot; &quot;C&quot; &quot;C&quot; &quot;Q&quot;
+## [18] &quot;Q&quot; &quot;E&quot; &quot;E&quot; &quot;G&quot; &quot;G&quot; &quot;G&quot; &quot;G&quot; &quot;H&quot; &quot;H&quot; &quot;I&quot; &quot;I&quot; &quot;I&quot; &quot;M&quot; &quot;L&quot; &quot;L&quot; &quot;L&quot; &quot;L&quot;
+## [35] &quot;L&quot; &quot;L&quot; &quot;K&quot; &quot;K&quot; &quot;F&quot; &quot;F&quot; &quot;P&quot; &quot;P&quot; &quot;P&quot; &quot;P&quot; &quot;S&quot; &quot;S&quot; &quot;S&quot; &quot;S&quot; &quot;S&quot; &quot;S&quot; &quot;T&quot;
+## [52] &quot;T&quot; &quot;T&quot; &quot;T&quot; &quot;W&quot; &quot;Y&quot; &quot;Y&quot; &quot;V&quot; &quot;V&quot; &quot;V&quot; &quot;V&quot; &quot;X&quot; &quot;X&quot; &quot;X&quot;
+</code></pre>
+
+<h2>Your turn #1</h2>
+
+<p>Subset the table to return a vector of all of the codons which encode valine
+&ldquo;V&rdquo;</p>
+
+<h2>Your turn #2</h2>
+
+<p>Write a function that takes a RNA codon and returns the amino acid.</p>
+
+<pre><code class="r">translateRNA &lt;- function(codon) {
+
+    # Insert your code here
+
+}
+</code></pre>
+
+<p>Make sure it works:</p>
+
+<pre><code class="r">translateRNA(&quot;UAU&quot;)
+</code></pre>
+
+<pre><code>## [1] &quot;Y&quot;
+</code></pre>
+
+<p>How might this function be useful in a script designed to translate dna.txt?</p>
+
+<p>For a full reference on extraction and replacement operators in R, you can search for &ldquo;[&rdquo; in the Rstudio search box, or run <code>help(&quot;[&quot;)</code> at the prompt.</p>
+
+<h1>Subsetting strings</h1>
+
+<h2>We&#39;re getting close!</h2>
+
+<p>We can translate codons&hellip;</p>
+
+<pre><code class="r">translateRNA(&quot;UGG&quot;)
+</code></pre>
+
+<pre><code>## [1] &quot;W&quot;
+</code></pre>
+
+<p>&hellip;but we need to be able to read a string of letters in sets of 3.</p>
+
+<pre><code class="r">sampleRNA &lt;- &quot;GTAGCTGGCAAGTTAATAGAGATGGAAAAC&quot;
+</code></pre>
+
+<h2>Side bar: length of a string</h2>
+
+<p>Figuring out the number of characters in a piece of text is a little funny&hellip;</p>
+
+<pre><code class="r">sampleRNA
+</code></pre>
+
+<pre><code>## [1] &quot;GTAGCTGGCAAGTTAATAGAGATGGAAAAC&quot;
+</code></pre>
+
+<pre><code class="r">length(sampleRNA)
+</code></pre>
+
+<pre><code>## [1] 1
+</code></pre>
+
+<pre><code class="r">length(c(&quot;A&quot;, &quot;B&quot;))
+</code></pre>
+
+<pre><code>## [1] 2
+</code></pre>
+
+<pre><code class="r">
+# Number of characters in a string
+nchar(sampleRNA)
+</code></pre>
+
+<pre><code>## [1] 30
+</code></pre>
+
+<pre><code class="r">nchar(c(&quot;A&quot;, &quot;B&quot;))
+</code></pre>
+
+<pre><code>## [1] 1 1
+</code></pre>
+
+<p>What happened there?</p>
+
+<h2>Side bar: subsetting a string</h2>
+
+<p>Similarly, subsetting a string vector is a little funny&hellip;</p>
+
+<pre><code class="r">sampleRNA
+</code></pre>
+
+<pre><code>## [1] &quot;GTAGCTGGCAAGTTAATAGAGATGGAAAAC&quot;
+</code></pre>
+
+<pre><code class="r">sampleRNA[1]
+</code></pre>
+
+<pre><code>## [1] &quot;GTAGCTGGCAAGTTAATAGAGATGGAAAAC&quot;
+</code></pre>
+
+<pre><code class="r">c(&quot;A&quot;, &quot;B&quot;)[1]
+</code></pre>
+
+<pre><code>## [1] &quot;A&quot;
+</code></pre>
+
+<pre><code class="r">sampleRNA[1:2]
+</code></pre>
+
+<pre><code>## [1] &quot;GTAGCTGGCAAGTTAATAGAGATGGAAAAC&quot; NA
+</code></pre>
+
+<pre><code class="r">c(&quot;A&quot;, &quot;B&quot;)[1:2]
+</code></pre>
+
+<pre><code>## [1] &quot;A&quot; &quot;B&quot;
+</code></pre>
+
+<pre><code class="r">
+# Use substr to pull characters out of a string
+substr(sampleRNA, start = 1, stop = 3)
+</code></pre>
+
+<pre><code>## [1] &quot;GTA&quot;
+</code></pre>
+
+<pre><code class="r">substr(c(&quot;ABCD&quot;, &quot;EFGH&quot;), start = 1, stop = 3)
+</code></pre>
+
+<pre><code>## [1] &quot;ABC&quot; &quot;EFG&quot;
+</code></pre>
+
+<h2>Subsetting some codons</h2>
+
+<p>Our first codon is&hellip;</p>
+
+<pre><code class="r">substr(sampleRNA, start = 1, stop = 3)
+</code></pre>
+
+<pre><code>## [1] &quot;GTA&quot;
+</code></pre>
+
+<p>Our second codon is&hellip;</p>
+
+<pre><code class="r">substr(sampleRNA, start = 4, stop = 6)
+</code></pre>
+
+<pre><code>## [1] &quot;GCT&quot;
+</code></pre>
+
+<p>Our third codon is&hellip;</p>
+
+<pre><code class="r">substr(sampleRNA, start = 7, stop = 9)
+</code></pre>
+
+<pre><code>## [1] &quot;GGC&quot;
+</code></pre>
+
+<h2>Seeing the pattern</h2>
+
+<p>Our n&#39;th codon is&hellip;</p>
+
+<pre><code class="r">n &lt;- 4
+substr(sampleRNA, start = (n * 3) - 2, stop = n * 3)
+</code></pre>
+
+<pre><code>## [1] &quot;AAG&quot;
+</code></pre>
+
+<p>Our last codon is&hellip;</p>
+
+<pre><code class="r">substr(sampleRNA, start = nchar(sampleRNA) - 2, stop = nchar(sampleRNA))
+</code></pre>
+
+<pre><code>## [1] &quot;AAC&quot;
+</code></pre>
+
+<h2>Your turn #3</h2>
+
+<p>Write a function that takes a codon number <code>n</code> and returns the sequence</p>
+
+<pre><code class="r">getCodon &lt;- function(n) {
+
+    # Insert your code here
+
+}
+</code></pre>
+
+<p>Make sure it works:</p>
+
+<pre><code class="r">getCodon(5)
+</code></pre>
+
+<pre><code>## [1] &quot;TTA&quot;
+</code></pre>
+
+<h2>Almost there..</h2>
+
+<p>That&#39;s great, but now we need to generate a series of codon numbers (1..n)</p>
+
+<p>We&#39;ve seen the parts that let us do this!</p>
+
+<pre><code class="r">codonNumbers &lt;- 1:(nchar(sampleRNA)/3)
+codonNumbers
+</code></pre>
+
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10
+</code></pre>
+
+<h1>Apply Magic</h1>
+
+<p>The last piece in the puzzle is applying our <code>getCodon</code> to our <code>codonNumbers</code></p>
+
+<p>The *apply family of functions in R is:</p>
+
+<ul>
+<li>very powerful</li>
+<li>a little overwhelming at first</li>
+</ul>
+
+<h2>sapply</h2>
+
+<p>For this task we&#39;ll use <strong>s</strong>apply.  We&#39;ll look at the other apply&#39;s later.</p>
+
+<p>Let&#39;s see it in action:</p>
+
+<pre><code class="r">sapply(codonNumbers, FUN = getCodon)
+</code></pre>
+
+<pre><code>##  [1] &quot;GTA&quot; &quot;GCT&quot; &quot;GGC&quot; &quot;AAG&quot; &quot;TTA&quot; &quot;ATA&quot; &quot;GAG&quot; &quot;ATG&quot; &quot;GAA&quot; &quot;AAC&quot;
+</code></pre>
+
+<p>What happened there?</p>
+
+<h1>Task #1</h1>
+
+<h2>Put it all together!</h2>
+
+<p>I&#39;ve given you all of the pieces we need to write a translator.
+Now you have to play with them and put it all together.</p>
+
+<h2>The outline of your final function should look like</h2>
+
+<pre><code class="r">translate &lt;- function(dnaFile) {
+
+    # Do stuff here!
+
+}
+</code></pre>
+
+<h1>Challenge #1</h1>
+
+<p>Translate all 6 possible open reading frames</p>
+
+<h1>Challenge #2</h1>
+
+<p>Find the open reading frame that is most likely the real one!</p>
+
+</body>
+
+</html>
+

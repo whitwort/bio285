@@ -1,0 +1,78 @@
+"file" "title" "description" "section" "data" "sourceHash" "formats" "outputFiles"
+"1" "example-page-1.rmd" "Welcome to courseR" "A sample courseR content page." "Background" "" "419b82eb8dae2fd68a34b1db99199f4c" "page:
+  file_extension: .html
+  post_processors:
+  - fixPartialsMarkup
+  - renderWhisker
+  - linkData
+  - responsiveImages
+  render:
+    html_document:
+      template: ../templates/page-template.html
+      theme: ~
+      highlight: ~
+      mathjax: ~
+      toc: yes
+      toc_depth: 1
+  externalsHash: 50189d33327112baa7e8987bb457cf2e
+PDF:
+  file_extension: .pdf
+  render:
+    pdf_document:
+      toc: yes
+      toc_depth: 2
+      number_sections: yes
+" "page: example-page-1.html
+PDF: example-page-1.pdf
+"
+"2" "example-page-2.rmd" "Data files" "An example of how to reference external data files in courseR projects.  Also includes examples of text trimming in slide generation." "Tutorial" "data/codons.txt" "c19f5c80a55e21c8655f931cc6f4a0e1" "page:
+  file_extension: .html
+  post_processors:
+  - fixPartialsMarkup
+  - renderWhisker
+  - linkData
+  - responsiveImages
+  render:
+    html_document:
+      template: ../templates/page-template.html
+      theme: ~
+      highlight: ~
+      mathjax: ~
+      toc: yes
+      toc_depth: 1
+  externalsHash: 50189d33327112baa7e8987bb457cf2e
+slides:
+  file_extension: -slides.html
+  post_processors:
+  - trimText
+  - linkData
+  render: ioslides_presentation
+PDF:
+  file_extension: .pdf
+  render:
+    pdf_document:
+      toc: yes
+      toc_depth: 2
+      number_sections: yes
+" "page: example-page-2.html
+slides: example-page-2-slides.html
+PDF: example-page-2.pdf
+"
+"3" "index.md" "" "" "" "" "b66153125a86d0ccb2f2bf51244f36cc" "page:
+  file_extension: .html
+  post_processors:
+  - fixPartialsMarkup
+  - renderWhisker
+  - linkData
+  - responsiveImages
+  render:
+    html_document:
+      highlight: ~
+      mathjax: ~
+      template: ../templates/page-template.html
+      theme: ~
+      toc: no
+      toc_depth: 1
+  externalsHash: 50189d33327112baa7e8987bb457cf2e
+" "page: index.html
+"

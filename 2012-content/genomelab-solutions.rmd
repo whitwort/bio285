@@ -1,0 +1,370 @@
+# Lab:  Explorying Genomes Solutions
+
+Below are solutions to the function implementations described in the exploring genomes lab.
+
+## Refine your transcribe function
+
+Implementation:
+
+``` {r}
+# Transcibes DNA sequence into RNA equivalent
+#
+# dna   A character string containing DNA sequence
+#
+# value A character string containing RNA sequence
+#
+transcribe <- function(dna) {
+
+  #Replace all T's with U's
+  gsub( pattern     = "T",
+        replacement = "U",
+        x           = dna,
+        fixed       = TRUE
+        )
+
+}
+````
+
+Tests:
+
+``` {r}
+transcribe("ATGCTTATCTA")
+````
+
+
+## Refine your translate function
+
+Implementation:
+
+``` {r}
+# Translates RNA sequence into amino acid sequence
+#
+# rna   A character string containing RNA sequence
+#
+# value A character string containing amino sequence
+#
+translate <- function(rna) {
+
+  #Read a table with codons as the first column and amino acids as the second
+  translationTable <- read.delim("translationTable.txt", 
+                                  stringsAsFactors = FALSE)
+  
+  #Takes a 3-letter codon and returns the matching 1-letter amino acid
+  translateCodon <- function(codon) {  
+    translationTable[codon,]
+  }
+
+  #Takes a codon number (n) in rna and returns the 3-letter sequence
+  getCodon <- function(n) {  
+    substr(rna, 
+           start  = (n * 3) - 2, 
+           stop   = n * 3
+           )
+  }
+
+
+  #A series of codon numbers 1..n
+  codonNumbers <- 1:(nchar(rna) / 3)
+
+  #Character vector containing the sequence of amino acids in rna
+  aminoAcids <- sapply(codonNumbers, 
+                       FUN = function(n) { 
+                          translateCodon(getCodon(n)) 
+                      })
+
+  #Return a single string by joining the elements in aminoAcids
+  return( paste(aminoAcids, collapse = "", sep = "") )
+
+}
+````
+
+Tests:
+
+``` {r}
+translate("AUG")
+translate("UUCUAAAUUAACAAAAUC")
+translate("UUCUAAAUUAACAAAAU")
+translate("UUCUAAAUUAACAAAA")
+````
+
+## ORF finder
+
+Implementation:
+
+``` {r}
+# Returns a data.frame describing the ORFs found in the given aminoacid sequence
+#
+# aminoacids  A character string containing aminoacid sequence
+# cutoff      An integer giving the minimum aminoacid length of valid ORFs
+#
+# value       A data.frame, coordinates refer to amino acid position
+#
+findORF <- function(aminoacids, cutoff = 100) {
+
+  #Use a regular expression to find all Start - Stop codon stretches
+  matches <- gregexpr(pattern = "M(.*?)X", text = aminoacids)
+
+  #Extract match starting positions
+  startPositions = as.vector(matches[[1]])
+
+  #Extract the match lengths
+  lengths <- attr(matches[[1]], "match.length")
+
+  #Extract the amino acid sequence of the matches
+  proteinSequence <- substring( sampleAminoAcids, 
+                                first = startPositions, 
+                                last  = startPositions + lengths - 1)
+
+  #Create a new table to hold match information
+  preliminaryTable <- data.frame( startPosition   = startPositions,
+                                  length          = lengths,
+                                  proteinSequence = proteinSequence
+                                  )
+
+  #Filter the table with the cutoff value, return the result
+  return( preliminaryTable[lengths >= cutoff,] )
+  
+}
+````
+
+Tests:
+
+``` {r}
+sampleAminoAcids <- "aaaaMbbbbXccccMddddddXeeee"
+findORF(sampleAminoAcids, cutoff = 1)
+findORF(sampleAminoAcids, cutoff = 100)
+findORF(sampleAminoAcids, cutoff = 7)
+````
+
+## FASTA file loader
+
+Implementation:
+
+``` {r}
+# Parses a sequence file in FASTA format
+#
+# fastaFile   A string giving the name of a fasta file to parse
+#
+# value       A string containing the parsed sequence
+#
+loadFASTA <- function(fastaFile) {
+
+  #Use readLines to load the given fasta file
+  lines <- readLines(fastaFile)
+
+  #Trim out the header line
+  dnaLines <- lines[2:length(lines)]
+
+  #Return a single string, using paste to collapse the vector of strings
+  return( paste(dnaLines, collapse = "", sep = "") )
+
+}
+````
+
+Tests:
+
+``` {r}
+#This test assumes you've saved "chr1.fsa" in the current working directory.
+#This and subsequent tests are being run with a truncated version of chr1.fsa
+dna <- loadFASTA("chr01.fsa")
+substr(dna, 1, 10)
+nchar(dna)
+````
+
+## Frame annotation
+
+Implementation:
+
+``` {r}
+# Annotates the ORFs found in a given frame of a dnaString
+#
+# dnaStrand   A string containing DNA sequence
+# offset      The frame offset (0, 1, or 2)
+#
+# value       A data.frame.  Coordinates are relative to dnaStrand.
+#
+annotateFrame <- function(dnaStrand, offset) {
+
+  #Trim dnaStrand to given offset
+  searchFrame <- substr(dnaStrand, 1 + offset, nchar(dnaStrand))
+
+  #Transcribe and translate to obtain an amino acid sequence
+  proteinFrame <- translate( transcribe(searchFrame) )
+
+  #Call findORF to get a table of ORFs (coordinates = amino acid sequence)
+  orfTable <- findORF(proteinFrame)
+
+  #Update the coordinates in 'length' and 'startPosition' columns to match 
+  #nucleic acid coordinates in dnaStrand
+  orfTable$length         <- orfTable$length * 3
+  orfTable$startPosition  <- (orfTable$startPosition * 3) + offset
+
+  #Return the table
+  return(orfTable)
+
+}
+````
+
+Tests:
+```{r}
+dna <- loadFASTA("chr01.fsa")
+frame1 <- annotateFrame(dna, 0)
+frame1
+nrow(frame1)
+frame2 <- annotateFrame(dna, 1)
+nrow(frame2)
+frame3 <- annotateFrame(dna, 3)
+nrow(frame3)
+````
+
+## Reverse complement
+
+Implementation:
+
+``` {r}
+# Calculates the reverse complement of a dnaStrand
+#
+# dnaStrand   A string containing the forward DNA sequence
+#
+# value       A string containing the reverse complement to dnaStrand
+#
+reverseComplement <- function(dnaStrand) {
+
+  #First, reverse the sequence of dnaStrand
+  reversed <- reverseString(dnaStrand)
+
+  #Replace bases with lower-case complements
+  complement <- sub("C", "g", 
+                    sub("G","c", 
+                        sub("A","t", 
+                            sub("T", "a", reversed)
+                            )
+                        )
+                    )
+
+  #Convert to all uppercase and return
+  return( toupper(complement) )
+
+}
+
+# Reverses the characters in a string
+reverseString <- function(a) {
+  paste(rev(substring(a,1:nchar(a),1:nchar(a))),collapse="") 
+}
+````
+
+Tests:
+
+``` {r}
+reverseString("ATGC")
+reverseComplement("ATGC")
+````
+
+## Annotation chromosome
+
+Implementation:
+
+``` {r}
+# Finds all open reading frames in the chromosome sequence in a FASTA file
+#
+# fastaFile   A string containing the name of a chromosome file in FASTA format
+#
+# value       A data.frame.  Coordinates are relative to DNA sequence in input.
+#
+annotateChromosome <- function(fastaFile) {
+
+  #Load the chromosome FASTA file
+  forwardStrand <- loadFASTA(fastaFile)
+
+  #Get the forward frames
+  forwardFrames <- annotateStrand(forwardStrand)
+
+  #Calculate the reverse complement strand
+  reverseStrand <- reverseComplement(forwardStrand)
+
+  #The the reverse framse
+  reverseFrames <- annotateStrand(reverseStrand)
+
+  #Correct the coordinates in the reverseFrames table (draw this to see why!)
+  strandLength <- nchar(forwardStrand)
+  reverseFrames$startPosition <- strandLength - reverseFrames$startPosition + 1
+
+  #Merge the two tables, and return the result
+  return( rbind(forwardFrames, reverseFrames) )
+
+}
+
+annotateStrand <- function(dna) {
+
+  #Get ORF tables for each of the three forward frames
+  frame1 <- annotateFrame(dna, 0)
+  frame2 <- annotateFrame(dna, 1)
+  frame3 <- annotateFrame(dna, 3)
+
+  #Merge the frames
+  allFrames <- rbind(rbind(frame1, frame2), frame3)
+  
+  return(allFrames)
+
+}
+````
+
+Tests:
+``` {r}
+chr01 <- annotateChromosome("chr01.fsa")
+nrow(chr01)
+chr01
+````
+
+
+## Annotate the whole genome
+
+This function implementation demonstrates the use of one new language construct (a for loop) and a few new functions.
+
+Implementation:
+``` {r}
+# Loads all .fsa files in a given directory and saves an ORF annotation table
+#
+# 
+annotateGenome <- function(fastaDirectory = ".", tableFile = "orftable.txt") {
+
+  #Load a list of all .fsa files found in fastaDirectory
+  fastaFiles <- list.files(fastaDirectory, pattern = ".fsa")
+
+  #Create an empty data.frame to use to aggregate results
+  genomeORFs <- data.frame( file            = character(0), 
+                            startPosition   = numeric(0), 
+                            length          = numeric(0), 
+                            proteinSequence = character(0))
+
+  #For each file in fastaFiles
+  for (fileName in fastaFiles) {
+
+    message("Annotating:", fileName)
+
+    #Generate the ORF table for this fasta file
+    chromosomeORFs <- annotateChromosome(fileName)
+    
+    #Add a column, recording the chromosome file used to generate these ORFs
+    chromosomeORFs$file = fileName
+
+    #Merge with the aggregate table
+    genomeORFs <- rbind(genomeORFs, chromosomeORFs)
+
+  }
+
+  #Save genomeORFs
+  write.table(genomeORFs, tableFile, sep="\t")
+
+  #Return it for good measure
+  return(genomeORFs)
+
+}
+````
+
+Tests:
+``` {r}
+#This test assumes you have .fsa files in the current working directory
+orfs <- annotateGenome()
+orfs
+````

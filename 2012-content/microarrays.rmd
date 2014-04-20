@@ -1,0 +1,139 @@
+# Microarray analysis
+
+In the sections below you'll find some reference implementations of several functions which will be of use to you in analyzing microarray datasets.
+
+
+#  Loading multiple files
+
+In the implementation below, you'll see an example function which loads microarray data from multiple input files.
+
+``` {r}
+loadTables <- function(dataPath) {
+  
+  #Load each .txt file in the path, parse the table with read.delim
+  tables <- list()
+  for (fileName in list.files(dataPath, pattern = ".txt")) {
+    tables[[fileName]] <- read.delim(paste(dataPath, fileName, sep = "/"))
+  }
+  
+  return(tables)
+  
+}
+````
+
+# Preprocessing
+
+Here's a reference implementation of a preprocessing algorithm that performs many of the manipulations suggested in last week's lab:
+
+``` {r}
+preprocess <- function(table, dataName) {
+  
+  #Calculate Cy5 / Cy3 ratio (Ch1 / Ch2)
+  ratios <- table$CH1D_MEAN / table$CH2D_MEAN
+  
+  #Filter bad (negative) ratio values
+  ratios[ratios < 0] <- NA
+  
+  #Log2 transform ratios
+  logRatio <- log(x = ratios, base = 2)
+  logRatio[logRatio == NaN | logRatio == Inf | logRatio == -Inf] <- NA
+  
+  #Global median normalization (median Log2(Cy5/Cy3) == 0)
+  medianRatio <- median(logRatio, na.rm = TRUE)
+  normalizedRatios <- logRatio - medianRatio
+  
+  return(normalizedRatios)
+
+}
+````
+
+# Hierarchical clustering
+
+This wrapper function uses loadTables and preprocessing above to load a set of microarray tables from the DeRisi '96 data set and constructs a hierarchical cluster heatmap.:
+
+``` {r}
+analyzeArrays <- function(dataPath, platformFile) {
+  
+  #Load data.frame's from the given path
+  tables <- loadTables(dataPath)
+  
+  #Load platform annotation information
+  platform <- read.delim(platformFile)
+  
+  #Create a data.frame to hold the normalized data
+  normalizedData <- data.frame(ORF = platform$ID..ORF)
+  
+  #For each file that was loaded as a data.frame in our list
+  for (dataName in names(tables)) {
+    
+    message("Analyzing: ", dataName)
+    
+    table <- tables[[dataName]]
+    normalizedValues <- preprocess(table, dataName)
+    normalizedData[[dataName]] <- normalizedValues
+    
+  }
+  
+  #Create a matrix that we can use as the source for clustering with heatmap
+  clusterMatrix <- as.matrix( normalizedData[2:ncol(normalizedData)] )
+  
+  #For simplicity, filter out any rows with missing data
+  clusterMatrix <- clusterMatrix[apply(clusterMatrix, 
+                                       MARGIN = 1, 
+                                       FUN    = function(x) { 
+                                                  !NA %in% x 
+                                                }
+                                       ),
+                                 ]
+  
+  
+  #Load gplots, which provides the colorpanel function
+  library(gplots)
+  
+  #Use heatmap to perform clustering
+  heatmap(clusterMatrix, 
+          
+          #Skip clustering columns
+          Colv  = NA, 
+          
+          #Load a pretty Blue-to-black-to-yellow color pallet
+          col   = colorpanel(100,"royalblue3","black","yellow"),
+          
+          #Set color saturation values at log2 of -2 to 2
+          #zlim = c( -2, 2),
+          
+          #Hide gene labels because they will be too small to read
+          labRow=c("")
+          
+          )
+  
+  return(normalizedData)
+  
+}
+````
+
+# Heatmaps of background intensity values
+
+The function below takes a vector of background intensity values from the DeRisi '96 microarray dataset and makes a heatmap plot of those intesities across the surface of the microarray.
+
+``` {r}
+plotBackground <- function(backgroundIntensities, plotName = "") {
+
+  sector1 <- matrix(backgroundIntensities[1:1600], nrow = 40, ncol= 40, byrow = TRUE)
+  sector2 <- matrix(backgroundIntensities[1601:3200], nrow = 40, ncol= 40, byrow = TRUE)
+  topBlocks <- cbind(sector1, sector2)
+  
+  sector3 <- matrix(backgroundIntensities[3201:4800], nrow = 40, ncol= 40, byrow = TRUE)
+  sector4 <- matrix(backgroundIntensities[4801:6400], nrow = 40, ncol= 40, byrow = TRUE)
+  bottomBlocks <- cbind(sector3, sector4)
+  
+  imageBlocks <- rbind(topBlocks, bottomBlocks)
+  
+  filled.contour(1:80, 1:80, 
+                 imageBlocks, 
+                 col  = heat.colors(20), 
+                 main = paste("Background intensities (", plotName, ")", sep = "")
+                 )
+  
+}
+````
