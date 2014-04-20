@@ -76,13 +76,13 @@ output_formats:
       - linkData
     render: ioslides_presentation
 
-  PDF:
-    file_extension: .pdf
-    render:
-      pdf_document:
-        toc:              true
-        toc_depth:        2
-        number_sections:  true
+#   PDF:
+#     file_extension: .pdf
+#     render:
+#       pdf_document:
+#         toc:              true
+#         toc_depth:        2
+#         number_sections:  true
 
 # The default project directory hierarchy.  Note, if you changes paths here, you
 # may also have to update paths in template files and the output_formats 
@@ -119,8 +119,8 @@ paths:
 # templating engine and post-processing calls.
 #
 templateData:
-  siteName: courseR  
-  baseURL:  http://mysite.com
+  siteName: bio285  
+  baseURL:  http://rna.wlu.edu/bio285
   trimTextCutoff: 140
 
 # Assorted additional configuration options.

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta name="generator" content="pandoc" />
+
+$for(author-meta)$
+<meta name="author" content="$author-meta$" />
+$endfor$
+
+$if(date-meta)$
+<meta name="date" content="$date-meta$" />
+$endif$
+
+<title>$if(title-prefix)$$title-prefix$ - $endif$$pagetitle$</title>
+
+$for(header-includes)$
+$header-includes$
+$endfor$
+
+{{> page-styles}}
+
+</head>
+
+<body>
+
+{{> index-navbar}}
+
+$if(title)$
+<div class="jumbotron">
+<div class="container">
+<h1>$title$</h1>
+$if(description)$
+<p>$description$</p>
+$endif$
+</div>
+</div>
+$endif$
+
+<div class="container">
+$body$
+</div>
+
+{{> page-footer}}
+
+{{> page-scripts}}
+
+</body>
+</html>
