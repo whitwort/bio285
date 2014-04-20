@@ -8,9 +8,8 @@ output_formats:
   PDF: false
 ---
 
-# Sample courseR site
+# Welcome to Bio 285!
 
-Welcome to this sample index template!
+Nothing to see here yet, please move along...
 
-{{> site-contents}}
 
