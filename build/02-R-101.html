@@ -93,12 +93,12 @@ c</code></pre>
 <div id="section" class="section level2">
 <h2></h2>
 <p>If you’re working with very large numbers you can use for scientific notation:</p>
-<p><code>r   2e10</code></p>
-<p><code>## [1] 2e+10</code></p>
-<p><code>r   2 * 10^10</code></p>
-<p><code>## [1] 2e+10</code></p>
-<p><code>r   2e10 == 2 * 10^10</code></p>
-<p><code>## [1] TRUE</code></p>
+<pre class="r"><code>2e10</code></pre>
+<pre><code>## [1] 2e+10</code></pre>
+<pre class="r"><code>2 * 10^10</code></pre>
+<pre><code>## [1] 2e+10</code></pre>
+<pre class="r"><code>2e10 == 2 * 10^10</code></pre>
+<pre><code>## [1] TRUE</code></pre>
 <p>In that last line we used the comparison operator <code>==</code>; it tests whether or not two values are equivalent.</p>
 <p>Finally, let’s see what happens if we try hitting <code>enter</code> before we’ve finished entering a complete expression. Type <code>2 +</code> and then hit <code>enter</code>. You’ll see a little <code>+</code> shows up as your prompt on the next line. This is R’s way of telling you the text you’ve entered so far isn’t a complete thought. Finish this expression by entering another number and hitting <code>enter</code> again.</p>
 </div>
@@ -107,12 +107,12 @@ c</code></pre>
 <p>In the above expressions we appeared to be doing computations on single numbers. In fact, something more complicated was going on under the hood. In R all data are actually <a href="http://en.wikipedia.org/wiki/Array_data_structure">vectors</a> of data.</p>
 <p>Unlike other programming languages, there are no atomic values in R; the most basic data structure is a vector. Single values are just vectors with one element. This may seem odd at first, until you consider the key implication: all operators and functions in R are built to handle vectors of data, not just single values. This means anything that can be done with a single number can also be done with a vector of numbers. This is a language that was clearly designed by statisticians!</p>
 <p>You can see how many elements a vector holds using the <code>length</code> function:</p>
-<p><code>r   length(10)</code></p>
-<p><code>## [1] 1</code></p>
-<p><code>r   length(c)</code></p>
-<p><code>## [1] 1</code></p>
-<p><code>r   length(1:10)</code></p>
-<p><code>## [1] 10</code></p>
+<pre class="r"><code>length(10)</code></pre>
+<pre><code>## [1] 1</code></pre>
+<pre class="r"><code>length(c)</code></pre>
+<pre><code>## [1] 1</code></pre>
+<pre class="r"><code>length(1:10)</code></pre>
+<pre><code>## [1] 10</code></pre>
 <p>Above, <code>length</code> is the first example we’ve seen of an R <a href="http://en.wikipedia.org/wiki/Function_(programming)">function</a>. In programming, functions are analogous to their mathematical counter parts: they take in one or more values and evaluate to a new value. The R syntax for running, or “calling”, a function is in the form of <code>functionName(value1, value2, ...)</code>.</p>
 </div>
 <div id="composing-vectors" class="section level2">
@@ -185,8 +185,9 @@ cat(s)</code></pre>
 <h2>A note about NULL</h2>
 <p>R also has a special “no-value” type called <code>NULL</code>. If you are coming to R from another programming language it is easy confuse <code>NA</code> and <code>NULL</code> (for example, in Python data analysis modules the <code>None</code> type is often used to do double duty, signifying <code>NULL</code> or <code>NA</code> depending on the context). By convention, you should use <code>NA</code> in data structures to represent missing data points.</p>
 <p><code>NULL</code> is used to signify unassigned variables:</p>
-<p><code>r   NULL   is.null(NULL)</code></p>
-<p><code>## [1] TRUE</code></p>
+<pre class="r"><code>NULL
+is.null(NULL)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
 </div>
 </div>
 <div id="indexing-syntax-in-r" class="section level1">
@@ -224,41 +225,41 @@ cat(s)</code></pre>
 <div id="section-5" class="section level2">
 <h2></h2>
 <p>In addition to putting integer vectors inside of the index <code>[...]</code> we can also use logical vectors. If we do, <code>TRUE</code> at a position causes a value to be extracted, while a <code>FALSE</code> indicates that it should be skipped. Let’s look at an example:</p>
-<p><code>r   myNumbers</code></p>
-<p><code>## [1] 10 20 30 40 50</code></p>
-<p><code>r   myNumbers[ c(FALSE, TRUE , TRUE , TRUE , TRUE ) ]</code></p>
-<p><code>## [1] 20 30 40 50</code></p>
-<p><code>r   myNumbers[ c(TRUE , FALSE, FALSE, FALSE, FALSE) ]</code></p>
-<p><code>## [1] 10</code></p>
+<pre class="r"><code>myNumbers</code></pre>
+<pre><code>## [1] 10 20 30 40 50</code></pre>
+<pre class="r"><code>myNumbers[ c(FALSE, TRUE , TRUE , TRUE , TRUE ) ]</code></pre>
+<pre><code>## [1] 20 30 40 50</code></pre>
+<pre class="r"><code>myNumbers[ c(TRUE , FALSE, FALSE, FALSE, FALSE) ]</code></pre>
+<pre><code>## [1] 10</code></pre>
 </div>
 <div id="section-6" class="section level2">
 <h2></h2>
 <p>So why would you ever want to do this? The answer lies in the combination of indexing and the logical operators (<code>&gt;</code>, <code>&lt;</code>, <code>==</code>, <code>!=</code>, and <code>%in%</code>).</p>
 <p>Logical operators always return a logical vector:</p>
-<p><code>r   myNumbers &gt; 25</code></p>
-<p><code>## [1] FALSE FALSE  TRUE  TRUE  TRUE</code></p>
-<p><code>r   myNumbers &lt; 25</code></p>
-<p><code>## [1]  TRUE  TRUE FALSE FALSE FALSE</code></p>
-<p><code>r   myNumbers == 30</code></p>
-<p><code>## [1] FALSE FALSE  TRUE FALSE FALSE</code></p>
-<p><code>r   myNumbers != 30</code></p>
-<p><code>## [1]  TRUE  TRUE FALSE  TRUE  TRUE</code></p>
+<pre class="r"><code>myNumbers &gt; 25</code></pre>
+<pre><code>## [1] FALSE FALSE  TRUE  TRUE  TRUE</code></pre>
+<pre class="r"><code>myNumbers &lt; 25</code></pre>
+<pre><code>## [1]  TRUE  TRUE FALSE FALSE FALSE</code></pre>
+<pre class="r"><code>myNumbers == 30</code></pre>
+<pre><code>## [1] FALSE FALSE  TRUE FALSE FALSE</code></pre>
+<pre class="r"><code>myNumbers != 30</code></pre>
+<pre><code>## [1]  TRUE  TRUE FALSE  TRUE  TRUE</code></pre>
 </div>
 <div id="section-7" class="section level2">
 <h2></h2>
 <p>The %in% asks if the first set of numbers can be found in the second:</p>
-<p><code>r   30 %in% myNumbers</code></p>
-<p><code>## [1] TRUE</code></p>
-<p><code>r   c(10, 100) %in% myNumbers</code></p>
-<p><code>## [1]  TRUE FALSE</code></p>
+<pre class="r"><code>30 %in% myNumbers</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>c(10, 100) %in% myNumbers</code></pre>
+<pre><code>## [1]  TRUE FALSE</code></pre>
 </div>
 <div id="section-8" class="section level2">
 <h2></h2>
 <p>The ! operator negates (flips) each value of a logical vector:</p>
-<p><code>r   !TRUE</code></p>
-<p><code>## [1] FALSE</code></p>
-<p><code>r   !(myNumbers &gt; 25)</code></p>
-<p><code>## [1]  TRUE  TRUE FALSE FALSE FALSE</code></p>
+<pre class="r"><code>!TRUE</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<pre class="r"><code>!(myNumbers &gt; 25)</code></pre>
+<pre><code>## [1]  TRUE  TRUE FALSE FALSE FALSE</code></pre>
 <p><strong>A note about <code>=</code> vs <code>==</code>:</strong> Many beginers are confused by the difference between <code>=</code> and <code>==</code>. The <code>=</code> operator is used for value assignment, traditionally for arguments inside of function calls such as <code>plot(x = 10, y = 1)</code>, or in newer versions of R in place of the <code>&lt;-</code> operator as in <code>a = 10</code>. If you want to compare <em>equivalence</em> between two values you’ll want to use the double <code>==</code> operator. These operations will evaluate to a logical vector (<code>TRUE</code> or <code>FALSE</code>).</p>
 </div>
 <div id="section-9" class="section level2">
@@ -279,12 +280,14 @@ cat(s)</code></pre>
 <div id="assigning-values" class="section level2">
 <h2>Assigning values</h2>
 <p>Finally, the indexing <code>[...]</code> syntax isn’t just used to extract values from data structures. It can also be used to assign values <em>into</em> existing structures. For example:</p>
-<p><code>r   myNumbers</code></p>
-<p><code>## [1] 10 20 30 40 50</code></p>
-<p><code>r   myNumbers[3]    &lt;- 100   myNumbers</code></p>
-<p><code>## [1]  10  20 100  40  50</code></p>
-<p><code>r   myNumbers[2:3]  &lt;- c(1,2)   myNumbers</code></p>
-<p><code>## [1] 10  1  2 40 50</code></p>
+<pre class="r"><code>myNumbers</code></pre>
+<pre><code>## [1] 10 20 30 40 50</code></pre>
+<pre class="r"><code>myNumbers[3]    &lt;- 100
+myNumbers</code></pre>
+<pre><code>## [1]  10  20 100  40  50</code></pre>
+<pre class="r"><code>myNumbers[2:3]  &lt;- c(1,2)
+myNumbers</code></pre>
+<pre><code>## [1] 10  1  2 40 50</code></pre>
 </div>
 </div>
 <div id="bigger-data-structures" class="section level1">
@@ -302,20 +305,20 @@ m</code></pre>
 <div id="section-11" class="section level2">
 <h2></h2>
 <p>You access values on a matrix by using a one element index, refering to a n’th position:</p>
-<p><code>r   m[2]</code></p>
-<p><code>## [1] 2</code></p>
+<pre class="r"><code>m[2]</code></pre>
+<pre><code>## [1] 2</code></pre>
 <p>Alternatively you can specify a <code>[row, col]</code>:</p>
-<p><code>r   m[1,2]</code></p>
-<p><code>## [1] 3</code></p>
+<pre class="r"><code>m[1,2]</code></pre>
+<pre><code>## [1] 3</code></pre>
 </div>
 <div id="section-12" class="section level2">
 <h2></h2>
 <p>Or just a row:</p>
-<p><code>r   m[1,]</code></p>
-<p><code>## [1] 1 3 5 7</code></p>
+<pre class="r"><code>m[1,]</code></pre>
+<pre><code>## [1] 1 3 5 7</code></pre>
 <p>Or just a column:</p>
-<p><code>r   m[,2]</code></p>
-<p><code>## [1] 3 4</code></p>
+<pre class="r"><code>m[,2]</code></pre>
+<pre><code>## [1] 3 4</code></pre>
 <p>If you forget this syntax, just pay attention to how R prints out matrixes!</p>
 <p>## Array</p>
 <p>An array is a matrix of more than two dimensions.</p>
@@ -335,26 +338,35 @@ m</code></pre>
 <div id="lists" class="section level2">
 <h2>Lists</h2>
 <p>Unlike arrays and matrixes, lists are collections of vectors where the individual vectors can hold different types of data:</p>
-<p><code>r   l &lt;- list( a = c(1, 2, 3, 4)            , b = c("a", "b", "c")   )   l</code></p>
-<p><code>## $a   ## [1] 1 2 3 4   ##    ## $b   ## [1] "a" "b" "c"</code></p>
+<pre class="r"><code>l &lt;- list( a = c(1, 2, 3, 4)
+           , b = c("a", "b", "c")
+)
+l</code></pre>
+<pre><code>## $a
+## [1] 1 2 3 4
+## 
+## $b
+## [1] "a" "b" "c"</code></pre>
 </div>
 <div id="section-13" class="section level2">
 <h2></h2>
 <p>You can access individual vectors on lists using indexing with numbers or names:</p>
-<p><code>r   l[1]</code></p>
-<p><code>## $a   ## [1] 1 2 3 4</code></p>
-<p><code>r   l["a"]</code></p>
-<p><code>## $a   ## [1] 1 2 3 4</code></p>
+<pre class="r"><code>l[1]</code></pre>
+<pre><code>## $a
+## [1] 1 2 3 4</code></pre>
+<pre class="r"><code>l["a"]</code></pre>
+<pre><code>## $a
+## [1] 1 2 3 4</code></pre>
 <p>Did you notice what type of thing was returned there?</p>
 </div>
 <div id="section-14" class="section level2">
 <h2></h2>
 <p>To simplify the result of indexing down to a vector (rather than a one element list):</p>
-<p><code>r   l[[1]]</code></p>
-<p><code>## [1] 1 2 3 4</code></p>
+<pre class="r"><code>l[[1]]</code></pre>
+<pre><code>## [1] 1 2 3 4</code></pre>
 <p>The <code>$</code> is short hand for referencing a named element on a list:</p>
-<p><code>r   l$a</code></p>
-<p><code>## [1] 1 2 3 4</code></p>
+<pre class="r"><code>l$a</code></pre>
+<pre><code>## [1] 1 2 3 4</code></pre>
 </div>
 </div>
 <div id="working-with-tables" class="section level1">
@@ -421,8 +433,18 @@ m</code></pre>
 <p>R can import tabular data from a wide variety of source file formats. Base R has excellent support for loading data using the <code>read.table</code> family of functions. There are also a wide array of R packages that support loading data from databases and other binary file formats. If you just need to move data from an Excel worksheet into R, the easiest path is to save it as a text file (tab-delimited or csv) and load it into R using <code>read.table</code>.</p>
 <p>If you’re working in <a href="http://www.rstudio.com/">RStudio</a>, you can use the “Import Dataset” button on the Workspace tab to load data from a local file or over the web. Under-the-hood RStudio is just calling <code>read.table</code> for you, which we’ll explore below (see the History tab see the command that RStudio generated for you).</p>
 <p>To follow along with this example, you can download the genetic code table and save it in your current working directory: <a href="&lt;a%20href=" data>data/codons.txt</a>"&gt;codons.txt. This table has two columns: “codon” and “aminoAcid.” To load the table into a variable:</p>
-<p><code>r   codons &lt;- read.table( "<a href="data/codons.txt">data/codons.txt</a>"                       , header = TRUE                       , stringsAsFactors = FALSE   )   head(codons)</code></p>
-<p><code>##   codon aminoAcid   ## 1   GCU         A   ## 2   GCC         A   ## 3   GCA         A   ## 4   GCG         A   ## 5   CGU         R   ## 6   CGC         R</code></p>
+<pre class="r"><code>codons &lt;- read.table( "<a href="data/codons.txt">data/codons.txt</a>"
+                    , header = TRUE
+                    , stringsAsFactors = FALSE
+                    )
+head(codons)</code></pre>
+<pre><code>##   codon aminoAcid
+## 1   GCU         A
+## 2   GCC         A
+## 3   GCA         A
+## 4   GCG         A
+## 5   CGU         R
+## 6   CGC         R</code></pre>
 <p>The <code>read.table</code> function takes a large number of optional arguments which allows it to adapt to a wide variety of different file formats. Here we’ve specified <code>header = TRUE</code> because the first line of our file contains column headings. The <code>stringsAsFactors = FALSE</code> argument tells R not to try to convert text columns to a special type of data structure called a <code>factor</code>. Factors are intended to flag strings as describing levels of a categorical variable. They are a more advanced topic then we’ll dive into here; so we’ll turn them off.</p>
 </div>
 <div id="accessing-data-in-a-data.frame" class="section level2">
@@ -453,15 +475,25 @@ m</code></pre>
 <h2>Calculating a new column</h2>
 <p>We can use the <code>$</code> syntax (like the <code>[...]</code>) to assign data to existing columns on a <code>data.frame</code> or to create a new column. Let’s say that we want to add a new column to our <code>codons</code> table that will annotate what type of amino acid is encoded by each codon (non-polar, polar, acidic or basic).</p>
 <p>We can start by creating a new column called <code>type</code> that contains all <code>NA</code> values:</p>
-<p><code>r   codons$type &lt;- NA   head(codons)</code></p>
-<p><code>##   codon aminoAcid type   ## 1   GCU         A   NA   ## 2   GCC         A   NA   ## 3   GCA         A   NA   ## 4   GCG         A   NA   ## 5   CGU         R   NA   ## 6   CGC         R   NA</code></p>
+<pre class="r"><code>codons$type &lt;- NA
+head(codons)</code></pre>
+<pre><code>##   codon aminoAcid type
+## 1   GCU         A   NA
+## 2   GCC         A   NA
+## 3   GCA         A   NA
+## 4   GCG         A   NA
+## 5   CGU         R   NA
+## 6   CGC         R   NA</code></pre>
 </div>
 <div id="section-16" class="section level2">
 <h2></h2>
 <p>Here could have hand-encoded a vector of 20 strings describing the type of each amino acid in our table. But we’ll take the lazier path and learn a few new R tricks along the way. Let’s make some vectors that describe which amino acids belong to each of the four categories:</p>
-<p>```r # Assuming physiological pH; we’ll call histidine basic for simplicity! nonpolar &lt;- c( “A”, “C”, “G”, “I”, “L”, “M”, “F”, “P”, “W”, “V” ) polar &lt;- c( “N”, “Q”, “S”, “T”, “Y” ) acidic &lt;- c( “D”, “E” ) basic &lt;- c( “R”, “H”, “K” )</p>
-<p># We can make sure we’ve annotated all 20 amino acids length( c( nonpolar, polar, acidic, basic ) ) == 20 ```</p>
-<p><code>## [1] TRUE</code></p>
+<pre class="r"><code>nonpolar  &lt;- c( "A", "C", "G", "I", "L", "M", "F", "P", "W", "V" )
+polar     &lt;- c( "N", "Q", "S", "T", "Y"                          )
+acidic    &lt;- c( "D", "E"                                         )
+basic     &lt;- c( "R", "H", "K"                                    )
+length( c( nonpolar, polar, acidic, basic ) ) == 20</code></pre>
+<pre><code>## [1] TRUE</code></pre>
 </div>
 <div id="section-17" class="section level2">
 <h2></h2>
