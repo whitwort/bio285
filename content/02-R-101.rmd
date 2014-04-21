@@ -1,11 +1,10 @@
 ---
 title: "R 101"
-description: A practical introduction to working with data in R, including working with variables, functions and importing data.  Everything you need to know how to do in R to avoid ever having to use Exel again!
+description: A practical introduction to working with data in R, including working with variables, functions and importing data.  Everything you need to know how to do in R to avoid ever having to use Excel again!
 section: Background
-data: 
-  - data/codons.txt
-  - data/npl3-dna.txt
+data: "data/codons.txt"
 ---
+
 # Working with simple data
 
 ## Interacting with R
@@ -58,8 +57,8 @@ c
 ##
 
 If you're working with very large numbers you can use for scientific notation:
-
-```{r}
+  
+  ```{r}
 2e10
 2 * 10^10
 2e10 == 2 * 10^10
@@ -74,10 +73,10 @@ Finally, let's see what happens if we try hitting `enter` before we've finished 
 In the above expressions we appeared to be doing computations on single numbers.  In fact, something more complicated was going on under the hood.  In R all data are actually [vectors](http://en.wikipedia.org/wiki/Array_data_structure) of data.  
 
 Unlike other programming languages, there are no atomic values in R; the most basic data structure is a vector.  Single values are just vectors with one element.  This may seem odd at first, until you consider the key implication:  all operators and functions in R are built to handle vectors of data, not just single values.  This means anything that can be done with a single number can also be done with a vector of numbers.  This is a language that was clearly designed by statisticians! 
-
-You can see how many elements a vector holds using the `length` function:
-
-```{r}
+  
+  You can see how many elements a vector holds using the `length` function:
+  
+  ```{r}
 length(10)
 length(c)
 length(1:10)
@@ -160,8 +159,8 @@ Most R functions will either understand how to deal with missing data, or issue 
 R also has a special "no-value" type called `NULL`.  If you are coming to R from another programming language it is easy confuse `NA` and `NULL` (for example, in Python data analysis modules the `None` type is often used to do double duty, signifying `NULL` or `NA` depending on the context).  By convention, you should use `NA` in data structures to represent missing data points.  
 
 `NULL` is used to signify unassigned variables:
-
-```{r}
+  
+  ```{r}
 NULL
 is.null(NULL)
 ````
@@ -206,8 +205,8 @@ myNumbers[2:4]
 ##
 
 In addition to putting integer vectors inside of the index `[...]` we can also use logical vectors.  If we do, `TRUE` at a position causes a value to be extracted, while a `FALSE` indicates that it should be skipped.  Let's look at an example:
-
-``` {r}
+  
+  ``` {r}
 myNumbers
 myNumbers[ c(FALSE, TRUE , TRUE , TRUE , TRUE ) ]
 myNumbers[ c(TRUE , FALSE, FALSE, FALSE, FALSE) ]
@@ -218,8 +217,8 @@ myNumbers[ c(TRUE , FALSE, FALSE, FALSE, FALSE) ]
 So why would you ever want to do this?  The answer lies in the combination of indexing and the logical operators (`>`, `<`, `==`, `!=`, and `%in%`).
 
 Logical operators always return a logical vector:
-
-``` {r}
+  
+  ``` {r}
 myNumbers > 25
 myNumbers < 25
 myNumbers == 30
@@ -229,7 +228,7 @@ myNumbers != 30
 ##
 
 The %in% asks if the first set of numbers can be found in the second:
-```{r}
+  ```{r}
 30 %in% myNumbers
 c(10, 100) %in% myNumbers
 ```
@@ -237,8 +236,8 @@ c(10, 100) %in% myNumbers
 ##
 
 The ! operator negates (flips) each value of a logical vector:
-
-```{r}
+  
+  ```{r}
 !TRUE
 !(myNumbers > 25)
 ````
@@ -267,8 +266,8 @@ What happened there?  If you need help figuring it out, look up the `%%` (*modul
 ## Assigning values
 
 Finally, the indexing `[...]` syntax isn't just used to extract values from data structures.  It can also be used to assign values *into* existing structures.  For example:
-
-``` {r}
+  
+  ``` {r}
 myNumbers
 myNumbers[3]    <- 100
 myNumbers
@@ -292,34 +291,34 @@ m
 ##
 
 You access values on a matrix by using a one element index, refering to a n'th position:
-```{r}
+  ```{r}
 m[2]
 ```
 
 Alternatively you can specify a `[row, col]`:
-```{r}
+  ```{r}
 m[1,2]
 ```
 
 ##
 
 Or just a row:
-
-```{r}
+  
+  ```{r}
 m[1,]
 ```
 
 Or just a column:
-
-```{r}
+  
+  ```{r}
 m[,2]
 ```
 
 If you forget this syntax, just pay attention to how R prints out matrixes!
-
-## Array
-
-An array is a matrix of more than two dimensions.
+  
+  ## Array
+  
+  An array is a matrix of more than two dimensions.
 
 ```{r}
 array(1:8, dim=c(2,2,2))
@@ -328,19 +327,19 @@ array(1:8, dim=c(2,2,2))
 ## Lists
 
 Unlike arrays and matrixes, lists are collections of vectors where the individual vectors can hold different types of data:
-
-```{r}
+  
+  ```{r}
 l <- list( a = c(1, 2, 3, 4)
-         , b = c("a", "b", "c")
-         )
+           , b = c("a", "b", "c")
+)
 l
 ```
 
 ##
 
 You can access individual vectors on lists using indexing with numbers or names:
-
-```{r}
+  
+  ```{r}
 l[1]
 l["a"]
 ```
@@ -350,13 +349,13 @@ Did you notice what type of thing was returned there?
 ##
 
 To simplify the result of indexing down to a vector (rather than a one element list):
-
-```{r}
+  
+  ```{r}
 l[[1]]
 ```
 
 The `$` is short hand for referencing a named element on a list:
-```{r}
+  ```{r}
 l$a
 ```
 
@@ -374,12 +373,12 @@ Let's consider a simple example experimental design:  a response variable measur
 
 Excel has probably trained you to format data something like this:
 
-  Day | Group A | Group B
-  --- | ------- | -------
-  1   | 5       | 5
-  2   | 6       | 7
-  3   | 7       | 9
-  4   | 8       | 11
+Day | Group A | Group B
+--- | ------- | -------
+1   | 5       | 5
+2   | 6       | 7
+3   | 7       | 9
+4   | 8       | 11
 
 
 The reason we have all learned to format the data this way in Excel is that it makes it easy to produce plots -- if we select these cells and click the scatter plot wizard, we'll get the desired plot with Day on the X-axis and two sets of points, one for Group A and the other Group B.
@@ -389,17 +388,17 @@ Statisticians, and by proxy statistical software packages, object to this format
 ##
 
 The correct design would be a three column table:
-  
-  Day | Group   | Response
-  --- | ------- | --------
-  1   | A       | 5
-  1   | B       | 5
-  2   | A       | 6
-  2   | B       | 7
-  3   | A       | 7
-  3   | B       | 9
-  4   | A       | 8
-  4   | B       | 11
+
+Day | Group   | Response
+--- | ------- | --------
+1   | A       | 5
+1   | B       | 5
+2   | A       | 6
+2   | B       | 7
+3   | A       | 7
+3   | B       | 9
+4   | A       | 8
+4   | B       | 11
 
 
 If you have a lot of data formatted in the first of these two formats, don't worry.  Restructuring your tables is easy to do in R, as is generating any new categorical label columns you might need.  We can explore this topic in more detail if there's interest, but as a preview the tools you'll probably need are the `c(..., recursive = TRUE)` and `rep()` functions.
@@ -412,12 +411,12 @@ R can import tabular data from a wide variety of source file formats.  Base R ha
 If you're working in [RStudio](http://www.rstudio.com/), you can use the "Import Dataset" button on the Workspace tab to load data from a local file or over the web.  Under-the-hood RStudio is just calling `read.table` for you, which we'll explore below (see the History tab see the command that RStudio generated for you).
 
 To follow along with this example, you can download the genetic code table and save it in your current working directory:  [codons.txt](data/codons.txt).  This table has two columns:  "codon" and "aminoAcid."  To load the table into a variable:
-
-```{r}
+  
+  ```{r}
 codons <- read.table( "data/codons.txt"
-                    , header = TRUE
-                    , stringsAsFactors = FALSE
-                    )
+                      , header = TRUE
+                      , stringsAsFactors = FALSE
+)
 head(codons)
 ````
 
@@ -445,8 +444,8 @@ codons[ 2, 1 ]
 We can use the `$` syntax (like the `[...]`) to assign data to existing columns on a `data.frame` or to create a new column.  Let's say that we want to add a new column to our `codons` table that will annotate what type of amino acid is encoded by each codon (non-polar, polar, acidic or basic).
 
 We can start by creating a new column called `type` that contains all `NA` values:
-
-```{r}
+  
+  ```{r}
 codons$type <- NA
 head(codons)
 ````
@@ -454,8 +453,8 @@ head(codons)
 ##
 
 Here could have hand-encoded a vector of 20 strings describing the type of each amino acid in our table.  But we'll take the lazier path and learn a few new R tricks along the way.  Let's make some vectors that describe which amino acids belong to each of the four categories:
-
-```{r}
+  
+  ```{r}
 # Assuming physiological pH; we'll call histidine basic for simplicity!
 nonpolar  <- c( "A", "C", "G", "I", "L", "M", "F", "P", "W", "V" )
 polar     <- c( "N", "Q", "S", "T", "Y"                          )
@@ -493,7 +492,6 @@ Pretty neat, eh?  Working with numeric data in table columns is even more straig
 Notice how we accomplished this task by composing a few minimal data structures, followed by a few relatively straight-forward assignments.  We never had to repeat assignment of any of our amino acid types.  In both software design and data analysis we always try to adhere to the "[DRY](http://en.wikipedia.org/wiki/Don't_repeat_yourself)" (don't repeat yourself) principle.  
 
 This is much easier to do when working with tabular data in R than it is in traditional spreadsheet packages or other statistical environments.
-
 
 #  Homework excercise
 

@@ -309,6 +309,7 @@ We can translate codons...
 ``` {r}
 translateRNA("UGG")
 ````
+
 ...but we need to be able to read a string of letters in sets of 3.
 ``` {r}
 sampleRNA <- "GTAGCTGGCAAGTTAATAGAGATGGAAAAC"
@@ -452,3 +453,4 @@ Translate all 6 possible open reading frames
 # Challenge #2
 
 Find the open reading frame that is most likely the real one!
+
