@@ -505,7 +505,7 @@ The challenge -- design an R script with a set of functions that will:
 
 And the special challenge:
 
-* Translate the DNA sequence to protein (using the "data/codons.txt")
+* Translate the DNA sequence to protein (using the "data/codons.txt") 
 
 ## Parts list:
 
