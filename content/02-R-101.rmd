@@ -318,7 +318,7 @@ m[,2]
 
 If you forget this syntax, just pay attention to how R prints out matrixes!
   
-  ## Array
+## Array
   
   An array is a matrix of more than two dimensions.
 
