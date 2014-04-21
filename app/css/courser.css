@@ -14,3 +14,10 @@ body {
     padding-top: 0;
   }
 }
+
+/* center images on slides */
+slide img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

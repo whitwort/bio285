@@ -1,0 +1,520 @@
+---
+title: "R 101"
+description: A practical introduction to working with data in R, including working with variables, functions and importing data.  Everything you need to know how to do in R to avoid ever having to use Exel again!
+section: Background
+data: 
+  - data/codons.txt
+  - data/npl3-dna.txt
+---
+# Working with simple data
+
+## Interacting with R
+
+The command line is the primary mechanism that you'll use to interact with R.  When you enter instructions the R interpreter will perform computations for you. 
+
+While this may seem like an arcane method for interacting with software, it has one *huge* advantage over point-and-click environments:  it is incredibly easy to repeat or abstract computations that you need to do often or on very large data sets.  Any instruction that you type at the R command line can also be saved to a "R script" file.  These files are just plain text files (by convention, R scripts have a ".r" or ".R" at the end of the file name).  Running an R script is identical to hand typing all of the commands in that script at the command line.
+
+Let's try entering some simple math expressions to see how this interaction with the command line works.  In the code examples you'll see on this site the commands you type are followed by the text or visual output that R produces.
+
+What do you think will happen when you enter these commands? Try it out.
+
+```{r eval=FALSE}
+1 + 2
+2 * 3
+4 ^ 5
+6.7 / 8.9
+````
+
+As you might expect, R recognizes the standard syntax for numbers and mathematical operators.  When you've enter a complete [expression][] at the command line and hit "enter", R [evaluates](http://en.wikipedia.org/wiki/Evaluation_strategy) the result of that expression.  If you don't tell R what to do with the result, it will just print out a representation of the value on the next line.
+
+## Getting help
+
+Manual pages for all of the functions in base R and R packages are built into the language.  To quickly get help for any function you can use the `?` syntax.  
+
+To get the help page for the `c()`:
+
+```{r}
+## ?c
+## help(c)
+```
+
+If you are working in [RStudio](http://www.rstudio.com/) you can  search for help using the search box on the Help tab (lower right panel by default).  You can also get help by putting your cursor over a function name in the editor or console and hitting F1.
+
+## Saving data in variables
+
+Often, though, you will want to perform a calculation and save the result for later use.  If you've used Excel, you've probably used cells on a worksheet to hold the results of calculations based on the data in other cells.  In R we can save the results of computations in [variables][].  To do this we'll use the assignment operator, which is a little arrow in R `<-`.
+
+If you're coming from another programming language and the arrow syntax bugs you, you *can* use `=` operator for general assignment -- see the R help pages for a few important edge cases.
+
+```{r}
+a <- 10
+a
+b <- a + 11
+b
+c <- a / b
+c
+````
+
+##
+
+If you're working with very large numbers you can use for scientific notation:
+
+```{r}
+2e10
+2 * 10^10
+2e10 == 2 * 10^10
+````
+
+In that last line we used the comparison operator `==`; it tests whether or not two values are equivalent.
+
+Finally, let's see what happens if we try hitting `enter` before we've finished entering a complete expression.  Type `2 +` and then hit `enter`.  You'll see a little `+` shows up as your prompt on the next line.  This is R's way of telling you the text you've entered so far isn't a complete thought.  Finish this expression by entering another number and hitting `enter` again.
+
+## Everything is a vector
+
+In the above expressions we appeared to be doing computations on single numbers.  In fact, something more complicated was going on under the hood.  In R all data are actually [vectors](http://en.wikipedia.org/wiki/Array_data_structure) of data.  
+
+Unlike other programming languages, there are no atomic values in R; the most basic data structure is a vector.  Single values are just vectors with one element.  This may seem odd at first, until you consider the key implication:  all operators and functions in R are built to handle vectors of data, not just single values.  This means anything that can be done with a single number can also be done with a vector of numbers.  This is a language that was clearly designed by statisticians! 
+
+You can see how many elements a vector holds using the `length` function:
+
+```{r}
+length(10)
+length(c)
+length(1:10)
+````
+
+Above, `length` is the first example we've seen of an R [function][].  In programming, functions are analogous to their mathematical counter parts: they take in one or more values and evaluate to a new value.  The R syntax for running, or "calling", a function is in the form of `functionName(value1, value2, ...)`.
+
+## Composing vectors
+
+The `length` function has reported that we've been working with vectors of 1 element so far.  To **c**ompose a vector with more than one element, we'll use the `c()` function:
+
+```{r}
+c(1,2,3,4)
+d <- c(5,6,7,8)
+d + 10
+d + d
+````
+
+As you can see, mathematical operators in R are built to handle vectorized operations:  we could add a 4 element vector `d` to a one element vector `10` and get a sensible result.
+
+**Side note for programmers**:  if you're coming to R with a background in other programming languages, you might have caught something in the last code block that freaked you out.  We had previously assigned the variable `c` to hold a number; yet we were still able to call the built-in `c` function from this scope.  In almost any other common scripting language this would not have worked.  Although base scoping rules in R are strictly lexical, there are a number of aggressive additional checks that are performed on lookup or evalution failures.  For example, when an attempt is made to apply a non-function in an inner scope, the interpreter will ascend the scope chain looking for upvalues that *are* functions.  This is why we were able to bind `c` to a vector of numbers in our current scope and also apply the base R `c()` function.  Another example of this design philosophy at play in R is aggressive partial matching for named arguments in function calls.
+
+## Strings
+
+So far we've just been working with numbers (`numeric` values in R lingo), but R also supports text (`string` values) and true/false (`boolean` values) data.
+
+To create strings, surround your text with either double `" ... "` or single `' ... '` quotes:
+
+```{r}
+"a"
+"a" == 'a'
+c( "a", "b", "c", "d" )
+````
+
+## Escape characters
+
+You can create strings containing single quotes using double quotes and visa versa, but if you need to make a string that contains both single and double quotes you need to use the `\` "escape" character:
+
+```{r}
+s <- "My data are \"awesome\"!"
+cat(s)
+````
+
+## 
+
+Two other special string characters are tab `\t` and newline `\n`:
+
+```{r}
+s <- "a\tb\tc"
+cat(s)
+s <- "a\nb\nc"
+cat(s)
+````
+
+## Boolean values
+
+To create boolean values use `TRUE` or `FALSE`:
+
+```{r}
+TRUE
+FALSE
+TRUE == FALSE
+````
+
+## Missing Data
+
+R has built-in support for flagging values as missing data.  The special `NA` value can be mixed with any other kind of data in a vector.  For example:
+
+```{r}
+c(1, 2, NA, 4)
+c( "a", NA, "c", NA )
+c(TRUE, FALSE, NA, FALSE)
+is.na( c(1, NA) )
+````
+
+Most R functions will either understand how to deal with missing data, or issue an error if they involve a type of statistical analysis that can't be used with missing data.
+
+## A note about NULL
+
+R also has a special "no-value" type called `NULL`.  If you are coming to R from another programming language it is easy confuse `NA` and `NULL` (for example, in Python data analysis modules the `None` type is often used to do double duty, signifying `NULL` or `NA` depending on the context).  By convention, you should use `NA` in data structures to represent missing data points.  
+
+`NULL` is used to signify unassigned variables:
+
+```{r}
+NULL
+is.null(NULL)
+````
+
+# Indexing syntax in R
+
+## Extracting values
+
+Let's say we have a vector of numbers:
+``` {r}
+myNumbers <- c( 10, 20, 30, 40, 50 )
+````
+
+##
+
+We can extract elements from 1D vectors using the index syntax `[]` and integers:
+``` {r}
+myNumbers
+myNumbers[1]
+myNumbers[3]
+````
+
+##
+
+Here, we've extracted elements at the position given by the integer we put inside of the `[...]`.  Remember that the numbers `1` and `3` in the code above are actually *vectors* of integers.  
+
+We can use integer vectors with more than one element inside of our index `[...]`'s::
+
+``` {r}
+myNumbers[ c(1, 3) ]
+````
+
+##
+
+You can use the `:` operator to easily create a sequence of numbers:
+
+``` {r}
+2:4
+myNumbers[2:4]
+````
+
+##
+
+In addition to putting integer vectors inside of the index `[...]` we can also use logical vectors.  If we do, `TRUE` at a position causes a value to be extracted, while a `FALSE` indicates that it should be skipped.  Let's look at an example:
+
+``` {r}
+myNumbers
+myNumbers[ c(FALSE, TRUE , TRUE , TRUE , TRUE ) ]
+myNumbers[ c(TRUE , FALSE, FALSE, FALSE, FALSE) ]
+````
+
+##
+
+So why would you ever want to do this?  The answer lies in the combination of indexing and the logical operators (`>`, `<`, `==`, `!=`, and `%in%`).
+
+Logical operators always return a logical vector:
+
+``` {r}
+myNumbers > 25
+myNumbers < 25
+myNumbers == 30
+myNumbers != 30
+```
+
+##
+
+The %in% asks if the first set of numbers can be found in the second:
+```{r}
+30 %in% myNumbers
+c(10, 100) %in% myNumbers
+```
+
+##
+
+The ! operator negates (flips) each value of a logical vector:
+
+```{r}
+!TRUE
+!(myNumbers > 25)
+````
+
+**A note about `=` vs `==`:** Many beginers are confused by the difference between `=` and `==`.   The `=` operator is used for value assignment, traditionally for arguments inside of function calls such as `plot(x = 10, y = 1)`, or in newer versions of R in place of the `<-` operator as in `a = 10`.  If you want to compare *equivalence* between two values you'll want to use the double `==` operator.  These operations will evaluate to a logical vector (`TRUE` or `FALSE`).
+
+##
+
+So how can we combine logical comparisons with indexing?
+
+``` {r}
+myNumbers[myNumbers > 25]
+myNumbers[myNumbers < 25]
+````
+
+##
+
+You can get fancy...
+
+``` {r}
+myNumbers[ (myNumbers %% 2) == 0 ]
+````
+
+What happened there?  If you need help figuring it out, look up the `%%` (*modulo*) operator on the help panel.
+
+## Assigning values
+
+Finally, the indexing `[...]` syntax isn't just used to extract values from data structures.  It can also be used to assign values *into* existing structures.  For example:
+
+``` {r}
+myNumbers
+myNumbers[3]    <- 100
+myNumbers
+myNumbers[2:3]  <- c(1,2)
+myNumbers
+````
+
+# Bigger data structures
+
+As we saw in the previous section, vectors are the basic building blocks of all data in R and can hold numeric, string or boolean values.  Vectors can in turn be composed into more complicated data structures including matrixes, arrays, data frame's and lists.
+
+## Matrix
+
+A matrix is a vector of vectors, each the same length and with the same type of data:
+
+```{r}
+m <- matrix(1:8, nrow = 2, ncol = 4)
+m
+```
+
+##
+
+You access values on a matrix by using a one element index, refering to a n'th position:
+```{r}
+m[2]
+```
+
+Alternatively you can specify a `[row, col]`:
+```{r}
+m[1,2]
+```
+
+##
+
+Or just a row:
+
+```{r}
+m[1,]
+```
+
+Or just a column:
+
+```{r}
+m[,2]
+```
+
+If you forget this syntax, just pay attention to how R prints out matrixes!
+
+## Array
+
+An array is a matrix of more than two dimensions.
+
+```{r}
+array(1:8, dim=c(2,2,2))
+```
+
+## Lists
+
+Unlike arrays and matrixes, lists are collections of vectors where the individual vectors can hold different types of data:
+
+```{r}
+l <- list( a = c(1, 2, 3, 4)
+         , b = c("a", "b", "c")
+         )
+l
+```
+
+##
+
+You can access individual vectors on lists using indexing with numbers or names:
+
+```{r}
+l[1]
+l["a"]
+```
+
+Did you notice what type of thing was returned there?
+
+##
+
+To simplify the result of indexing down to a vector (rather than a one element list):
+
+```{r}
+l[[1]]
+```
+
+The `$` is short hand for referencing a named element on a list:
+```{r}
+l$a
+```
+
+# Working with Tables
+
+R has great built-in support for working with data in tabular format.  Tables in R are called "data frames."  By convention, response and annotation variables are arranged across the columns and observations down the rows.  Columns, and optionally rows, can also be given unique names.
+
+Under the hood, data.frame structures are just a specialized kind of a list -- where each component vector (column) is of the same length.
+
+## A note about table structure
+
+Before we dive into loading and working with tabular data in R, it's worth taking a moment to consider a key difference between data formatting expectations in advanced statistical software packages like R and the bad habits most folks develop after years of working in Excel.  If you're used to working in other stats packages like SAS, SPSS or Minitab, you can skip this section.
+
+Let's consider a simple example experimental design:  a response variable measured in two different treatment groups (A, B) over a 4 day period.  
+
+Excel has probably trained you to format data something like this:
+
+  Day | Group A | Group B
+  --- | ------- | -------
+  1   | 5       | 5
+  2   | 6       | 7
+  3   | 7       | 9
+  4   | 8       | 11
+
+
+The reason we have all learned to format the data this way in Excel is that it makes it easy to produce plots -- if we select these cells and click the scatter plot wizard, we'll get the desired plot with Day on the X-axis and two sets of points, one for Group A and the other Group B.
+
+Statisticians, and by proxy statistical software packages, object to this formatting for an important reason.  The problem is that we've mixed our concerns in designing the structure of these columns:  (1) *two* different columns contain values for the *same* response being measured; (2) a second variable in this design (treatment) has to be inferred from the column headings.  
+
+##
+
+The correct design would be a three column table:
+  
+  Day | Group   | Response
+  --- | ------- | --------
+  1   | A       | 5
+  1   | B       | 5
+  2   | A       | 6
+  2   | B       | 7
+  3   | A       | 7
+  3   | B       | 9
+  4   | A       | 8
+  4   | B       | 11
+
+
+If you have a lot of data formatted in the first of these two formats, don't worry.  Restructuring your tables is easy to do in R, as is generating any new categorical label columns you might need.  We can explore this topic in more detail if there's interest, but as a preview the tools you'll probably need are the `c(..., recursive = TRUE)` and `rep()` functions.
+
+
+## Loading tabular data
+
+R can import tabular data from a wide variety of source file formats.  Base R has excellent support for loading data using the `read.table` family of functions.  There are also a wide array of R packages that support loading data from databases and other binary file formats.  If you just need to move data from an Excel worksheet into R, the easiest path is to save it as a text file (tab-delimited or csv) and load it into R using `read.table`. 
+
+If you're working in [RStudio](http://www.rstudio.com/), you can use the "Import Dataset" button on the Workspace tab to load data from a local file or over the web.  Under-the-hood RStudio is just calling `read.table` for you, which we'll explore below (see the History tab see the command that RStudio generated for you).
+
+To follow along with this example, you can download the genetic code table and save it in your current working directory:  [codons.txt](data/codons.txt).  This table has two columns:  "codon" and "aminoAcid."  To load the table into a variable:
+
+```{r}
+codons <- read.table( "data/codons.txt"
+                    , header = TRUE
+                    , stringsAsFactors = FALSE
+                    )
+head(codons)
+````
+
+The `read.table` function takes a large number of optional arguments which allows it to adapt to a wide variety of different file formats.  Here we've specified `header = TRUE` because the first line of our file contains column headings.  The `stringsAsFactors = FALSE` argument tells R not to try to convert text columns to a special type of data structure called a `factor`.  Factors are intended to flag strings as describing levels of a categorical variable.  They are a more advanced topic then we'll dive into here; so we'll turn them off.
+
+
+## Accessing data in a data.frame
+
+Once your data is loaded into a data.frame (table), you can access vectors of data for individual variables in the table using the `$` syntax:
+
+```{r}
+codons$codon
+codons$aminoAcid
+````
+
+If we want to access a single data point we can use indexing syntax with `[]`.  When we are working with a 2D data structure, we can specific a `[row, col]`:
+
+```{r}
+codons[ 1, 2 ]
+codons[ 2, 1 ]
+````
+
+## Calculating a new column
+
+We can use the `$` syntax (like the `[...]`) to assign data to existing columns on a `data.frame` or to create a new column.  Let's say that we want to add a new column to our `codons` table that will annotate what type of amino acid is encoded by each codon (non-polar, polar, acidic or basic).
+
+We can start by creating a new column called `type` that contains all `NA` values:
+
+```{r}
+codons$type <- NA
+head(codons)
+````
+
+##
+
+Here could have hand-encoded a vector of 20 strings describing the type of each amino acid in our table.  But we'll take the lazier path and learn a few new R tricks along the way.  Let's make some vectors that describe which amino acids belong to each of the four categories:
+
+```{r}
+# Assuming physiological pH; we'll call histidine basic for simplicity!
+nonpolar  <- c( "A", "C", "G", "I", "L", "M", "F", "P", "W", "V" )
+polar     <- c( "N", "Q", "S", "T", "Y"                          )
+acidic    <- c( "D", "E"                                         )
+basic     <- c( "R", "H", "K"                                    )
+
+# We can make sure we've annotated all 20 amino acids
+length( c( nonpolar, polar, acidic, basic ) ) == 20
+````
+
+##
+
+Now we can update our `type` column using the annotations that we've saved in these variables.  The logical `%in%` operator tests whether or not one vector of values (left side) is found in another (right side).  It returns a vector of boolean values of the same length as the left-hand test vector.  So we can do this:
+
+Which rows contain nonpolar amino acids?
+```{r}
+codons$aminoAcid %in% nonpolar
+```
+
+##
+
+We can use these logical vectors to assign our type annotations:
+
+```{r}
+codons[ codons$aminoAcid %in% nonpolar, "type" ] <- "nonpolar"
+codons[ codons$aminoAcid %in% polar,    "type" ] <- "polar"
+codons[ codons$aminoAcid %in% acidic,   "type" ] <- "acidic"
+codons[ codons$aminoAcid %in% basic,    "type" ] <- "basic"
+```
+
+Check to see if it worked!
+
+Pretty neat, eh?  Working with numeric data in table columns is even more straight forward.  In R, it's very easy to create new columns that are calculated from exisiting data, as you might be used to doing in Excel.  In R, however, adding complex annotation columns like `type` above is also very simple.
+
+Notice how we accomplished this task by composing a few minimal data structures, followed by a few relatively straight-forward assignments.  We never had to repeat assignment of any of our amino acid types.  In both software design and data analysis we always try to adhere to the "[DRY](http://en.wikipedia.org/wiki/Don't_repeat_yourself)" (don't repeat yourself) principle.  
+
+This is much easier to do when working with tabular data in R than it is in traditional spreadsheet packages or other statistical environments.
+
+
+#  Homework excercise
+
+## Implement transcription and translation
+
+The challenge -- design an R script with a set of functions that will:
+
+* Read the DNA sequence in the file "data/dna.txt"
+* Transcribe it into RNA sequence
+* Save the results to a new file, rna.txt
+
+And the special challenge:
+
+* Translate the DNA sequence to protein (using the "data/codons.txt")
+
+## Parts list:
+
+* `readLines()` *hint* con = "dna.txt"
+* `gsub()` *hint* fixed = true
+* `write()`
+
+[function]: http://en.wikipedia.org/wiki/Function_(programming)
+[variables]: http://en.wikipedia.org/wiki/Variable_(computer_science)
+[expression]: http://en.wikipedia.org/wiki/Expression_(computer_science)

@@ -74,7 +74,9 @@ output_formats:
     post_processors:
       - trimText
       - linkData
-    render: ioslides_presentation
+    render: 
+      ioslides_presentation:
+        css: ../app/css/ioslides.css
 
 #   PDF:
 #     file_extension: .pdf
@@ -121,7 +123,7 @@ paths:
 templateData:
   siteName: bio285  
   baseURL:  http://rna.wlu.edu/bio285
-  trimTextCutoff: 140
+  trimTextCutoff: 100
 
 # Assorted additional configuration options.
 #
@@ -147,4 +149,5 @@ sourceExternals:
 outputExternals:
   - template
   - includes
+  - css
 

@@ -5,6 +5,8 @@ section: Background
 ---
 # What is R?
 
+##
+
 ``` {r echo=FALSE, warning=FALSE}
 #Example from http://had.co.nz/ggplot2/geom_histogram.html
 library(ggplot2)
@@ -16,27 +18,66 @@ ggplot(diamonds, aes(depth, fill = cut)) + geom_density(alpha = 0.2) + xlim(55, 
 [R][] is really two related things: a powerful programming language designed for interactive data analysis and a huge community of researcher/programmers who have implemented analysis and visualization algorithms in R.  To explore general statistical packages available for R see [CRAN](http://cran.r-project.org/web/views/); for bioinformatics and computational biology packages see [BioConductor](http://www.bioconductor.org/).
 
 
-# Why use R?
+## Why use R?
 
-### It's "Free like Pizza"
+* It's "Free like Pizza"
+  
+    [R][] is [free software](http://www.r-project.org/Licenses/GPL-2), in that it is free for anyone to install and use.  At W&L we are fortunate enough to have the resources to pay expensive software licensing fees for commercial data analysis software like SPSS and Matlab, but this may not be the case for our collaborators or other researchers who would like to reproduce our work.  There's a compelling argument to be made that using paid-software in basic research runs counter to our obligation to make our published data publicly available and our work easily reproducible.
 
-[R][] is [free software](http://www.r-project.org/Licenses/GPL-2), in that it is free for anyone to install and use.  At W&L we are fortunate enough to have the resources to pay expensive software licensing fees for commercial data analysis software like SPSS and Matlab, but this may not be the case for our collaborators or other researchers who would like to reproduce our work.  There's a compelling argument to be made that using paid-software in basic research runs counter to our obligation to make our published data publicly available and our work easily reproducible.
+* It's "Free like Ideas"
 
-### It's "Free like Ideas"
+    The design of R and of R packages makes it nearly impossible to [hide or obfuscate](http://en.wikipedia.org/wiki/Obfuscation) source code.  As a language, R was designed from the ground up to be an open source software ecosystem.  As a result, the sources for all of base R and all packages on CRAN and BioConductor are open to scrutiny by programmers, statisticians and researchers.  Even good programmers on major software projects make mistakes, like the [folks who make Excel](http://www.joelonsoftware.com/items/2007/09/26b.html).  In the [closed source](http://en.wikipedia.org/wiki/Proprietary_software) world, bugs are only caught when users pin down odd behaviors in programs.  When software is [open source](http://en.wikipedia.org/wiki/Open_source), many eyes can directly examine the implementation of new algorithms, dramatically decreasing the likelihood that errors will make it into released software (thereby decreasing the likelihood that you will publish erroneous results).  The huge advantages that come with crowd sourcing software validation is probably why open source software [runs the internet](http://en.wikipedia.org/wiki/Linux_adoption).
 
-The design of R and of R packages makes it nearly impossible to [hide or obfuscate](http://en.wikipedia.org/wiki/Obfuscation) source code.  As a language, R was designed from the ground up to be an open source software ecosystem.  As a result, the sources for all of base R and all packages on CRAN and BioConductor are open to scrutiny by programmers, statisticians and researchers.  Even good programmers on major software projects make mistakes, like the [folks who make Excel](http://www.joelonsoftware.com/items/2007/09/26b.html).  In the [closed source](http://en.wikipedia.org/wiki/Proprietary_software) world, bugs are only caught when users pin down odd behaviors in programs.  When software is [open source](http://en.wikipedia.org/wiki/Open_source), many eyes can directly examine the implementation of new algorithms, dramatically decreasing the likelihood that errors will make it into released software (thereby decreasing the likelihood that you will publish erroneous results).  The huge advantages that come with crowd sourcing software validation is probably why open source software [runs the internet](http://en.wikipedia.org/wiki/Linux_adoption).
-
-### Bleeding edge
+## Leading edge
 
 Because the R language was designed with statistics in mind, it offers many language features that make it easy to implement new data analysis algorithms.  Because of this, R has become the *de facto* platform for methodological research in statistics and data science.  It is almost always the first choice for implementing and experimenting with new analysis methods.  This means it is quite likely that a package is available for R which offers the latest and greatest approach for your research field.
 
-### Graphics and interactivity are baked in
+![r-google-scholar](img/marketshare.png)
+
+From [librestats.com](http://librestats.com/2012/04/12/statistical-software-popularity-on-google-scholar/)
+
+## Graphics and interactivity are baked in
 
 There are other open source high-level scripting languages that are quite popular in research science, like [Python](http://www.python.org/) and [Perl](http://www.perl.org/).  These programming languages offer features which are very similar to R.  However, the recent rise in popularity of R among the bioscience and data science communities has likely been driven by a few simple usability features that are unique to the R environment.  In particular, the language has been designed from the ground up to make it easy to *interactively* explore large datasets and easily produce publication-quality visualizations.  
 
+```{r}
+# Plot miles per gallon (mpg) as a function of car weight (wt)
+plot(mpg ~ wt, data = mtcars)
+```
+
 If you're interested in a deep analysis of the design of the R language, including formal semantics, [this recent paper](http://www.cs.purdue.edu/homes/jv/pubs/ecoop12.pdf) offers some interesting insights.
 
+## A popular choice
+
+Although it's quite hard to nail down how frequently and in what ways different kinds of programming languages and platoforms are being used in the wild, most trends indicate that R is a (if not the) dominant environment for doing data analysis in both bioinformatics and the data sciences.  This trend is reflected in both qualitative surveys of researchers and professionals and in quantitative analyses of code used in papers and national competitions.  For example, R stacks up well in a 2013 survey:
+
+![r-in-analysis](img/r-in-analysis.JPG)
+
+From [Bioinformatics survey](http://bioinfsurvey.org/analysis/programming_languages).
+
+##
+
+There are also a healthy number of jobs out there in both bioinformatics and the broader world of data science for folks with strong coding skills in general and familiarity with R in particular:
+
+![r-jobs](img/fig_1b_rvspss_2014-2-22.png)
+
+From [r4stats.com](http://r4stats.com/articles/popularity/).
+
+##
+
+Although the popularity of a platform doesn't necessarily equate with it's quality or suitability to a particular task (for example, Excel), the strong community behind R provides a number of advantages to new and advanced users alike.  First, it means that it is relatively easy to get help solving problems in R:  google will nearly always turn up a useful blog post or thread.  Second, it means there is a HUGE library of community developed packages that extend the tools in base R in expansive ways.  For example, the expansion of the R tool set, as seen through the number of available addon packages:
+
+![r-packages-by-time](img/r-packages.JPG)
+
+From [r4stats.com](http://r4stats.com/articles/popularity/).
+
 # Why not R?
+
+##
+
+> "The best thing about R is that it was written by statisticians. 
+ The worst thing about R..."
+- Bo Cowgill, Google 
 
 There's no getting around the fact that the learning curve for R is very steep, especially if you've never programmed before or worked at a command line.  The core R software offers no user interface in the traditional desktop sense. There are no menus or buttons to click like there are Excel.  Over the 20 year history of the R language there have been several efforts to create a front end interfaces for R.  Interestingly, these efforts have never really caught on and have been actively discouraged by the original authors of the language.  The argument against this approach is that putting a point-and-click interface on the front of R is like wrapping a jet engine with the body of a Yugo.  The language developers argue that it is impossible to design an Excel or Minitab style interface that would let a user access the full power of the R language or the scope of its packages, and doing so runs the risk of discouraging users from really exploring the language.
 
