@@ -332,8 +332,8 @@ Unlike arrays and matrixes, lists are collections of vectors where the individua
   
 ```{r}
 l <- list( a = c(1, 2, 3, 4)
-           , b = c("a", "b", "c")
-)
+         , b = c("a", "b", "c")
+         )
 l
 ```
 
