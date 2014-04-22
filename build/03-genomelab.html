@@ -40,16 +40,16 @@
 
 <div class="col-md-8">
 <h1>Genome annotation (Part 1)</h1>
-<p>In this lab you will write a set of functions that find and annotation genomic features in raw DNA sequence. Along the way we’ll learn some best-practices for organizing our code and data structures. We’ll also explore regular expressions, a powerful declarative language for finding paterns in text.</p>
+<p>In this lab you will write a set of functions that find and annotation genomic features in raw DNA sequence. Along the way we’ll learn some best-practices for organizing our code and data structures. We’ll also explore regular expressions, a powerful declarative language for finding pasterns in text.</p>
 </div>
 
 <div class="col-md-4" style="padding: 5px 5px 0 5px;">
 <div class="well">  <!-- class="clearfix"? -->
 <ul><li><a href="#lab-explorying-genomes">Lab: Explorying Genomes</a></li>
-<li><a href="#preface-on-coding-style">Preface on coding style</a></li>
+<li><a href="#preface-on-best-practices">Preface on Best Practices</a></li>
 <li><a href="#step-1-transcribe-and-translate">Step 1: transcribe and translate</a></li>
 <li><a href="#step-2-writing-an-orf-finder">Step 2: Writing an ORF finder</a></li>
-<li><a href="#step-3-chromosome-annotation">Step 3: Chromosome annotation</a></li>
+<li><a href="#step-3-annotate-a-complete-chromosome">Step 3: Annotate a complete chromosome</a></li>
 <li><a href="#step-4-annotate-the-whole-genome">Step 4: Annotate the whole genome!</a></li>
 <li><a href="#challenge-1-transcription-factor-binding-site">Challenge #1: Transcription factor binding site</a></li>
 <li><a href="#challenge-2-handle-introns">Challenge #2: Handle introns</a></li>
@@ -67,11 +67,17 @@
 <li><p>Step 3: write an <code>annotateChromosome</code> function which takes the name of a file containing genomic DNA sequence for a yeast chromosome and returns a <code>data.frame</code> where each row is a description of a different putative ORF on that chromosome.</p></li>
 <li><p>Step 4: glue everything together with an <code>annotateGenome</code> function that loads DNA sequence for each yeast chromosome and annotates it with <code>annotateChromosome</code>.</p></li>
 </ul></div>
-<div id="preface-on-coding-style" class="section level1">
-<h1>Preface on coding style</h1>
+<div id="preface-on-best-practices" class="section level1">
+<h1>Preface on Best Practices</h1>
+<div id="keeping-data-and-code-organized-rstudio-projects" class="section level2">
+<h2>Keeping data and code organized: RStudio projects</h2>
+<p>One of the most important things that you can do to keep from making major mistakes or wasting a lot of time when working on a data analysis project is to give a little thought to how you are going to organize the code and data for individual projects.</p>
+<p>RStudio has a great tool to help you do this: Projects. You can create a new project from File -&gt; New Project, or from the drop down in the upper right hand corner. If you select “New project”, RStudio will create a blank subdirectory of your home folder with the name you provided. When a project is active RStudio sets the current working directory (default file path) to this folder. It also scopes all of your command history and environment variables to this project (by saving these data in this subfolder).</p>
+<p>It’s a good idea to make one RStudio project for independent data analysis task you’re working on. Make a new project for today’s lab (you might call it “genome-annotation-lab”.</p>
+</div>
 <div id="using-functions-to-organize-code" class="section level2">
 <h2>Using functions to organize code</h2>
-<p>R features a very clear and relatively unabiguous syntax. This means that you, as an author of R code, have a lot of leeway to format your code in any way you see fit. Please use this feature of the language for good, not evil!</p>
+<p>R features a very clear and relatively unambiguous syntax. This means that you, as an author of R code, have a lot of leeway to format your code in any way you see fit. Please use this feature of the language for good, not evil!</p>
 <blockquote>
 <p>Your code should function as a document meant for other people to read; it is a narrative that tells a story about computation. That machines can parse and execute your code is a happy side effect of a well-designed language.</p>
 </blockquote>
@@ -81,7 +87,7 @@
   a + b
 }</code></pre>
 <p>Here the <code>function</code> keyword created a function, which we then saved in the addTwo variable. Functions are “first class” in R meaning that they can be assigned to variables and passed around like any other kind of data.</p>
-<p>The variables that you pass into a function are called its arguments; the result of calling a function is called its value. In R <em>all</em> functions have values. By default the value of a function is the result of the last computation it performed; there’s no expliciat <code>return</code> statement in R. However, if you’d like to explicitly stop running a function and return a value before the end of the function code you can use the <code>return()</code> function.</p>
+<p>The variables that you pass into a function are called its arguments; the result of calling a function is called its value. In R <em>all</em> functions have values. By default the value of a function is the result of the last computation it performed; there’s no explicit <code>return</code> statement in R. However, if you’d like to explicitly stop running a function and return a value before the end of the function code you can use the <code>return()</code> function.</p>
 <p>Arguments to functions can have default values. For example:</p>
 <pre class="r"><code>addThree &lt;- function(a, b = 1, c = 1) {
   a + b + c
@@ -94,16 +100,16 @@ addThree(1)</code></pre>
 <pre><code>## [1] 6</code></pre>
 <p>Also note, since function can be bound to variables, they can also be passed to other functions as arguments.</p>
 </div>
-<div id="style-best-practices" class="section level2">
-<h2>Style best practices</h2>
-<p>Please take a moment to read over <a href="http://adv-r.had.co.nz/Style.html">Hadley Wickham’s recommended R style guide</a>, which is roughly equivalent to the <a href="https://google-styleguide.googlecode.com/svn/trunk/Rguide.xml">Google R Style guide</a> (for googlers).</p>
-<p>You’ll see there are a couple discrepencies between these two guides, and between these guides and other large R code bases. I won’t strictly enforce one style, but I do ask that you follow two of the most important:</p>
-<ol style="list-style-type: decimal"><li><p>ALWAYS be consistent. For example, you may pick from any of the three variable naming conventions (<code>my.variable</code>, <code>my_variable</code>, or <code>myVariable</code>), but ALWAYS use the same convention throughout all of your code.</p></li>
-<li><p>Keep each line of code to 80 characters or less; use newlines to break things up. You can turn on an 80 character guide in RStudio from the Tools -&gt; Global Options -&gt; Code Editing pane.</p></li>
-</ol><p>Finally, I’ll admit a style quirk that I picked up when submitting a few pull requests to a non-R code project a few years ago: the <a href="https://www.npmjs.org/doc/misc/npm-coding-style.html">common-first style</a>.</p>
+<div id="matters-of-style-and-style-matters" class="section level2">
+<h2>Matters of Style (and style matters!)</h2>
+<p>Please take a moment to read over either <a href="http://adv-r.had.co.nz/Style.html">Hadley Wickham’s recommended R style guide</a> or the <a href="https://google-styleguide.googlecode.com/svn/trunk/Rguide.xml">Google R Style guide</a> (for googlers), which are roughly equivalent.</p>
+<p>You might notice that there are a couple discrepancies between these two guides (and my own coding style). I won’t strictly enforce one style, but I do ask that you follow two rules:</p>
+<ol style="list-style-type: decimal"><li><p>ALWAYS be consistent. For example, you may pick from any of the three variable naming conventions (<code>my.variable</code>, <code>my_variable</code>, or <code>myVariable</code>), but ALWAYS use the same convention throughout all of your code. I use the latter style for standard variable names (it’s called camel case).</p></li>
+<li><p>Keep each line of code to 80 characters or less, using newlines to break things up. You can turn on an 80 character guide in RStudio from the Tools -&gt; Global Options -&gt; Code Editing pane.</p></li>
+</ol><p>Finally, I’ll admit a style quirk that I picked up when submitting code to a non-R code project a few years ago: the <a href="https://www.npmjs.org/doc/misc/npm-coding-style.html">common-first style</a>.</p>
 <p>In R, arguments to functions are separated by commas, so we might create a named vector like:</p>
 <pre class="r"><code>myVar &lt;- c(a = 10, b = 100, c = 12, d = 14, exz = 142, f = 1293, g = 0, h = NA)</code></pre>
-<p>If your list of arugments is long, or have complex expressions for their values, it is often nice to split each element onto it’s own line, like (notice the extra spacing to make all of the “=” signs line up nicely (as noted in the Google style guide):</p>
+<p>If your list of arguments is long, or have complex expressions for their values, it is often nice to split each element onto it’s own line, like (notice the extra spacing to make all of the “=” signs line up nicely (as noted in the Google style guide):</p>
 <pre class="r"><code>myVar &lt;- c(a    = 10, 
            b    = 100, 
            c    = 12, 
@@ -141,7 +147,8 @@ myVar &lt;- c( a    = 10
           , g    = 0
           , h    = NA
           )</code></pre>
-<p>Which did you see first? The comma-first style is even more useful when working with nested data structures; however it’s use is most definitely still controversial (and it only works if you strictly adhere to the perfect vertical alignment strategy). Feel free to use it, or the more common comma syntax, but as always be consistent!</p>
+<p>Which did you see first? The comma-first style is even more useful when working with nested data structures.</p>
+<p>However, use of this style is still controversial, even in the community where it originated (javascript). But I found it solved two problems I frequently had: missing commas when rapidly iterating over different argument sets for function calls and missing close parens in nested call structures, so I adopted it when writing in languages that can support this syntax (it won’t work in Python because of the privileged nature of white-space). You’re welcome to use either style as long as you are consistent!</p>
 </div>
 </div>
 <div id="step-1-transcribe-and-translate" class="section level1">
@@ -223,7 +230,7 @@ paste(c("A","B","C","D"), sep = "")</code></pre>
 <pre class="r"><code>translate("UUCUAAAUUAACAAAA")</code></pre>
 <pre><code>## [1] "NA" "NA" "NA" "NA" "NA"</code></pre>
 <p>Did those last two lines fail for your function or did it work? If you got an error or an “NA” at the end of your result vector, let’s make our <code>translate</code> function a little bit smarter, so we don’t have to worry about it choking on input strings that aren’t evenly divisible by 3. The easiest thing to do is to just have it ignore incomplete final codons.</p>
-<p>(Hint: check out the <code>nchar</code> function along with the arithematic modulo operator <code>%%</code>/)</p>
+<p>(Hint: check out the <code>nchar</code> function along with the modulo operator <code>%%</code>/)</p>
 <p>When your function is working on all of the inputs above, you’re ready to move on to step 2!</p>
 </div>
 </div>
@@ -231,7 +238,7 @@ paste(c("A","B","C","D"), sep = "")</code></pre>
 <h1>Step 2: Writing an ORF finder</h1>
 <div id="function-template" class="section level2">
 <h2>Function template</h2>
-<p>We now have the tools in place that we’ll need to write a function that finds ORFs. This function will take a string containing a sequence of amino acids and find <em>all</em> of the possible ORFs in that string. The logic of this function will be to identify stretches of aminoacids that start with a methionine (“M”) and end with one of our stop codons (“X”). This function should also accept a ‘cutoff’ argument which will be used to filter ORFs that are too short to be believable.</p>
+<p>We now have the tools in place that we’ll need to write a function that finds ORFs. This function will take a string containing a sequence of amino acids and find <em>all</em> of the possible ORFs in that string. The logic of this function will be to identify stretches of amino acids that start with a methionine (“M”) and end with one of our stop codons (“X”). This function should also accept a ‘cutoff’ argument which will be used to filter ORFs that are too short to be believable.</p>
 <p>Let’s start off by adding a template for the <code>findORF</code> function to our <code>genomeAnnotation.r</code> script.</p>
 <pre class="r"><code># Returns a data.frame describing the ORFs found in the given aminoacid sequence
 #
@@ -257,7 +264,7 @@ findORF &lt;- function(aminoacids, cutoff = 100) {
 <p>Our regular expression pattern is going to be the string:</p>
 <p><code>"M(.*?)X"</code></p>
 <p>Here’s what’s going on in the pattern:</p>
-<ul><li>The “M” at the begining says ‘look for patterns that start with M’</li>
+<ul><li>The “M” at the beginning says ‘look for patterns that start with M’</li>
 <li>The “X” at the end says ‘…and end with X’</li>
 <li>The “(…)” adds a subpattern that we’ll search for between the M and X</li>
 <li>“.” says ‘find any character that isn’t a space’</li>
@@ -276,7 +283,7 @@ findORF &lt;- function(aminoacids, cutoff = 100) {
 ## attr(,"useBytes")
 ## [1] TRUE</code></pre>
 <p>There’s a lot going with the output from this function – we’re starting to get a peak at some advanced R features. But notice that line that has the vector <code>5, 15</code>? That suspiciously similar to the positions of our “M”’s in the sample string. See the line that has the vector <code>6, 6</code>? Rather interesting, since both of our sample ORF sequences should be 6 amino acids long! As a novice user, you should be thinking to yourself “I think this is going to work for us”!</p>
-<p>The structure being returned by <code>gregexpr</code> is called a <code>list</code>. It’s kind of like a basket that can hold other smaller types of data, like vectors. We’re not going to get distracted with the details today; instead let’s jump to how we can extract our ORF start poistions and lengths from this structure.</p>
+<p>The structure being returned by <code>gregexpr</code> is called a <code>list</code>. It’s kind of like a basket that can hold other smaller types of data, like vectors. We’re not going to get distracted with the details today; instead let’s jump to how we can extract our ORF start positions and lengths from this structure.</p>
 <p>Try the following:</p>
 <pre class="r"><code>matches         &lt;- gregexpr(pattern = "M(.*?)X", text = sampleAminoAcids)
 startPositions  &lt;- as.vector(matches[[1]])
@@ -286,7 +293,7 @@ startPositions</code></pre>
 <pre><code>## [1]  5 15</code></pre>
 <pre class="r"><code>lengths</code></pre>
 <pre><code>## [1] 6 6</code></pre>
-<p>If you’re interested in what the “[[1]]” is about: had our text argument been a vector with more than one string matches would have had additional elements accisible with [[2]]…[[n]]. If this detail stresses you out; ignore it!</p>
+<p>If you’re interested in what the “[[1]]” is about: had our text argument been a vector with more than one string matches would have had additional elements accessible with [[2]]…[[n]]. If this detail stresses you out; ignore it!</p>
 <p>Let’s also use our knowledge of <code>substring</code> (note the differences between <code>substr</code> and <code>substring</code>) to get the actual amino acid sequence:</p>
 <pre class="r"><code>orfSequence &lt;- substring( sampleAminoAcids
                         , first = startPositions
@@ -317,8 +324,8 @@ startPositions</code></pre>
 <p>Return to the template for your <code>findOrf</code> function above and fill in the function body. The thing we promised that this function would do that we haven’t handled yet is filtering out ORFs that are below the size given by the <code>cutoff</code> argument. Use your knowledge of selectors (<code>[]</code>) to filter the final version version of your orfTable based on the values in the <code>length</code> column.</p>
 </div>
 </div>
-<div id="step-3-chromosome-annotation" class="section level1">
-<h1>Step 3: Chromosome annotation</h1>
+<div id="step-3-annotate-a-complete-chromosome" class="section level1">
+<h1>Step 3: Annotate a complete chromosome</h1>
 <div id="overview" class="section level2">
 <h2>Overview</h2>
 <p>Now we’re ready to think about the structure of our function which will annotate all of the possible ORFs in the sequence for a chromosome. Here’s the template we’ll use for our big annotation function:</p>
@@ -333,7 +340,7 @@ annotateChromosome &lt;- function(fastaFile) {
   #Insert your code here
 
 }</code></pre>
-<p>We’ll also write a few helper functions to keep annotateChromosome from becomming too bloated.</p>
+<p>We’ll also write a few helper functions to keep annotateChromosome from becoming too bloated.</p>
 <p>Here are the templates:</p>
 <pre class="r"><code># Parses a sequence file in FASTA format
 #
@@ -409,13 +416,16 @@ dna</code></pre>
 <div id="annotateframe" class="section level2">
 <h2>annotateFrame</h2>
 <p>This function is setup to accept a frame <code>offset</code> argument. You’ll call <code>annotateFrame</code> from annotate chromosome six times, once for each strand, and three times with offset = 0, offset = 1, and offset = 2.</p>
-<p>If you call findORFs from annotateFrame remember that you’ll want to convert lenths and startPositions from the amino acid coordinates to the correct DNA coordinates.</p>
+<p>If you call findORFs from annotateFrame remember that you’ll want to convert lengths and startPositions from the amino acid coordinates to the correct DNA coordinates.</p>
 </div>
 <div id="loadfasta" class="section level2">
 <h2>loadFASTA</h2>
-<p>Take a look at the format of FASTA files. You’ll want to omit the first line of this file because it doesn’t contain sequence. We can do that with selectors:</p>
+<p>Take a look at the format of FASTA files. You can find a complete yeast chromosome 1 FASTA file here: <a href title="&lt;a href=" data>data/chr01.fsa</a>"&gt;<a href="data/chr01.fsa">data/chr01.fsa</a>.</p>
+<p>Looking at the contents of this file, you’ll probably want to omit the first line of this file because it doesn’t contain sequence. We can do that with indexing:</p>
 <pre class="r"><code>dnaLines &lt;- readLines("<a href="data/chr01.fsa">data/chr01.fsa</a>")
-dnaLines &lt;- dnaLines[2:length(dnaLines)]</code></pre>
+length(dnaLines)</code></pre>
+<pre><code>## [1] 499</code></pre>
+<pre class="r"><code>dnaLines &lt;- dnaLines[2:length(dnaLines)]</code></pre>
 <p>Also we’ll want to collapse all of the strings in this vector into a single string. We can use paste to do that:</p>
 <pre class="r"><code>dna &lt;- paste(dnaLines, collapse = "", sep = "")</code></pre>
 </div>
@@ -426,7 +436,11 @@ dnaLines &lt;- dnaLines[2:length(dnaLines)]</code></pre>
 </div>
 <div id="step-4-annotate-the-whole-genome" class="section level1">
 <h1>Step 4: Annotate the whole genome!</h1>
-<p>Once you have your annotateChromosome function working (takes the name of a chromosome FASTA file and produces a data.frame with ORF information), we’re ready to write our final annotateGenome function. This function should run annotateChromosome on each of the yeast chromosome FASTA files (in your directory), and aggregate all of the results in to a big table!</p>
+<p>Once you have your annotateChromosome function working with a sample chromosome FASTA file (takes the name of a chromosome FASTA file and produces a data.frame with ORF information), you’re ready to write a function that annotates the entire yeast genome.</p>
+<p>You can download the latest yeast genome sequence <a href="http://downloads.yeastgenome.org/sequence/S288C_reference/chromosomes/fasta/">here</a>. Each of these files contains the DNA sequence for one of the yeast chromosomes.</p>
+<p>This is probably a good time to introduce a Linux command line tool that is really useful when you need to pull files off the internet as part of a data analysis project. In R studio, you can open a Linux command line shell, by opening Tools -&gt; Shell. The <code>wget</code> program takes will download a file from a URL to the local directory.</p>
+<p>For example:</p>
+<pre class="SH"><code>wget http://downloads.yeastgenome.org/sequence/S288C_reference/chromosomes/fasta/chr02.fsa</code></pre>
 </div>
 <div id="challenge-1-transcription-factor-binding-site" class="section level1">
 <h1>Challenge #1: Transcription factor binding site</h1>
@@ -437,7 +451,7 @@ dnaLines &lt;- dnaLines[2:length(dnaLines)]</code></pre>
 </div>
 <div id="challenge-2-handle-introns" class="section level1">
 <h1>Challenge #2: Handle introns</h1>
-<p>Yeast is a eukaryote, which means the protein coding sequences (ORFs) can be interupted by introns. Introns are defined by 3 sequences: start sequence, end sequence and a special sequence in the middle of the intron called a branch point sequence. Unlike the TATA-Box however, each of these sequences comes in several different flavors. Specifically, the variants are:</p>
+<p>Yeast is a eukaryote, which means the protein coding sequences (ORFs) can be interrupted by introns. Introns are defined by 3 sequences: start sequence, end sequence and a special sequence in the middle of the intron called a branch point sequence. Unlike the TATA-Box however, each of these sequences comes in several different flavors. Specifically, the variants are:</p>
 <p>Start sites:</p>
 <pre><code>GUAUGU 
 GUAAGU 
@@ -479,7 +493,7 @@ grepl("bio[23]85", "Hello bio285!")</code></pre>
 <pre><code>## [1] TRUE</code></pre>
 <p>See what happened there? To match all splice end sites we could use the regular expression:</p>
 <p><code>"[CAU]AG"</code></p>
-<p>Refactor your annotateChromosome function so that it first finds and then removes (hint: gsub) all of the likely introns from the chromosomal sequence before attempting to annotate the ORFs. You might</p>
+<p>Re-factor your annotateChromosome function so that it first finds and then removes (hint: gsub) all of the likely introns from the chromosomal sequence before attempting to annotate the ORFs. You might</p>
 <p>How did your ORF list change when you accounted for introns?</p>
 <div class="references">
 
