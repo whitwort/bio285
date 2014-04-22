@@ -221,14 +221,10 @@ paste(c("A","B","C","D"), sep = "")</code></pre>
 <pre class="r"><code>paste(c("A","B","C","D"), sep = ", ")</code></pre>
 <pre><code>## [1] "A" "B" "C" "D"</code></pre>
 <p>Once you’ve implemented a <code>translate</code> function, test it with some different with some different inputs:</p>
-<pre class="r"><code>translate("AUG")</code></pre>
-<pre><code>## [1] "NA"</code></pre>
-<pre class="r"><code>translate("UUCUAAAUUAACAAAAUC")</code></pre>
-<pre><code>## [1] "NA" "NA" "NA" "NA" "NA" "NA"</code></pre>
-<pre class="r"><code>translate("UUCUAAAUUAACAAAAU")</code></pre>
-<pre><code>## [1] "NA" "NA" "NA" "NA" "NA"</code></pre>
-<pre class="r"><code>translate("UUCUAAAUUAACAAAA")</code></pre>
-<pre><code>## [1] "NA" "NA" "NA" "NA" "NA"</code></pre>
+<pre class="r"><code>translate("AUG")
+translate("UUCUAAAUUAACAAAAUC")
+translate("UUCUAAAUUAACAAAAU")
+translate("UUCUAAAUUAACAAAA")</code></pre>
 <p>Did those last two lines fail for your function or did it work? If you got an error or an “NA” at the end of your result vector, let’s make our <code>translate</code> function a little bit smarter, so we don’t have to worry about it choking on input strings that aren’t evenly divisible by 3. The easiest thing to do is to just have it ignore incomplete final codons.</p>
 <p>(Hint: check out the <code>nchar</code> function along with the modulo operator <code>%%</code>/)</p>
 <p>When your function is working on all of the inputs above, you’re ready to move on to step 2!</p>

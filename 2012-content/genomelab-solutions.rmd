@@ -44,37 +44,32 @@ Implementation:
 # value A character string containing amino sequence
 #
 translate <- function(rna) {
-
-  #Read a table with codons as the first column and amino acids as the second
-  translationTable <- read.delim("translationTable.txt", 
-                                  stringsAsFactors = FALSE)
   
-  #Takes a 3-letter codon and returns the matching 1-letter amino acid
+  translationTable <- read.delim( "data/codons"
+                                , stringsAsFactors = FALSE
+                                )
+  
   translateCodon <- function(codon) {  
     translationTable[codon,]
   }
-
-  #Takes a codon number (n) in rna and returns the 3-letter sequence
+  
   getCodon <- function(n) {  
-    substr(rna, 
-           start  = (n * 3) - 2, 
-           stop   = n * 3
-           )
+    substr( rna
+          , start  = (n * 3) - 2
+          , stop   =  n * 3
+          )
   }
-
-
-  #A series of codon numbers 1..n
+  
   codonNumbers <- 1:(nchar(rna) / 3)
-
-  #Character vector containing the sequence of amino acids in rna
-  aminoAcids <- sapply(codonNumbers, 
-                       FUN = function(n) { 
+  
+  aminoAcids <- sapply( codonNumbers
+                      , function(n) { 
                           translateCodon(getCodon(n)) 
-                      })
-
-  #Return a single string by joining the elements in aminoAcids
-  return( paste(aminoAcids, collapse = "", sep = "") )
-
+                        }
+                      )
+  
+  paste(aminoAcids, sep = "")
+  
 }
 ````
 

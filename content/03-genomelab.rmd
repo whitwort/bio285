@@ -218,34 +218,6 @@ Here are some building blocks that you might find useful in building your transl
 
 This last one (`sapply`) will be a bit tricky to warp your head around at first.  I'd recommend playing with it at the command line to get a feel for how function application works!
 
-``` {r include = FALSE}
-translate <- function(rna) {
-
-  translationTable <- read.delim("data/codons.txt", stringsAsFactors = FALSE)
-  
-  translateCodon <- function(codon) {  
-    translationTable[codon,]
-  }
-
-  getCodon <- function(n) {  
-    substr(rna, 
-           start  = (n * 3) - 2, 
-           stop   = n * 3
-           )
-  }
-
-  codonNumbers <- 1:(nchar(rna) / 3)
-
-  aminoAcids <- sapply( codonNumbers
-                      , function(n) { 
-                          translateCodon(getCodon(n)) 
-                      })
-
-  return( paste(aminoAcids, sep="") )
-
-}
-````
-
 Note, we've explicitly stated that our function should return a **single** character string containing the amino acid sequence.  Consider the difference between:
 
 ```{r}
@@ -272,7 +244,7 @@ paste(c("A","B","C","D"), sep = ", ")
 
 Once you've implemented a `translate` function, test it with some different with some different inputs:
 
-```{r}
+```{r eval=FALSE}
 translate("AUG")
 translate("UUCUAAAUUAACAAAAUC")
 translate("UUCUAAAUUAACAAAAU")

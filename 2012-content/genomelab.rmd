@@ -95,24 +95,27 @@ translate <- function(rna) {
 ``` {r include = FALSE}
 translate <- function(rna) {
 
-  translationTable <- read.delim("translationTable.txt", stringsAsFactors = FALSE)
+  translationTable <- read.delim("data/codons.txt", stringsAsFactors = FALSE)
   
   translateCodon <- function(codon) {  
     translationTable[codon,]
   }
 
   getCodon <- function(n) {  
-    substr(rna, 
-           start  = (n * 3) - 2, 
-           stop   = n * 3
-           )
+    substr( rna
+          , start  = (n * 3) - 2
+          , stop   = n * 3
+          )
   }
 
   codonNumbers <- 1:(nchar(rna) / 3)
 
-  aminoAcids <- sapply(codonNumbers, FUN = function(n) { translateCodon(getCodon(n)) } )
+  aminoAcids <- sapply( codonNumbers
+                      , function(n) { 
+                          translateCodon(getCodon(n)) 
+                      })
 
-  return( paste(aminoAcids, sep="") )
+  paste(aminoAcids, sep="")
 
 }
 ````
