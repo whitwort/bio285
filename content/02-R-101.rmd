@@ -2,7 +2,9 @@
 title: "R 101"
 description: A practical introduction to working with data in R, including working with variables, functions and importing data.  Everything you need to know how to do in R to avoid ever having to use Excel again!
 section: Background
-data: "data/codons.txt"
+data: 
+  - data/codons.txt
+  - data/npl3-dna.txt
 ---
 
 # Working with simple data
@@ -499,7 +501,7 @@ This is much easier to do when working with tabular data in R than it is in trad
 
 The challenge -- design an R script with a set of functions that will:
 
-* Read the DNA sequence in the file "[data/npl3-dna.txt](http://rna.wlu.edu/bio285/data/npl3-dna.txt)"
+* Read the DNA sequence in the file [data/npl3-dna.txt](http://rna.wlu.edu/bio285/data/npl3-dna.txt)"
 * Transcribe it into RNA sequence
 * Save the results to a new file, rna.txt
 

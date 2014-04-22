@@ -24,6 +24,10 @@
           <ul class="dropdown-menu" aria-labelledby="Background"><li><a href="01-why-r.html">Why R?</a></li>
             <li><a href="02-R-101.html">R 101</a></li>
           </ul></li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="Labs">Labs <span class="caret"></span></a>
+          <ul class="dropdown-menu" aria-labelledby="Labs"><li><a href="03-genomelab.html">Genome annotation (Part 1)</a></li>
+          </ul></li>
       </ul><!-- bits on the right --><ul class="nav navbar-nav navbar-right"><li><a href="02-R-101-slides.html" target="_blank">slides</a></li>
         
         <li><a href="http://rna.wlu.edu/r" target="_blank">RStudio</a></li>
@@ -341,8 +345,8 @@ m</code></pre>
 <h2>Lists</h2>
 <p>Unlike arrays and matrixes, lists are collections of vectors where the individual vectors can hold different types of data:</p>
 <pre class="r"><code>l &lt;- list( a = c(1, 2, 3, 4)
-           , b = c("a", "b", "c")
-)
+         , b = c("a", "b", "c")
+         )
 l</code></pre>
 <pre><code>## $a
 ## [1] 1 2 3 4
@@ -434,8 +438,8 @@ l</code></pre>
 <h2>Loading tabular data</h2>
 <p>R can import tabular data from a wide variety of source file formats. Base R has excellent support for loading data using the <code>read.table</code> family of functions. There are also a wide array of R packages that support loading data from databases and other binary file formats. If you just need to move data from an Excel worksheet into R, the easiest path is to save it as a text file (tab-delimited or csv) and load it into R using <code>read.table</code>.</p>
 <p>If you’re working in <a href="http://www.rstudio.com/">RStudio</a>, you can use the “Import Dataset” button on the Workspace tab to load data from a local file or over the web. Under-the-hood RStudio is just calling <code>read.table</code> for you, which we’ll explore below (see the History tab see the command that RStudio generated for you).</p>
-<p>To follow along with this example, you can download the genetic code table and save it in your current working directory: <a href="&lt;a%20href=" data>data/codons.txt</a>"&gt;codons.txt. This table has two columns: “codon” and “aminoAcid.” To load the table into a variable:</p>
-<pre class="r"><code>codons &lt;- read.table( "<a href="data/codons.txt">data/codons.txt</a>"
+<p>To follow along with this example, you can download the genetic code table and save it in your current working directory: <a href="data/codons.txt">codons.txt</a>. This table has two columns: “codon” and “aminoAcid.” To load the table into a variable:</p>
+<pre class="r"><code>codons &lt;- read.table( "data/codons.txt"
                     , header = TRUE
                     , stringsAsFactors = FALSE
                     )
@@ -460,13 +464,10 @@ head(codons)</code></pre>
 ## [45] "UCU" "UCC" "UCA" "UCG" "AGU" "AGC" "ACU" "ACC" "ACA" "ACG" "UGG"
 ## [56] "UAU" "UAC" "GUU" "GUC" "GUA" "GUG" "UAA" "UGA" "UAG"</code></pre>
 <pre class="r"><code>codons$aminoAcid</code></pre>
-<pre><code>##  [1] "A"    "A"    "A"    "A"    "R"    "R"    "R"    "R"    "R"    "R"   
-## [11] "N"    "N"    "D"    "D"    "C"    "C"    "Q"    "Q"    "E"    "E"   
-## [21] "G"    "G"    "G"    "G"    "H"    "H"    "I"    "I"    "I"    "M"   
-## [31] "L"    "L"    "L"    "L"    "L"    "L"    "K"    "K"    "F"    "F"   
-## [41] "P"    "P"    "P"    "P"    "S"    "S"    "S"    "S"    "S"    "S"   
-## [51] "T"    "T"    "T"    "T"    "W"    "Y"    "Y"    "V"    "V"    "V"   
-## [61] "V"    "STOP" "STOP" "STOP"</code></pre>
+<pre><code>##  [1] "A" "A" "A" "A" "R" "R" "R" "R" "R" "R" "N" "N" "D" "D" "C" "C" "Q"
+## [18] "Q" "E" "E" "G" "G" "G" "G" "H" "H" "I" "I" "I" "M" "L" "L" "L" "L"
+## [35] "L" "L" "K" "K" "F" "F" "P" "P" "P" "P" "S" "S" "S" "S" "S" "S" "T"
+## [52] "T" "T" "T" "W" "Y" "Y" "V" "V" "V" "V" "X" "X" "X"</code></pre>
 <p>If we want to access a single data point we can use indexing syntax with <code>[]</code>. When we are working with a 2D data structure, we can specific a <code>[row, col]</code>:</p>
 <pre class="r"><code>codons[ 1, 2 ]</code></pre>
 <pre><code>## [1] "A"</code></pre>
@@ -527,11 +528,11 @@ codons[ codons$aminoAcid %in% basic,    "type" ] &lt;- "basic"</code></pre>
 <div id="implement-transcription-and-translation" class="section level2">
 <h2>Implement transcription and translation</h2>
 <p>The challenge – design an R script with a set of functions that will:</p>
-<ul><li>Read the DNA sequence in the file “<a href="http://rna.wlu.edu/bio285/data/npl3-dna.txt">data/npl3-dna.txt</a>”</li>
+<ul><li>Read the DNA sequence in the file <a href="http://rna.wlu.edu/bio285/data/npl3-dna.txt">data/npl3-dna.txt</a>"</li>
 <li>Transcribe it into RNA sequence</li>
 <li>Save the results to a new file, rna.txt</li>
 </ul><p>And the special challenge:</p>
-<ul><li>Translate the DNA sequence to protein (using the “<a href="data/codons.txt">data/codons.txt</a>”)</li>
+<ul><li>Translate the DNA sequence to protein (using the “data/codons.txt”)</li>
 </ul></div>
 <div id="parts-list" class="section level2">
 <h2>Parts list:</h2>

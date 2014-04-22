@@ -407,8 +407,8 @@ m</pre>
 </article></slide><slide class=""><hgroup><h2>Lists</h2></hgroup><article id="lists">
 
 <pre class="prettyprint lang-r">l &lt;- list( a = c(1, 2, 3, 4)
-           , b = c("a", "b", "c")
-)
+         , b = c("a", "b", "c")
+         )
 l</pre>
 
 <pre>## $a
@@ -509,7 +509,7 @@ l</pre>
 
 
 
-<pre class="prettyprint lang-r">codons &lt;- read.table( "<a href="data/codons.txt">data/codons.txt</a>"
+<pre class="prettyprint lang-r">codons &lt;- read.table( "data/codons.txt"
                     , header = TRUE
                     , stringsAsFactors = FALSE
                     )
@@ -538,13 +538,10 @@ head(codons)</pre>
 
 <pre class="prettyprint lang-r">codons$aminoAcid</pre>
 
-<pre>##  [1] "A"    "A"    "A"    "A"    "R"    "R"    "R"    "R"    "R"    "R"   
-## [11] "N"    "N"    "D"    "D"    "C"    "C"    "Q"    "Q"    "E"    "E"   
-## [21] "G"    "G"    "G"    "G"    "H"    "H"    "I"    "I"    "I"    "M"   
-## [31] "L"    "L"    "L"    "L"    "L"    "L"    "K"    "K"    "F"    "F"   
-## [41] "P"    "P"    "P"    "P"    "S"    "S"    "S"    "S"    "S"    "S"   
-## [51] "T"    "T"    "T"    "T"    "W"    "Y"    "Y"    "V"    "V"    "V"   
-## [61] "V"    "STOP" "STOP" "STOP"</pre>
+<pre>##  [1] "A" "A" "A" "A" "R" "R" "R" "R" "R" "R" "N" "N" "D" "D" "C" "C" "Q"
+## [18] "Q" "E" "E" "G" "G" "G" "G" "H" "H" "I" "I" "I" "M" "L" "L" "L" "L"
+## [35] "L" "L" "K" "K" "F" "F" "P" "P" "P" "P" "S" "S" "S" "S" "S" "S" "T"
+## [52] "T" "T" "T" "W" "Y" "Y" "V" "V" "V" "V" "X" "X" "X"</pre>
 
 
 
@@ -611,12 +608,12 @@ codons[ codons$aminoAcid %in% basic,    "type" ] &lt;- "basic"</pre>
 
 </article></slide><slide class="segue dark nobackground"><hgroup class="auto-fadein"><h2>Homework excercise</h2></hgroup><article id="homework-excercise"></article></slide><slide class=""><hgroup><h2>Implement transcription and translation</h2></hgroup><article id="implement-transcription-and-translation"><p>The challenge – design an R script with a set of functions that will:</p>
 
-<ul><li>Read the DNA sequence in the file "<a href="http://rna.wlu.edu/bio285/data/npl3-dna.txt" title="">data/npl3-dna.txt</a>"</li>
+<ul><li>Read the DNA sequence in the file <a href="http://rna.wlu.edu/bio285/data/npl3-dna.txt" title="">data/npl3-dna.txt</a>"</li>
 <li>Transcribe it into RNA sequence</li>
 <li>Save the results to a new file, rna.txt</li>
 </ul><p>And the special challenge:</p>
 
-<ul><li>Translate the DNA sequence to protein (using the "<a href="data/codons.txt">data/codons.txt</a>")</li>
+<ul><li>Translate the DNA sequence to protein (using the "data/codons.txt")</li>
 </ul></article></slide><slide class=""><hgroup><h2>Parts list:</h2></hgroup><article id="parts-list"><ul><li><code>readLines()</code> <em>hint</em> con = "dna.txt"</li>
 <li><code>gsub()</code> <em>hint</em> fixed = true</li>
 <li><code>write()</code></li>
