@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta http-equiv="Content-Style-Type" content="text/css"><meta name="generator" content="pandoc"><title>Genome annotation (Part 1) - Solutions</title><link href="css/bootstrap.min.css" rel="stylesheet"><link href="css/highlight.css" rel="stylesheet"><link href="css/courser.css" rel="stylesheet"><script src="js/modernizr-2.6.2.min.js"></script></head><body>
+
+<!-- site-wide nav bar -->
+<div class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+  
+    <!-- bits that show in small windows -->
+    <div class="navbar-header">
+      <a href="http://rna.wlu.edu/bio285" class="navbar-brand">bio285</a>
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    
+    <!-- bits that show in large windows -->
+    <div class="navbar-collapse collapse" id="navbar-main">
+    
+      <!-- bits on the left -->
+      <ul class="nav navbar-nav"><li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="Background">Background <span class="caret"></span></a>
+          <ul class="dropdown-menu" aria-labelledby="Background"><li><a href="01-why-r.html">Why R?</a></li>
+            <li><a href="02-R-101.html">R 101</a></li>
+          </ul></li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="Labs">Labs <span class="caret"></span></a>
+          <ul class="dropdown-menu" aria-labelledby="Labs"><li><a href="03-genomelab.html">Genome annotation (Part 1)</a></li>
+            <li><a href="03-genomelab-solutions.html">Genome annotation (Part 1) - Solutions</a></li>
+            <li><a href="04-genomelab-project.html">Genome annotation (Part 2)</a></li>
+          </ul></li>
+      </ul><!-- bits on the right --><ul class="nav navbar-nav navbar-right"><li><a href="http://rna.wlu.edu/r" target="_blank">RStudio</a></li>
+      </ul></div>
+    
+  </div>
+</div><div class="container">
+
+
+<div class="page-header" id="banner">
+<div class="row">
+
+<div class="col-md-8">
+<h1>Genome annotation (Part 1) - Solutions</h1>
+<p>Partial solutions for the genome annotation lab.</p>
+</div>
+
+<div class="col-md-4" style="padding: 5px 5px 0 5px;">
+<div class="well">  <!-- class="clearfix"? -->
+<ul><li><a href="#step-1-transcribe-and-translate">Step 1: transcribe and translate</a></li>
+<li><a href="#step-2-writing-an-orf-finder">Step 2: Writing an ORF finder</a></li>
+<li><a href="#step-3-annotate-a-complete-chromosome">Step 3: Annotate a complete chromosome</a></li>
+<li><a href="#step-4-annotate-the-whole-genome">Step 4: Annotate the whole genome!</a></li>
+</ul></div>
+</div>
+
+</div>
+</div>
+
+<div id="step-1-transcribe-and-translate" class="section level1">
+<h1>Step 1: transcribe and translate</h1>
+<div id="refine-your-transcribe-function" class="section level2">
+<h2>Refine your transcribe function</h2>
+<pre class="r"><code># Transcibes DNA sequence into RNA equivalent
+#
+# dna   A character string containing DNA sequence
+#
+# value A character string containing RNA sequence
+#
+transcribe &lt;- function(dna) {
+  gsub( pattern     = "T"
+      , replacement = "U"
+      , x           = toupper(dna)
+      , fixed       = TRUE
+      )
+}</code></pre>
+<pre class="r"><code>transcribe("ATGCTTATCTA")</code></pre>
+<pre><code>## [1] "AUGCUUAUCUA"</code></pre>
+</div>
+<div id="refine-your-translate-function" class="section level2">
+<h2>Refine your translate function</h2>
+<pre class="r"><code># Translates RNA sequence into amino acid sequence
+#
+# rna   A character string containing RNA sequence
+#
+# value A character string containing amino sequence
+#
+translate &lt;- function(rna) {
+
+  codonTable  &lt;- read.table( "data/codons.txt"
+                           , header            = TRUE
+                           , row.names         = "codon"
+                           , stringsAsFactors  = FALSE
+                           )
+
+  codons      &lt;- sapply( seq( from = 1
+                            , to   = nchar(rna) - (nchar(rna) %% 3)
+                            , by   = 3 
+                            )
+                       , function(n) {
+                            substr(rna, start = n, stop = n + 2)
+                         }
+                       )
+  
+  paste( codonTable[codons, "aminoAcid"]
+       , collapse = ""
+       )
+}</code></pre>
+<pre class="r"><code>translate("AUG")</code></pre>
+<pre><code>## [1] "M"</code></pre>
+<pre class="r"><code>translate("UUCUAAAUUAACAAAAUC")</code></pre>
+<pre><code>## [1] "FXINKI"</code></pre>
+<pre class="r"><code>translate("UUCUAAAUUAACAAAAU")</code></pre>
+<pre><code>## [1] "FXINK"</code></pre>
+<pre class="r"><code>translate("UUCUAAAUUAACAAAA")</code></pre>
+<pre><code>## [1] "FXINK"</code></pre>
+</div>
+</div>
+<div id="step-2-writing-an-orf-finder" class="section level1">
+<h1>Step 2: Writing an ORF finder</h1>
+<pre class="r"><code># Returns a data.frame describing the ORFs found in the given aminoacid sequence
+#
+# aminoacids  A character string containing aminoacid sequence
+# cutoff      An integer giving the minimum aminoacid length of valid ORFs
+#
+# value       A data.frame, coordinates refer to amino acid position
+#
+findORF &lt;- function(aminoacids, cutoff = 100) {
+
+  matches &lt;- gregexpr(pattern = "M(.*?)X", text = aminoacids)
+  starts  &lt;- as.vector(matches[[1]])
+  lengths &lt;- attr(matches[[1]], "match.length")
+  
+  df &lt;- data.frame( aa.start   = starts
+                  , aa.length  = lengths
+                  , aa.seq     = substring( aminoacids
+                                          , first = starts
+                                          , last  = starts + lengths - 1
+                                          )
+                  )
+  
+  df[df$aa.length &gt;= cutoff,]
+}</code></pre>
+<pre class="r"><code>findORF("aaaaMbbbbXccccMddddXeeee")</code></pre>
+<pre><code>## [1] aa.start  aa.length aa.seq   
+## &lt;0 rows&gt; (or 0-length row.names)</code></pre>
+<pre class="r"><code>findORF("aaaaMbbbbXccccMddddXeeee", 5)</code></pre>
+<pre><code>##   aa.start aa.length aa.seq
+## 1        5         6 MbbbbX
+## 2       15         6 MddddX</code></pre>
+</div>
+<div id="step-3-annotate-a-complete-chromosome" class="section level1">
+<h1>Step 3: Annotate a complete chromosome</h1>
+<div id="overview" class="section level2">
+<h2>Overview</h2>
+<pre class="r"><code>library(plyr)
+
+# Finds all open reading frames in the chromosome sequence in a FASTA file
+#
+# fastaFile   A string containing the name of a chromosome file in FASTA format
+#
+# value       A data.frame.  Coordinates are relative to DNA sequence in input.
+#
+annotateChromosome &lt;- function(fastaFile) {
+
+  forwardStrand &lt;- transcribe(loadFASTA(fastaFile))
+  reverseStrand &lt;- reverseComplement(forwardStrand)
+  
+  forwardFrames &lt;- lapply( c(0, 1, 2)
+                         , function(offset) { 
+                              annotateFrame(forwardStrand, offset)
+                           }  
+                         )
+  
+  # for the reverse frames, we'll need to adjust the starting coordinate to be 
+  # the end of the orf in the 5'-&gt;3' direction of the reference (forward)
+  # strand.  Draw this out if that doesn't make sense...
+  reverseFrames &lt;- lapply( c(0, 1, 2)
+                         , function(offset) { 
+                             orfs &lt;- annotateFrame(forwardStrand, offset)
+                             orfs$start &lt;- nchar(reverseStrand) - orfs$start + 1
+                             orfs
+                           }  
+                         )
+
+  # Since we're introducing plyr in today's lab, I'll use it here for 
+  # illustration.  Note calling `c` on two lists just concatenates the elements 
+  # of each list (in this case data.frames with orf annotations) into a new 
+  # list.
+  ldply(c(forwardFrames, reverseFrames))
+  
+}
+
+# Parses a sequence file in FASTA format
+#
+# fastaFile   A string giving the name of a fasta file to parse
+#
+# value       A string containing the parsed sequence
+#
+loadFASTA &lt;- function(fastaFile) {
+
+  # trim FASTA header line; concatenate rows of sequence.
+  lines &lt;- readLines(fastaFile)
+  paste( lines[2:length(lines)]
+       , collapse = ""
+       , warn     = FALSE
+       )
+
+}
+
+# Annotates the ORFs found in a given reading frame of a dnaString
+#
+# dnaStrand   A string containing DNA sequence
+# offset      The frame offset (0, 1, or 2)
+#
+# value       A data.frame with a `length` and `start` column. 
+#             Coordinates are relative to dnaStrand.
+#
+annotateFrame &lt;- function(dnaStrand, offset) {
+
+  searchFrame &lt;- substr( dnaStrand
+                       , start = 1 + offset
+                       , stop  = nchar(dnaStrand)
+                       )
+  
+  orfs        &lt;- findORF(translate(searchFrame))
+  
+  orfs$length &lt;- orfs$aa.length * 3
+  orfs$start  &lt;- (orfs$aa.start * 3) + offset
+  
+  orfs
+
+}
+
+# Calculates the reverse complement of a dnaStrand
+#
+# dnaStrand   A string containing the forward DNA sequence
+#
+# value       A string containing the reverse complement to dnaStrand
+#
+reverseComplement &lt;- function(dnaStrand) {
+
+  forward &lt;- c("A","T","G","C")
+  reverse &lt;- c("t","a","c","g")
+  
+  complement &lt;- reverseString(dnaStrand)
+  
+  # see ?mapply; like sapply but takes multiple vector arguments.
+  mapply( function(f, r) { 
+    
+            # the &lt;&lt;- operator assigns data into a variable in the parent
+            # context;  in this case each time the next line is executed, it
+            # will replace the value for the `complement` variable declared
+            # above.
+            complement &lt;&lt;- gsub(f, r, complement, fixed = TRUE)
+            
+          }
+        , forward
+        , reverse
+        )
+  
+  toupper(complement)
+}
+
+# Reverses the characters in a string
+reverseString &lt;- function(s) {
+  paste(rev(substring(s, 1:nchar(s), 1:nchar(s))), collapse = "") 
+}</code></pre>
+<pre class="r"><code>dna &lt;- loadFASTA('<a href="data/chr01.fsa">data/chr01.fsa</a>')
+nchar(dna)</code></pre>
+<pre><code>## [1] 32868</code></pre>
+<pre class="r"><code>testRNA &lt;- transcribe(substr(dna, 1, 30))
+testRNA</code></pre>
+<pre><code>## [1] "CCACACCACACCCACACACCCACACACCAC"</code></pre>
+<pre class="r"><code>reverseComplement(testRNA)</code></pre>
+<pre><code>## [1] "GTGGTGTGTGGGTGTGTGGGTGTGGTGTGG"</code></pre>
+<pre class="r"><code>annotateFrame(transcribe(dna), 0)</code></pre>
+<pre><code>##     aa.start aa.length
+## 4        212       105
+## 61      4816       155
+## 114     9788       162
+## 121    10423       103
+## 125    10692       170
+##                                                                                                                                                                         aa.seq
+## 4                                                                    MNANAHGTCLSGLYPVPFTHNAHHYNANAPHFDIYISFGGPKYCITALNNANATYVIPLLHHILTTPFIYTYVNANANITEKSPQKSPKHKNILLFNNANANNTX
+## 61                 MAGEANANAVSEHTPDSQEVTVTSVVCCLNANADSVVEIGHHVVYSVVTPLIVNANAAVLIDTMAGEAVLEHTSDSQNANAEEIVTTVVCSVVPLVCFVVSNANAVVCFVISVVEIGHHVVYSVVNANAAPLTVTVAVETIAEEMDSVHNANATX
+## 114         MNANAAGEVVSEHTPDPQEVTVTSVNANAVCCFDSVVEIGHHVVYSVVTNANAPLIVAVLVDTMAGEAVLEHTNANASDSQEEIVTTVVCFVVSVVCNANASVVPLVCFVVSVVCFVISVVNANAEIGHHVVYSVVAPLTVTVAVNANAETIAEEIDSVHTX
+## 121                                                                    MAVVAVVGVLMTMMNANAVSSVGKPLVPVTVVISVDVENANAVKVLFHGSVVVMAVVAVVGVNANALMTMMVSSVGKPLVPVTVVINANASVDVEVKVSFHGX
+## 125 MAVVAVVGVNANALMTMMVSSVGKPLVPVTVVNNANASVEVEVKVLFHGSVVVMAVVNANAAVVGVLITMMVSSVRTPLVPNANAVTVVNSVEVEVKVLFHGSVVNANAVMMVLAVVGVLMTMTVSSVGNANATPLVPVTVVISVDVEVKVPVNANAHGSVVVMVVLTVX
+##     length start
+## 4      315   636
+## 61     465 14448
+## 114    486 29364
+## 121    309 31269
+## 125    510 32076</code></pre>
+<p>And finally, the end-to-end test for what we’ve built so far:</p>
+<pre class="r"><code>annotateChromosome('<a href="data/chr01.fsa">data/chr01.fsa</a>')</code></pre>
+<pre><code>##    aa.start aa.length
+## 1       212       105
+## 2      4816       155
+## 3      9788       162
+## 4     10423       103
+## 5     10692       170
+## 6       137       130
+## 7      1691       121
+## 8      4204       128
+## 9      8984       120
+## 10     4239       114
+## 11      212       105
+## 12     4816       155
+## 13     9788       162
+## 14    10423       103
+## 15    10692       170
+## 16      137       130
+## 17     1691       121
+## 18     4204       128
+## 19     8984       120
+## 20     4239       114
+##                                                                                                                                                                        aa.seq
+## 1                                                                   MNANAHGTCLSGLYPVPFTHNAHHYNANAPHFDIYISFGGPKYCITALNNANATYVIPLLHHILTTPFIYTYVNANANITEKSPQKSPKHKNILLFNNANANNTX
+## 2                 MAGEANANAVSEHTPDSQEVTVTSVVCCLNANADSVVEIGHHVVYSVVTPLIVNANAAVLIDTMAGEAVLEHTSDSQNANAEEIVTTVVCSVVPLVCFVVSNANAVVCFVISVVEIGHHVVYSVVNANAAPLTVTVAVETIAEEMDSVHNANATX
+## 3          MNANAAGEVVSEHTPDPQEVTVTSVNANAVCCFDSVVEIGHHVVYSVVTNANAPLIVAVLVDTMAGEAVLEHTNANASDSQEEIVTTVVCFVVSVVCNANASVVPLVCFVVSVVCFVISVVNANAEIGHHVVYSVVAPLTVTVAVNANAETIAEEIDSVHTX
+## 4                                                                     MAVVAVVGVLMTMMNANAVSSVGKPLVPVTVVISVDVENANAVKVLFHGSVVVMAVVAVVGVNANALMTMMVSSVGKPLVPVTVVINANASVDVEVKVSFHGX
+## 5  MAVVAVVGVNANALMTMMVSSVGKPLVPVTVVNNANASVEVEVKVLFHGSVVVMAVVNANAAVVGVLITMMVSSVRTPLVPNANAVTVVNSVEVEVKVLFHGSVVNANAVMMVLAVVGVLMTMTVSSVGNANATPLVPVTVVISVDVEVKVPVNANAHGSVVVMVVLTVX
+## 6                                          MIVNNTHVNANANATLPLYTTTTCHTHPHLYTDNANANATYAHGCYSIYHLKLTLLSDNANANATSLHGPSLTESVPNALTSLNANANATALASAVYTLCHLPITPIINANANAHILISISHSAVPNIVX
+## 7                                                   MRQPNANANATTLLSKKNNKFTCLLLSITNANANAEYFFWKQVRISQFLLTSLGNANANANLIAVVITTNTGPKKFTVFNANANAGLRIVNRLRLWHEEQCNSSNANANAKPLHDKQLIIX
+## 8                                            MLSLVKRSILHSIPITNANANAHILPIQLILVKMNHVQIRNNANANAKLYHFISYGFMLTKLTVFLNANANANLFFYRLRILCRLTLLILSNANANAPVQIYIKEIQTKMLEKHTANANANADTSCIX
+## 9                                                    MNPFASLEGQDNANANAISSVFFLHMQQFESQVKDRNANANARFPIFRLERKTFGNSCYQVNANANATLKVKCRPRHAKSCNLLTLNANANAFKSRTQSVLVPNFGFLILNNANANAEPX
+## 10                                                         MCKSETNANANANYITLFHMVSCLQSLLSFSNANANATYFSTGYEFFAGLLYSYYHNANANALYKYILKKSKQKCLKSIQLNANANAIHHVYRKSQYKNFEFMYNRNANANAAX
+## 11                                                                  MNANAHGTCLSGLYPVPFTHNAHHYNANAPHFDIYISFGGPKYCITALNNANATYVIPLLHHILTTPFIYTYVNANANITEKSPQKSPKHKNILLFNNANANNTX
+## 12                MAGEANANAVSEHTPDSQEVTVTSVVCCLNANADSVVEIGHHVVYSVVTPLIVNANAAVLIDTMAGEAVLEHTSDSQNANAEEIVTTVVCSVVPLVCFVVSNANAVVCFVISVVEIGHHVVYSVVNANAAPLTVTVAVETIAEEMDSVHNANATX
+## 13         MNANAAGEVVSEHTPDPQEVTVTSVNANAVCCFDSVVEIGHHVVYSVVTNANAPLIVAVLVDTMAGEAVLEHTNANASDSQEEIVTTVVCFVVSVVCNANASVVPLVCFVVSVVCFVISVVNANAEIGHHVVYSVVAPLTVTVAVNANAETIAEEIDSVHTX
+## 14                                                                    MAVVAVVGVLMTMMNANAVSSVGKPLVPVTVVISVDVENANAVKVLFHGSVVVMAVVAVVGVNANALMTMMVSSVGKPLVPVTVVINANASVDVEVKVSFHGX
+## 15 MAVVAVVGVNANALMTMMVSSVGKPLVPVTVVNNANASVEVEVKVLFHGSVVVMAVVNANAAVVGVLITMMVSSVRTPLVPNANAVTVVNSVEVEVKVLFHGSVVNANAVMMVLAVVGVLMTMTVSSVGNANATPLVPVTVVISVDVEVKVPVNANAHGSVVVMVVLTVX
+## 16                                         MIVNNTHVNANANATLPLYTTTTCHTHPHLYTDNANANATYAHGCYSIYHLKLTLLSDNANANATSLHGPSLTESVPNALTSLNANANATALASAVYTLCHLPITPIINANANAHILISISHSAVPNIVX
+## 17                                                  MRQPNANANATTLLSKKNNKFTCLLLSITNANANAEYFFWKQVRISQFLLTSLGNANANANLIAVVITTNTGPKKFTVFNANANAGLRIVNRLRLWHEEQCNSSNANANAKPLHDKQLIIX
+## 18                                           MLSLVKRSILHSIPITNANANAHILPIQLILVKMNHVQIRNNANANAKLYHFISYGFMLTKLTVFLNANANANLFFYRLRILCRLTLLILSNANANAPVQIYIKEIQTKMLEKHTANANANADTSCIX
+## 19                                                   MNPFASLEGQDNANANAISSVFFLHMQQFESQVKDRNANANARFPIFRLERKTFGNSCYQVNANANATLKVKCRPRHAKSCNLLTLNANANAFKSRTQSVLVPNFGFLILNNANANAEPX
+## 20                                                         MCKSETNANANANYITLFHMVSCLQSLLSFSNANANATYFSTGYEFFAGLLYSYYHNANANALYKYILKKSKQKCLKSIQLNANANAIHHVYRKSQYKNFEFMYNRNANANAAX
+##    length start
+## 1     315   636
+## 2     465 14448
+## 3     486 29364
+## 4     309 31269
+## 5     510 32076
+## 6     390   412
+## 7     363  5074
+## 8     384 12613
+## 9     360 26953
+## 10    342 12719
+## 11    315 32233
+## 12    465 18421
+## 13    486  3505
+## 14    309  1600
+## 15    510   793
+## 16    390 32457
+## 17    363 27795
+## 18    384 20256
+## 19    360  5916
+## 20    342 20150</code></pre>
+</div>
+</div>
+<div id="step-4-annotate-the-whole-genome" class="section level1">
+<h1>Step 4: Annotate the whole genome!</h1>
+<p>I’ll take this opportunity to show you a few tricks for how you can automate file downloads and design scripts to fun an analysis across all of the files it finds in a directory.</p>
+<p>Let’s make a utility function for ourselves that will download all of the chromosome files (useful if we want to update our local copies from the web in the future). I’ve gone a little hog-wild with the default arguments in this implementation; see if you can figure out how the nested paste is working here:</p>
+<pre class="r"><code>SGD_URL = 'http://downloads.yeastgenome.org/sequence/S288C_reference/chromosomes/fasta/'
+
+fetchYeastGenome &lt;- function( rootURL   = SGD_URL
+                            , fileNames = paste( "chr" 
+                                               , c( paste("0", 1:9, sep="")
+                                                  , 10:16
+                                                  )
+                                               , ".fsa"
+                                               , sep = ""
+                                               )
+                            ) {
+
+  sapply( paste(rootURL, fileNames, sep="")
+        , function(fileURL) {
+            # Print a friendly message to let the user know we're working
+            cat("Downloading", fileURL)
+          
+            # We can run linux commands using the system function; we'll use
+            # wget
+            system(paste('wget', fileURL))
+        })
+  
+}</code></pre>
+<p>We can run this with the defaults to download the entire yeast genome. If you want to chance the download path you can use the <code>setwd</code> function (use <code>getwd</code> to see the current working directory – by default, RStudio sets this to the project folder when you open/create a project).</p>
+<pre class="r"><code>fetchYeastGenome()
+
+# If we want to grab the mitochondrial chromosome as well:
+fetchYeastGenome(fileNames = "chrmt.fsa")</code></pre>
+<p>Now we can write a function that crawls the set of files in the current working directory and runs our chromosome annotation on any .fsa files it finds:</p>
+<pre class="r"><code>annotateGenome &lt;- function(path = getwd()) {
+  
+  # list.files will list all of the files that match the pattern
+  fastas &lt;- list.files( path
+                        
+                        #   this regular expression asks if a file name ends
+                        #   with .fsa or .fasta
+                      , pattern    = "(^.*\\.fsa$)|(^.*\\.fasta$)"
+                      , full.names = TRUE
+                      )
+  
+  chromosomes &lt;- lapply( fastas
+                       , function(fasta) {
+                            # friendly messages to let the user know we're alive
+                            cat("Annotating", fasta, "\n")
+                         
+                            annotations &lt;- annotateChromosome(fasta)
+                            
+                            # Add a column recording the file name (basename
+                            # returns the name of the file without the full
+                            # directory path preceeding it)
+                            annotations$sourceFile &lt;- basename(fasta)
+                            
+                            annotations
+                         }
+                       )
+  
+  # for ease, we'll use ldply again to concatenate our list of data.frames
+  ldply(chromosomes)
+  
+}</code></pre>
+<pre class="r"><code>annotateGenome()</code></pre>
+<div class="references">
+
+</div>
+</div>
+
+
+</div>
+
+<!-- bootstrap footer -->
+<br><div class="container">
+  <footer><div class="row">
+      <div class="col-lg-12">
+        <p>Original work copyright © 2014 <a href="http://www.wlu.edu/x23921.xml?InsertFile=x55999">Gregg Whitworth</a> and licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.  This page was built with <a href="https://github.com/whitwort/courseR">courseR</a>.</p>
+      </div>
+    </div>
+  </footer></div><script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script><script src="js/bootstrap.min.js"></script><script src="js/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+</script></body></html>
+

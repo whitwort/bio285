@@ -159,16 +159,6 @@ transcribe <- function(dna) {
 }
 ````
 
-``` {r include = FALSE}
-transcribe <- function(dna) {
-  gsub( pattern     = "T",
-        replacement = "U",
-        x           = dna,
-        fixed       = TRUE
-        )
-}
-````
-
 See how we've used the comment lines to clearly describe:
 
 * What our function does (fist line)
@@ -185,7 +175,7 @@ Once you've finished implementing a transcribe function, load your script into t
 
 Now let's test your transcribe function with some sample input:
 
-``` {r}
+``` {r eval=FALSE}
 transcribe("ATGCTTATCTA")
 ````
 

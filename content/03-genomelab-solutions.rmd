@@ -1,0 +1,321 @@
+---
+title: "Genome annotation (Part 1) - Solutions"
+description: Partial solutions for the genome annotation lab.
+section: Labs
+output_formats:
+  slides: false
+data: data/chr01.fsa
+---
+
+# Step 1: transcribe and translate
+
+## Refine your transcribe function
+
+``` {r}
+# Transcibes DNA sequence into RNA equivalent
+#
+# dna   A character string containing DNA sequence
+#
+# value A character string containing RNA sequence
+#
+transcribe <- function(dna) {
+  gsub( pattern     = "T"
+      , replacement = "U"
+      , x           = toupper(dna)
+      , fixed       = TRUE
+      )
+}
+````
+
+```{r}
+transcribe("ATGCTTATCTA")
+````
+
+## Refine your translate function
+
+```{r}
+# Translates RNA sequence into amino acid sequence
+#
+# rna   A character string containing RNA sequence
+#
+# value A character string containing amino sequence
+#
+translate <- function(rna) {
+
+  codonTable  <- read.table( "data/codons.txt"
+                           , header            = TRUE
+                           , row.names         = "codon"
+                           , stringsAsFactors  = FALSE
+                           )
+
+  codons      <- sapply( seq( from = 1
+                            , to   = nchar(rna) - (nchar(rna) %% 3)
+                            , by   = 3 
+                            )
+                       , function(n) {
+                            substr(rna, start = n, stop = n + 2)
+                         }
+                       )
+  
+  paste( codonTable[codons, "aminoAcid"]
+       , collapse = ""
+       )
+}
+````
+
+```{r}
+translate("AUG")
+translate("UUCUAAAUUAACAAAAUC")
+translate("UUCUAAAUUAACAAAAU")
+translate("UUCUAAAUUAACAAAA")
+````
+
+# Step 2: Writing an ORF finder
+
+```{r}
+
+# Returns a data.frame describing the ORFs found in the given aminoacid sequence
+#
+# aminoacids  A character string containing aminoacid sequence
+# cutoff      An integer giving the minimum aminoacid length of valid ORFs
+#
+# value       A data.frame, coordinates refer to amino acid position
+#
+findORF <- function(aminoacids, cutoff = 100) {
+
+  matches <- gregexpr(pattern = "M(.*?)X", text = aminoacids)
+  starts  <- as.vector(matches[[1]])
+  lengths <- attr(matches[[1]], "match.length")
+  
+  df <- data.frame( aa.start   = starts
+                  , aa.length  = lengths
+                  , aa.seq     = substring( aminoacids
+                                          , first = starts
+                                          , last  = starts + lengths - 1
+                                          )
+                  )
+  
+  df[df$aa.length >= cutoff,]
+}
+````
+
+``` {r}
+findORF("aaaaMbbbbXccccMddddXeeee")
+findORF("aaaaMbbbbXccccMddddXeeee", 5)
+````
+
+# Step 3:  Annotate a complete chromosome
+
+## Overview
+
+``` {r}
+library(plyr)
+
+# Finds all open reading frames in the chromosome sequence in a FASTA file
+#
+# fastaFile   A string containing the name of a chromosome file in FASTA format
+#
+# value       A data.frame.  Coordinates are relative to DNA sequence in input.
+#
+annotateChromosome <- function(fastaFile) {
+
+  forwardStrand <- transcribe(loadFASTA(fastaFile))
+  reverseStrand <- reverseComplement(forwardStrand)
+  
+  forwardFrames <- lapply( c(0, 1, 2)
+                         , function(offset) { 
+                              annotateFrame(forwardStrand, offset)
+                           }  
+                         )
+  
+  # for the reverse frames, we'll need to adjust the starting coordinate to be 
+  # the end of the orf in the 5'->3' direction of the reference (forward)
+  # strand.  Draw this out if that doesn't make sense...
+  reverseFrames <- lapply( c(0, 1, 2)
+                         , function(offset) { 
+                             orfs <- annotateFrame(forwardStrand, offset)
+                             orfs$start <- nchar(reverseStrand) - orfs$start + 1
+                             orfs
+                           }  
+                         )
+
+  # Since we're introducing plyr in today's lab, I'll use it here for 
+  # illustration.  Note calling `c` on two lists just concatenates the elements 
+  # of each list (in this case data.frames with orf annotations) into a new 
+  # list.
+  ldply(c(forwardFrames, reverseFrames))
+  
+}
+
+# Parses a sequence file in FASTA format
+#
+# fastaFile   A string giving the name of a fasta file to parse
+#
+# value       A string containing the parsed sequence
+#
+loadFASTA <- function(fastaFile) {
+
+  # trim FASTA header line; concatenate rows of sequence.
+  lines <- readLines(fastaFile)
+  paste( lines[2:length(lines)]
+       , collapse = ""
+       , warn     = FALSE
+       )
+
+}
+
+# Annotates the ORFs found in a given reading frame of a dnaString
+#
+# dnaStrand   A string containing DNA sequence
+# offset      The frame offset (0, 1, or 2)
+#
+# value       A data.frame with a `length` and `start` column. 
+#             Coordinates are relative to dnaStrand.
+#
+annotateFrame <- function(dnaStrand, offset) {
+
+  searchFrame <- substr( dnaStrand
+                       , start = 1 + offset
+                       , stop  = nchar(dnaStrand)
+                       )
+  
+  orfs        <- findORF(translate(searchFrame))
+  
+  orfs$length <- orfs$aa.length * 3
+  orfs$start  <- (orfs$aa.start * 3) + offset
+  
+  orfs
+
+}
+
+# Calculates the reverse complement of a dnaStrand
+#
+# dnaStrand   A string containing the forward DNA sequence
+#
+# value       A string containing the reverse complement to dnaStrand
+#
+reverseComplement <- function(dnaStrand) {
+
+  forward <- c("A","T","G","C")
+  reverse <- c("t","a","c","g")
+  
+  complement <- reverseString(dnaStrand)
+  
+  # see ?mapply; like sapply but takes multiple vector arguments.
+  mapply( function(f, r) { 
+    
+            # the <<- operator assigns data into a variable in the parent
+            # context;  in this case each time the next line is executed, it
+            # will replace the value for the `complement` variable declared
+            # above.
+            complement <<- gsub(f, r, complement, fixed = TRUE)
+            
+          }
+        , forward
+        , reverse
+        )
+  
+  toupper(complement)
+}
+
+# Reverses the characters in a string
+reverseString <- function(s) {
+  paste(rev(substring(s, 1:nchar(s), 1:nchar(s))), collapse = "") 
+}
+````
+
+```{r}
+dna <- loadFASTA('data/chr01.fsa')
+nchar(dna)
+
+testRNA <- transcribe(substr(dna, 1, 30))
+testRNA
+reverseComplement(testRNA)
+
+annotateFrame(transcribe(dna), 0)
+```
+
+And finally, the end-to-end test for what we've built so far:
+```{r}
+annotateChromosome('data/chr01.fsa')
+```
+
+# Step 4: Annotate the whole genome!
+
+I'll take this opportunity to show you a few tricks for how you can automate file downloads and design scripts to fun an analysis across all of the files it finds in a directory.
+
+Let's make a utility function for ourselves that will download all of the chromosome files (useful if we want to update our local copies from the web in the future).  I've gone a little hog-wild with the default arguments in this implementation; see if you can figure out how the nested paste is working here:
+
+```{r}
+SGD_URL = 'http://downloads.yeastgenome.org/sequence/S288C_reference/chromosomes/fasta/'
+
+fetchYeastGenome <- function( rootURL   = SGD_URL
+                            , fileNames = paste( "chr" 
+                                               , c( paste("0", 1:9, sep="")
+                                                  , 10:16
+                                                  )
+                                               , ".fsa"
+                                               , sep = ""
+                                               )
+                            ) {
+
+  sapply( paste(rootURL, fileNames, sep="")
+        , function(fileURL) {
+            # Print a friendly message to let the user know we're working
+            cat("Downloading", fileURL)
+          
+            # We can run linux commands using the system function; we'll use
+            # wget
+            system(paste('wget', fileURL))
+        })
+  
+}
+```
+
+We can run this with the defaults to download the entire yeast genome.  If you want to chance the download path you can use the `setwd` function (use `getwd` to see the current working directory -- by default, RStudio sets this to the project folder when you open/create a project).
+```{r eval=FALSE}
+fetchYeastGenome()
+
+# If we want to grab the mitochondrial chromosome as well:
+fetchYeastGenome(fileNames = "chrmt.fsa")
+```
+
+Now we can write a function that crawls the set of files in the current working directory and runs our chromosome annotation on any .fsa files it finds:
+```{r}
+annotateGenome <- function(path = getwd()) {
+  
+  # list.files will list all of the files that match the pattern
+  fastas <- list.files( path
+                        
+                        #   this regular expression asks if a file name ends
+                        #   with .fsa or .fasta
+                      , pattern    = "(^.*\\.fsa$)|(^.*\\.fasta$)"
+                      , full.names = TRUE
+                      )
+  
+  chromosomes <- lapply( fastas
+                       , function(fasta) {
+                            # friendly messages to let the user know we're alive
+                            cat("Annotating", fasta, "\n")
+                         
+                            annotations <- annotateChromosome(fasta)
+                            
+                            # Add a column recording the file name (basename
+                            # returns the name of the file without the full
+                            # directory path preceeding it)
+                            annotations$sourceFile <- basename(fasta)
+                            
+                            annotations
+                         }
+                       )
+  
+  # for ease, we'll use ldply again to concatenate our list of data.frames
+  ldply(chromosomes)
+  
+}
+```
+
+```{r eval=FALSE}
+annotateGenome()
+```
+
