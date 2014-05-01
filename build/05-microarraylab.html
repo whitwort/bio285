@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta http-equiv="Content-Style-Type" content="text/css"><meta name="generator" content="pandoc"><title>Analysis of gene expression data</title><link href="css/bootstrap.min.css" rel="stylesheet"><link href="css/highlight.css" rel="stylesheet"><link href="css/courser.css" rel="stylesheet"><script src="js/modernizr-2.6.2.min.js"></script></head><body>
+
+<!-- site-wide nav bar -->
+<div class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+  
+    <!-- bits that show in small windows -->
+    <div class="navbar-header">
+      <a href="http://rna.wlu.edu/bio285" class="navbar-brand">bio285</a>
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    
+    <!-- bits that show in large windows -->
+    <div class="navbar-collapse collapse" id="navbar-main">
+    
+      <!-- bits on the left -->
+      <ul class="nav navbar-nav"><li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="Background">Background <span class="caret"></span></a>
+          <ul class="dropdown-menu" aria-labelledby="Background"><li><a href="01-why-r.html">Why R?</a></li>
+            <li><a href="02-R-101.html">R 101</a></li>
+          </ul></li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="Labs">Labs <span class="caret"></span></a>
+          <ul class="dropdown-menu" aria-labelledby="Labs"><li><a href="03-genomelab.html">Genome annotation (Part 1)</a></li>
+            <li><a href="03-genomelab-solutions.html">Genome annotation (Part 1) - Solutions</a></li>
+            <li><a href="04-genomelab-project.html">Genome annotation (Part 2)</a></li>
+            <li><a href="05-microarraylab.html">Analysis of gene expression data</a></li>
+          </ul></li>
+      </ul><!-- bits on the right --><ul class="nav navbar-nav navbar-right"><li><a href="http://rna.wlu.edu/r" target="_blank">RStudio</a></li>
+      </ul></div>
+    
+  </div>
+</div><div class="container">
+
+
+<div class="page-header" id="banner">
+<div class="row">
+
+<div class="col-md-8">
+<h1>Analysis of gene expression data</h1>
+<p>In this lab we’ll perform a <em>de novo</em> analysis of an existing microarray dataset. The tools we’ll explore will be useful for any data analysis project focused on a gene expression dataset.</p>
+</div>
+
+<div class="col-md-4" style="padding: 5px 5px 0 5px;">
+<div class="well">  <!-- class="clearfix"? -->
+<ul><li><a href="#step-1-download-the-data">Step 1: Download the data</a></li>
+<li><a href="#step-2-look-at-the-format-of-the-data-table">Step 2: Look at the format of the data table</a></li>
+<li><a href="#step-3-calculating-a-ratio">Step 3: Calculating a ratio</a></li>
+<li><a href="#step-4-distribution-of-ratio-values">Step 4: Distribution of ratio values</a></li>
+<li><a href="#step-5-distribution-of-ratio-values-part-2">Step 5: Distribution of ratio values, Part 2</a></li>
+<li><a href="#step-6-background-intensity">Step 6: Background intensity</a></li>
+<li><a href="#step-8-global-median-normalization">Step 8: Global median normalization</a></li>
+<li><a href="#step-9-collecting-pre-processed-data-and-integrating-annotations">Step 9: Collecting pre-processed data and integrating annotations</a></li>
+<li><a href="#step-10-exploring-the-data-set">Step 10: Exploring the data set</a></li>
+</ul></div>
+</div>
+
+</div>
+</div>
+
+<div id="step-1-download-the-data" class="section level1">
+<h1>Step 1: Download the data</h1>
+<p>There are two major public repositories of microarray datasets: <a href="http://www.ncbi.nlm.nih.gov/geo/">GEO</a> (NCBI) and <a href="http://www.ebi.ac.uk/arrayexpress/">ArrayExpress</a> (EMBL). Today we’ll be pulling data from GEO.</p>
+<p>Using the search features on the <a href="http://www.ncbi.nlm.nih.gov/geo/">GEO website</a>, find the DeRisi 1997 yeast diauxic shift dataset.</p>
+<p>If you’re having trouble getting the tables to load on GEO today, here are local links:</p>
+<ul><li><a href></a><a href="http://rna.wlu.edu/bio285/data/derisi.0.txt">http://rna.wlu.edu/bio285/data/derisi.0.txt</a></li>
+<li><a href></a><a href="http://rna.wlu.edu/bio285/data/derisi.9.5.txt">http://rna.wlu.edu/bio285/data/derisi.9.5.txt</a></li>
+<li><a href></a><a href="http://rna.wlu.edu/bio285/data/derisi.11.5.txt">http://rna.wlu.edu/bio285/data/derisi.11.5.txt</a></li>
+<li><a href></a><a href="http://rna.wlu.edu/bio285/data/derisi.13.5.txt">http://rna.wlu.edu/bio285/data/derisi.13.5.txt</a></li>
+<li><a href></a><a href="http://rna.wlu.edu/bio285/data/derisi.15.5.txt">http://rna.wlu.edu/bio285/data/derisi.15.5.txt</a></li>
+<li><a href></a><a href="http://rna.wlu.edu/bio285/data/derisi.18.5.txt">http://rna.wlu.edu/bio285/data/derisi.18.5.txt</a></li>
+<li><a href></a><a href="http://rna.wlu.edu/bio285/data/derisi.20.5.txt">http://rna.wlu.edu/bio285/data/derisi.20.5.txt</a></li>
+</ul><p>(<em>Hint: if the series is not GSE28, you’re on the wrong record</em>)</p>
+<ul><li>Take a moment to look at how information about microarray experiments is annotated in this database. What information is recorded in this database? How is it organized?</li>
+<li>Examine at the Platform record. The term <code>platform</code> here refers to the microarray design itself. Explore the information that is annotated in the <code>platform</code> record.</li>
+<li>Explore the structure of the Sample records. You can use the “View full table” button to get a view of all of the data. What is the structure of these records? What kinds of data does each contain?</li>
+<li>Find a way to download this data so that you can save the tabular image analysis information for sample records in text files in your home directory. You’ll want to make sure that these files do not have the header (“#”) lines in them, since <code>read.delim</code> won’t be able to parse these lines.</li>
+</ul><p>Download microarray data corresponding to the pre-diauxic shift samples (0’ time point) and at least one other time point of your choosing.</p>
+</div>
+<div id="step-2-look-at-the-format-of-the-data-table" class="section level1">
+<h1>Step 2: Look at the format of the data table</h1>
+<p>The two files you just downloaded hold the results of a microarray image analysis, along with the results of the data pre-processing done for the published paper.</p>
+<p>Answer the following questions for yourself about the structure of the data:</p>
+<ul><li>There are two sections to these text files, a header and a data table. What information is held in each?</li>
+<li>What do the rows of the data table represent?</li>
+<li>What information about each row does each of the columns hold? Is there anything odd here?</li>
+<li>What is the text format of this table? How are rows separated? How are elements within each row separated?</li>
+<li>What is in the ID_REF column? Did you pick up the data in this column for your data.frame <code>rownames</code> when it was loaded?</li>
+</ul><p>Use R to load the data in these tables into data.frame structures. Think carefully about how you are naming your variables and keeping track of your work. Unlike the genome annotation lab, I won’t be providing templates for you to follow here, so its up to you to partition your code into a logical and organized set of functions!</p>
+</div>
+<div id="step-3-calculating-a-ratio" class="section level1">
+<h1>Step 3: Calculating a ratio</h1>
+<p>In this data file the authors have done some of the data pre-processing work for us – namely, normalizing the ratios – but let’s pretend they haven’t!</p>
+<p>Using ONLY the data in the <code>CH1D_MEAN</code> and <code>CH2D_MEAN</code> columns, add a column to your data structure that calculates the ratio of the Cy5 (CH1) to Cy3 (CH2) samples for each spot on the array.</p>
+<p>(<em>Hint: you may have to convert the numbers read from the file from strings to integers.</em>)</p>
+<p>Add another column that converts these plain ratios to the Log2(ratio). Think carefully about why a Log2 transformation of the raw image ratios makes sense before going on to the next section.</p>
+</div>
+<div id="step-4-distribution-of-ratio-values" class="section level1">
+<h1>Step 4: Distribution of ratio values</h1>
+<p>At this point, it would make sense for us to look at the distribution of the ratio values on our array. One common problem with competitive hybridization microarrays (two-color arrays) is that a sample with one of the dies has often been loaded at a slightly higher concentration than the other. This is usually do to subtle pipetting or cDNA concentration calculation errors. Examining a distribution of ratio values on our array should help us identify any bias towards the green or red end of the color spectrum.</p>
+<p>Functions which might prove useful to you are the ggplot2 <code>geom_density</code>, <code>geom_histogram</code>, or <code>geom_boxplot</code> functions. Use R to produce at least two different plots that allow us to visualize the distribution of ratio values.</p>
+<p>For this excercise will you want to be working with the raw ratio values or the Log2 transformed values? Why?</p>
+<p>Save these plots in thoughtfully named files. Do you see a ratio bias in these data?</p>
+<p>How do the ratios compare if you use <code>_MEDIAN</code> pixel intensities instead of <code>_MEAN</code> intensities?</p>
+</div>
+<div id="step-5-distribution-of-ratio-values-part-2" class="section level1">
+<h1>Step 5: Distribution of ratio values, Part 2</h1>
+<p>To help us to better understand the distributions we see above, it might be useful to consider a couple additional strategies for visualizing these data.</p>
+<p>First, it would be interesting to examine a scatter plot comparing the red channel pixel intensity to the green channel pixel intensity for each individual spot on the array. Produce this scatter plot (in ggplot2 <code>geom_points</code>). Make sure your plot includes clearly labeled axes (<code>labs</code>, <code>xlab</code>, and <code>ylab</code>).</p>
+<p>What can we learn about the overall distribution of ratios on the array from this plot? On average are the changes large or small? Are many genes affected or only a small number?</p>
+<p>Second, we should also examine whether or not the total intensity of a spot is related to the ratio bias observed above. Make a scatter plot aimed at addressing this question (compare the color ratio of each spot to its total intensity). You’ll have to decide how you want to calculate the total intensity for spot.</p>
+<p>Was there an intensity bias? Why might this be of a concern to us? What might this tell us about the behavior of the dies used to label the two samples on this array?</p>
+</div>
+<div id="step-6-background-intensity" class="section level1">
+<h1>Step 6: Background intensity</h1>
+<p>So far we’ve been ignoring background pixel intensities. These values are a measure of the brightness in the regions surround each spot (the “background”). Background is obviously noise and doesn’t correspond to cDNA’s binding specifically to probes on the array.</p>
+<p>Produce a visualization to help us asses how variable the background intensities are across the surface of the array. One great way to do this would be to produce a heat map, where each box corresponds to a spot position on our array and the color corresponds to the intensity of the background at that spot.</p>
+<p>This can be done with the <code>image</code> and <code>heat.colors</code> functions. Explore the way these functions work using some sample data. Think about the structure of the data you want to pass into <code>image</code> and how you can make a matrix conforming to this architecture using your existing data.frames.</p>
+<p>Are the background intensities uniform or are some much higher than others? Where are the problems the greatest?</p>
+<p>How should we use background intensity information?</p>
+</div>
+<div id="step-8-global-median-normalization" class="section level1">
+<h1>Step 8: Global median normalization</h1>
+<p>Knowing what you know now about your data, design a way to add a normalized ratio column to your data structure in python. Implement it, run it, and check to make sure it worked!</p>
+</div>
+<div id="step-9-collecting-pre-processed-data-and-integrating-annotations" class="section level1">
+<h1>Step 9: Collecting pre-processed data and integrating annotations</h1>
+<p>Up to this point we’ve been looking at our data one microarray table at a time. As we start exploring the data it would be more convenient to have a new table which contains just the set of final normalized ratio values for each array. Let’s list arrays across the columns and genes down the rows.</p>
+<p>You also may have noticed that the array data files we downloaded from GEO don’t tell us which row is associated with which yeast gene – instead it gives us an ID_REF column. The IDs in this column match up with the IDs in the platform table (see step #1). Since we’re building a new table at this point it makes sense to pull in the gene annotations at this point as well from the <code>platform</code> record.</p>
+<p>Implement a function to do it! Your function will probably need to take multiple source array data tables, know which column to pull data from and take a platform table.</p>
+</div>
+<div id="step-10-exploring-the-data-set" class="section level1">
+<h1>Step 10: Exploring the data set</h1>
+<p>Once you have a data.frame will all of the ratio data from each microarray loaded and annotated, it’s time to start exploring the data set.</p>
+<p>Here are some challenges to try:</p>
+<ul><li><p>Produce a list of genes which showed expression level changes &gt; 2x.</p></li>
+<li><p>Produce a <a href="http://en.wikipedia.org/wiki/Hierarchical_clustering">hierarchical cluster</a>. You’ll want to explore the <code>heatmap</code> function. Note, the <code>heatmap</code> function wants you to pass in data as a matrix (rather than a data.frame). You can convert your data to a matrix with the <code>as.matrix</code> function. Think carefully about what you want to do about missing data…</p></li>
+<li><p>Experiment with clustering only the rows (genes) or only the columns (time points). You can also perform clustering alone using the <code>dist</code> and <code>hclust</code> functions (explore the output of these functions).</p></li>
+<li><p>Use the <code>cutree</code> function to “trim” your gene dendrogram into a set of significant groupings using k-means clustering (see also, <code>kmeans</code>).</p></li>
+<li><p>Use the <code>RowSideColors</code> argument to the heatmap function to highlight genes that share a common GO annotation (the easiest way to pull in GO annotations is from the “slim” set at SGD:</p>
+<p><a href></a><a href="http://downloads.yeastgenome.org/curation/literature/go_slim_mapping.tab">http://downloads.yeastgenome.org/curation/literature/go_slim_mapping.tab</a></p></li>
+</ul><div class="references">
+
+</div>
+</div>
+
+
+</div>
+
+<!-- bootstrap footer -->
+<br><div class="container">
+  <footer><div class="row">
+      <div class="col-lg-12">
+        <p>Original work copyright © 2014 <a href="http://www.wlu.edu/x23921.xml?InsertFile=x55999">Gregg Whitworth</a> and licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.  This page was built with <a href="https://github.com/whitwort/courseR">courseR</a>.</p>
+      </div>
+    </div>
+  </footer></div><script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script><script src="js/bootstrap.min.js"></script><script src="js/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+</script></body></html>
+
